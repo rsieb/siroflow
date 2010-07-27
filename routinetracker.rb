@@ -54,17 +54,17 @@ class Numeric
     when 0
       secondenstring = " exact"
     when 1
-      secondenstring = " second"
+      restseconden.to_s + secondenstring = " second"
     else
-      secondenstring = " seconds"
+      restseconden.to_s + secondenstring = " seconds"
     end
     case minuten
     when 0
-      return restseconden.to_s + secondenstring
+      return secondenstring
     when 1  
-      return minuten.to_s + " minute " + restseconden.to_s + secondenstring
+      return minuten.to_s + " minute " + secondenstring
     else
-      return minuten.to_s + " minutes " + restseconden.to_s + secondenstring
+      return minuten.to_s + " minutes " + secondenstring
     end
   end
 end
@@ -73,6 +73,7 @@ end
 
 print "\e[H\e[2J"
 puts "\nWelcome to RoutineTracker!\n"
+say "Welcome!"
 puts "\nLooking for files ending in .routine.yaml ...\n"
 @keuze = Dir.glob("*.routine.yaml")
 #@log.debug(@keuze.inspect)
@@ -200,7 +201,7 @@ end
         # @log.debug "@gedaan = #{@gedaan}"        
         @eindtijd = (@gedaan - starttijd)
         # @log.debug "@eindtijd = #{@eindtijd}"        
-        say("#{@eindtijd.to_i} seconds") 
+        say("#{@eindtijd.to_human}") 
         puts "Targeted #{@doel.to_human} \nFinished in #{@eindtijd.to_human} " 
       end
 
