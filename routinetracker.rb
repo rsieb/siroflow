@@ -54,9 +54,9 @@ class Numeric
     when 0
       secondenstring = " exact"
     when 1
-      restseconden.to_s + secondenstring = " second"
+      secondenstring = restseconden.to_s + " second"
     else
-      restseconden.to_s + secondenstring = " seconds"
+      secondenstring = restseconden.to_s + " seconds"
     end
     case minuten
     when 0
