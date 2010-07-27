@@ -49,12 +49,22 @@ class Numeric
   def to_human
     seconden = self.to_f
     minuten = (seconden / 60).to_i
-    restseconden = (seconden % 60).to_i
+    restseconden = (seconden.to_i % 60)
+    case restseconden
+    when 0
+      secondenstring = " exact"
+    when 1
+      secondenstring = " second"
+    else
+      secondenstring = " seconds"
+    end
     case minuten
     when 0
-      return restseconden.to_s + " seconds"
+      return restseconden.to_s + secondenstring
+    when 1  
+      return minuten.to_s + " minute " + restseconden.to_s + secondenstring
     else
-      return minuten.to_s + " minutes " + restseconden.to_s + " seconds"
+      return minuten.to_s + " minutes " + restseconden.to_s + secondenstring
     end
   end
 end
@@ -144,7 +154,7 @@ end
       # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      puts "Projected finish by #{endtime.strftime("%H:%M:%S")} "
+      puts "Projected finish by #{endtime.strftime("%H:%M")} "
       shout("#{activiteit}, #{(@doel).to_human}.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
@@ -203,7 +213,7 @@ end
     # TODO 20100726_0930 base score calculation on STDEVs, mins and maxs
     score = (100 * @eindtijd / @doel).to_i
     if score > 0 then
-      shout ("#{score} percent")
+      shout("#{score} percent")
     end
     # @log.debug "Score is #{score}"
     case score
@@ -257,7 +267,7 @@ end
       # @log.debug "Mediaan is #{mediaan}"
       # TODO 20100726_0932 add leeway to target?
       #      waarden[0] = gemiddeld
-      waarden[0] = mediaan * 1.2 # motivational factor - do 20% better
+      waarden[0] = mediaan * 1.25 # motivational factor - do 25% better
       # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
