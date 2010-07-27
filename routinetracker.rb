@@ -1,5 +1,22 @@
 #!/usr/bin/env ruby
 
+#ψ Set up libraries and data definitions
+
+
+require 'yaml'
+
+require 'logger'
+@log=Logger.new(STDOUT)
+@log.level = Logger::INFO
+
+require 'readline'
+# Store the state of the terminal
+stty_save = `stty -g`.chomp
+trap('INT') { system('stty', stty_save); exit }
+
+# ===========
+# = Methods =
+# ===========
 def say(saying)
   system("say #{saying}")
   #@log.debug "Said #{saying}"
@@ -28,20 +45,16 @@ def median(array)
   end
 end
 
-
-#ψ Set up libraries and data definitions
-
-require 'yaml'
-
-require 'logger'
-@log=Logger.new(STDOUT)
-@log.level = Logger::INFO
-
-require 'readline'
-# Store the state of the terminal
-stty_save = `stty -g`.chomp
-trap('INT') { system('stty', stty_save); exit }
-
+def to_human(seconden)
+  minuten = (seconden / 60).to_i
+  restseconden = (seconden % 60).to_i
+  case minuten
+  when 0
+    return seconden.to_s + " seconds"
+  else
+    return minuten.to_s + " minutes " + restseconden.to_s + " seconds"
+  end
+end
 
 #ψ Get data (1) in-file (2) from external file or sqlite dbase (sync'ing) (3) from a choice of multiple data sets
 
@@ -69,7 +82,7 @@ puts "Loading #{@laadbestand}..."
 #@log.debug(@tasks.inspect)
 
 #ψ Calculate totals
-@totaalseconden = -5 # balances to zero (adding 5 seconds for speaking each step)
+@totaalseconden = 0
 @afgerond = Array.new()
 @tasks.each_index do |nummer|
   #@log.debug("@tasks[#{nummer}] is #{@tasks[nummer].inspect} #{@tasks[nummer].class}")
@@ -80,7 +93,7 @@ puts "Loading #{@laadbestand}..."
     #@log.debug("@afgerond[#{nummer}] is #{@afgerond[nummer].inspect} #{@afgerond[nummer].class}")
     # FIXED 20100726_0942 heb ik "@totaalseconden" überhaupt nog nodig? Ja om projecties te berekenen
     # FIXED 20100726_2128 adding 5 seconds to compensate for all the speaking
-    @totaalseconden = @totaalseconden + waarden[0] + 5
+    @totaalseconden = @totaalseconden + waarden[0]
     #@log.debug("@totaalseconden is #{@totaalseconden.inspect} #{@totaalseconden.class}")
   end
 end
@@ -120,21 +133,19 @@ end
       # @log.debug "@doel = #{@doel} seconden"
       nogverwacht = @totaalseconden - @afgerond[@teller]
       # @log.debug "nogverwacht = #{nogverwacht} seconden"
-      starttijd = Time.now() + 5 # take into account all the speaking
+      starttijd = Time.now()
       # @log.debug "starttijd = #{starttijd}"
       @doeltijd = starttijd + @doel
       # @log.debug "@doeltijd = #{@doeltijd}"
       endtime = starttijd + nogverwacht
       # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
-      # TODO 20100726_0934 announce seconds as human-understandable minutes and seconds
-      put "Projected finish by #{endtime.strftime("%H:%M:%S")} "
-      shout("#{activiteit}, #{(@doel/60).to_i} minutes.")
+      # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
+      puts "Projected finish by #{endtime.strftime("%H:%M:%S")} "
+      shout("#{activiteit}, #{(@doel/60).to_human}.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
       # @log.level = Logger::INFO
-
-
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
@@ -168,7 +179,7 @@ end
         @eindtijd = (starttijd - @gedaan)
         # @log.debug "@eindtijd = #{@eindtijd}"        
         say "Exception"
-        puts "Targeted #{@doel.to_i} seconds\nFinished in #{-@eindtijd.to_i} seconds\nException noted" 
+        puts "Targeted #{@doel.to_human} \nFinished in #{-@eindtijd.to_human} \nException noted" 
 
       else
         # @log.debug "status = f"        
@@ -177,7 +188,7 @@ end
         @eindtijd = (@gedaan - starttijd)
         # @log.debug "@eindtijd = #{@eindtijd}"        
         say("#{@eindtijd.to_i} seconds") 
-        puts "Targeted #{@doel.to_i} seconds\nFinished in #{@eindtijd.to_i} seconds" 
+        puts "Targeted #{@doel.to_human} \nFinished in #{@eindtijd.to_human} " 
       end
 
     end #ψ End while user not finished
@@ -206,7 +217,7 @@ end
     when 111..125
       shout("Bad luck!") 
     else
-      shout("Way off!")
+      shout("...out of range...")
     end     
     # @log.debug "@gedaan = #{@gedaan}"
     # @log.debug "@eindtijd = #{@eindtijd}"
@@ -243,7 +254,7 @@ end
       # @log.debug "Mediaan is #{mediaan}"
       # TODO 20100726_0932 add leeway to target?
       #      waarden[0] = gemiddeld
-      waarden[0] = mediaan
+      waarden[0] = mediaan * 1.2 # motivational factor - do 20% better
       # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
