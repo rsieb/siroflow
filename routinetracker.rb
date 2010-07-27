@@ -70,21 +70,22 @@ puts "Loading #{@laadbestand}..."
 
 #ψ Calculate totals
 @totaalseconden = -5 # balances to zero (adding 5 seconds for speaking each step)
-@eindtijden = Array.new()
+@afgerond = Array.new()
 @tasks.each_index do |nummer|
   #@log.debug("@tasks[#{nummer}] is #{@tasks[nummer].inspect} #{@tasks[nummer].class}")
   # taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}      
-  @tasks[nummer].each do |naam,waarden|
-    # TODO 20100726_0942 heb ik "@totaalseconden" überhaupt nog nodig?
+@tasks[nummer].each do |naam,waarden|
+    # store the target seconds already done at the beginning of each task
+    @afgerond[nummer] = @totaalseconden
+    #@log.debug("@afgerond[#{nummer}] is #{@afgerond[nummer].inspect} #{@afgerond[nummer].class}")
+    # FIXED 20100726_0942 heb ik "@totaalseconden" überhaupt nog nodig? Ja om projecties te berekenen
     # FIXED 20100726_2128 adding 5 seconds to compensate for all the speaking
     @totaalseconden = @totaalseconden + waarden[0] + 5
     #@log.debug("@totaalseconden is #{@totaalseconden.inspect} #{@totaalseconden.class}")
-    @eindtijden[nummer] = @totaalseconden
-    #@log.debug("@eindtijden[#{nummer}] is #{@eindtijden[nummer].inspect} #{@eindtijden[nummer].class}")
   end
 end
 #@log.debug("Totaalseconden is #{@totaalseconden}")
-#@log.debug("@eindtijden is #{@eindtijden.inspect} #{@eindtijden.class}")                                                  ; @log.level = Logger::INFO
+#@log.debug("@afgerond is #{@afgerond.inspect} #{@afgerond.class}")                                                  ; @log.level = Logger::INFO
 
 # ======================
 # = Loop through tasks =
@@ -115,19 +116,19 @@ end
       #ψ ]] Recalculate end time
       # @log.level = Logger::DEBUG
       # @log.debug "@totaalseconden = #{@totaalseconden} seconden"
-      # @log.debug "@eindtijden[#{@teller}] = #{@eindtijden[@teller]} seconden"
+      # @log.debug "@afgerond[#{@teller}] = #{@afgerond[@teller]} seconden"
       # @log.debug "@doel = #{@doel} seconden"
-      lokaaldoel = @totaalseconden - @eindtijden[@teller]
-      # @log.debug "lokaaldoel = #{lokaaldoel} seconden"
+      nogverwacht = @totaalseconden - @afgerond[@teller]
+      # @log.debug "nogverwacht = #{nogverwacht} seconden"
       starttijd = Time.now() + 5 # take into account all the speaking
       # @log.debug "starttijd = #{starttijd}"
       @doeltijd = starttijd + @doel
       # @log.debug "@doeltijd = #{@doeltijd}"
-      endtime = starttijd + lokaaldoel
+      endtime = starttijd + nogverwacht
       # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
       # TODO 20100726_0934 announce seconds as human-understandable minutes and seconds
-      shout("Projected finish by #{endtime.strftime("%H:%M:%S")}, ")
+      put "Projected finish by #{endtime.strftime("%H:%M:%S")} "
       shout("#{activiteit}, #{(@doel/60).to_i} minutes.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
