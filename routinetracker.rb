@@ -45,14 +45,17 @@ def median(array)
   end
 end
 
-def to_human(seconden)
-  minuten = (seconden / 60).to_i
-  restseconden = (seconden % 60).to_i
-  case minuten
-  when 0
-    return seconden.to_s + " seconds"
-  else
-    return minuten.to_s + " minutes " + restseconden.to_s + " seconds"
+class Numeric
+  def to_human
+    seconden = self.to_f
+    minuten = (seconden / 60).to_i
+    restseconden = (seconden % 60).to_i
+    case minuten
+    when 0
+      return restseconden.to_s + " seconds"
+    else
+      return minuten.to_s + " minutes " + restseconden.to_s + " seconds"
+    end
   end
 end
 
@@ -87,7 +90,7 @@ puts "Loading #{@laadbestand}..."
 @tasks.each_index do |nummer|
   #@log.debug("@tasks[#{nummer}] is #{@tasks[nummer].inspect} #{@tasks[nummer].class}")
   # taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}      
-@tasks[nummer].each do |naam,waarden|
+  @tasks[nummer].each do |naam,waarden|
     # store the target seconds already done at the beginning of each task
     @afgerond[nummer] = @totaalseconden
     #@log.debug("@afgerond[#{nummer}] is #{@afgerond[nummer].inspect} #{@afgerond[nummer].class}")
@@ -112,7 +115,7 @@ end
   #   puts waarden.inspect
   # end
   # break
-    
+
   taak.each do |naam,waarden|
     #ψ ] Read title, target, set counter
     activiteit = naam
@@ -142,7 +145,7 @@ end
       #ψ ]] Say title, counter against target
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       puts "Projected finish by #{endtime.strftime("%H:%M:%S")} "
-      shout("#{activiteit}, #{(@doel/60).to_human}.")
+      shout("#{activiteit}, #{(@doel).to_human}.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
       # @log.level = Logger::INFO
