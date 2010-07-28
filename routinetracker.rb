@@ -102,10 +102,10 @@ end
       # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      puts "Projected finish by #{endtime.strftime("%H:%M")} "
       shout("#{activiteit}, #{(@doel).to_human}.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
+      puts "Routine done by #{endtime.strftime("%H:%M")} "
       # @log.level = Logger::INFO
 
       #ψ ]] Wait for user input
