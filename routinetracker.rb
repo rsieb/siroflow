@@ -14,7 +14,7 @@ require 'readline'
 stty_save = `stty -g`.chomp
 trap('INT') { system('stty', stty_save); exit }
 
-require 'methods_routine'
+require '_routine_methods'
 
 #ψ Get data (1) in-file (2) from external file or sqlite dbase (sync'ing) (3) from a choice of multiple data sets
 
