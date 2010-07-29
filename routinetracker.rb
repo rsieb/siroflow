@@ -161,25 +161,35 @@ end
     # TODO 20100726_0930 base score calculation on STDEVs, mins and maxs
     score = (100 * @eindtijd / @doel).to_i
     if score > 0 then
-      shout("#{score} percent")
+      #shout("#{score} percent")
+      # @log.debug "Score is #{score}"
+      case score
+      when 0..10
+        shout "Skipped"
+      when 11..20
+        shout "Too low?" 
+      when 21..33
+        shout "Very low"
+      when 34..50
+        shout "Low"
+      when 51..66
+        shout "Lowish"
+      when 67..133
+        shout "In range" 
+      when 134..199
+        shout "Highish" 
+      when 200..299
+        shout "High" 
+      when 300..499
+        shout("Very high") 
+      when 500..999
+        shout("Too high?") 
+      when 1000..10000
+        shout("Exception?") 
+      else
+        shout("...out of range...")
+      end     
     end
-    # @log.debug "Score is #{score}"
-    case score
-    when 0
-      shout "Skipped"
-    when 1..75
-      shout "Excellent!" 
-    when 76..90
-      shout "Very good!"
-    when 91..100
-      shout "Good!" 
-    when 101..110
-      shout "Almost!" 
-    when 111..125
-      shout("Bad luck!") 
-    else
-      shout("...out of range...")
-    end     
     # @log.debug "@gedaan = #{@gedaan}"
     # @log.debug "@eindtijd = #{@eindtijd}"
     #ψ ] Store real end time
