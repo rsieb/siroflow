@@ -219,14 +219,14 @@ end
       # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
+    #ψ Store data for next time
+    #@log.debug "Tasks array is now #{@tasks.inspect}"
+    File.open( @laadbestand, 'w' ) do |out|
+      YAML.dump( @tasks, out )
+    end
     @teller =+ 1
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
-end
-#ψ Store data for next time
-#@log.debug "Tasks array is now #{@tasks.inspect}"
-File.open( @laadbestand, 'w' ) do |out|
-  YAML.dump( @tasks, out )
 end
 
 
