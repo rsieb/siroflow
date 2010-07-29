@@ -64,8 +64,8 @@ end
 # ======================
 # = Loop through tasks =
 # ======================
-@teller = 0
 @tasks.each do |taak|
+  @teller = @tasks.index(taak)
   @log.debug("@teller is #{@teller.inspect} #{@teller.class}")
   @log.debug("taak is #{taak.inspect} #{taak.class}")
   # taak.each do |naam,waarden|
@@ -229,14 +229,13 @@ end
       # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
-    @teller =+ 1
+    #ψ Store data for next time
+    #@log.debug "Tasks array is now #{@tasks.inspect}"
+    File.open( @laadbestand, 'w' ) do |out|
+      YAML.dump( @tasks, out )
+    end
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
-end
-#ψ Store data for next time
-#@log.debug "Tasks array is now #{@tasks.inspect}"
-File.open( @laadbestand, 'w' ) do |out|
-  YAML.dump( @tasks, out )
 end
 
 
