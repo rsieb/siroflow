@@ -72,8 +72,6 @@ end
     @log.debug "activiteit = #{activiteit}"
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
     @doel = waarden.valid_stats.median
-    puts waarden.inspect
-    puts "@doel = #{@doel} seconden"
     @gedaan = nil
     # =======================
     # = Task Restart loop =
@@ -188,9 +186,6 @@ end
     #ψ ] Store real end time
     if @eindtijd != 0
       waarden.shift(@eindtijd)
-      # aantal = waarden.size - 1
-      # waarden[0] = waarden[1..aantal].valid_stats.median
-      # @log.debug "Mediaan (waarden[0]) is #{waarden[0]}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
