@@ -77,20 +77,12 @@ end
     # = Task Restart loop =
     # =======================
     while @gedaan == nil
-      #print "\e[H\e[2J"
+      print "\e[H\e[2J"
       #ψ ]] Recalculate end time
-      # @log.level = Logger::DEBUG
-      # @log.debug "@totaalseconden = #{@totaalseconden} seconden"
-      # @log.debug "@afgerond[#{@teller}] = #{@afgerond[@teller]} seconden"
-      # @log.debug "@doel = #{@doel} seconden"
       nogverwacht = @totaalseconden - @afgerond[@teller]
-      # @log.debug "nogverwacht = #{nogverwacht} seconden"
       starttijd = Time.now()
-      # @log.debug "starttijd = #{starttijd}"
       @doeltijd = starttijd + @doel
-      # @log.debug "@doeltijd = #{@doeltijd}"
       endtime = starttijd + nogverwacht
-      # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       shout("#{activiteit}, #{(@doel).to_human}.")
