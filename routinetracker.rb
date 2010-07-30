@@ -66,27 +66,20 @@ end
 # ======================
 @tasks.each do |taak|
   @teller = @tasks.index(taak)
-  @log.debug("@teller is #{@teller.inspect} #{@teller.class}")
-  @log.debug("taak is #{taak.inspect} #{taak.class}")
-  # taak.each do |naam,waarden|
-  #   puts naam.inspect
-  #   puts waarden.inspect
-  # end
-  # break
-
   taak.each do |naam,waarden|
     #ψ ] Read title, target, set counter
     activiteit = naam
     @log.debug "activiteit = #{activiteit}"
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
-    @doel = waarden[0]
-    @log.debug "@doel = #{@doel} seconden"
+    @doel = waarden.valid_stats.median
+    puts waarden.inspect
+    puts "@doel = #{@doel} seconden"
     @gedaan = nil
     # =======================
     # = Task Restart loop =
     # =======================
     while @gedaan == nil
-      print "\e[H\e[2J"
+      #print "\e[H\e[2J"
       #ψ ]] Recalculate end time
       # @log.level = Logger::DEBUG
       # @log.debug "@totaalseconden = #{@totaalseconden} seconden"
@@ -194,10 +187,10 @@ end
     # @log.debug "@eindtijd = #{@eindtijd}"
     #ψ ] Store real end time
     if @eindtijd != 0
-      waarden.insert(1,@eindtijd)
-      aantal = waarden.size - 1
-      waarden[0] = waarden[1..aantal].valid_stats.median
-      @log.debug "Mediaan (waarden[0]) is #{waarden[0]}"
+      waarden.shift(@eindtijd)
+      # aantal = waarden.size - 1
+      # waarden[0] = waarden[1..aantal].valid_stats.median
+      # @log.debug "Mediaan (waarden[0]) is #{waarden[0]}"
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
