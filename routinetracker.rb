@@ -177,7 +177,7 @@ end
     # @log.debug "@eindtijd = #{@eindtijd}"
     #ψ ] Store real end time
     if @eindtijd != 0
-      waarden.shift(@eindtijd)
+      waarden.unshift(@eindtijd)
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time

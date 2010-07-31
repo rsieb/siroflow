@@ -16,40 +16,6 @@ end
 
 
 
-=begin
-# ================
-# = For recoding =
-# ================
-
-# @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
-geldige = 0
-totaal = 0
-mediaanwaarden = Array.new()
-grootte = waarden.size
-# @log.debug "Grootte is #{grootte}"
-waarden[1..grootte].each do |tijd|
-  # @log.debug "Tijd is #{tijd.inspect} van soort #{tijd.class}"
-  if tijd > 0
-    geldige = geldige + 1
-    # @log.debug "Geldige is #{geldige}"
-    mediaanwaarden.push(tijd.to_f)
-    # @log.debug "Mediaanwaarden zijn #{mediaanwaarden.inspect}"
-    totaal = totaal + tijd
-    # @log.debug "Totaal is #{totaal}" 
-  end # if tijd > 0
-end #waarden.each
-if geldige > 0
-  # FIXED 20100726_1248  20100726_1230 change average to median 
-  gemiddeld = (totaal / geldige)
-  mediaan = median(mediaanwaarden)
-else
-  gemiddeld = @eindtijd
-end
-# @log.debug "Gemiddeld is #{gemiddeld}"
-# @log.debug "Mediaan is #{mediaan}"
-# TODO 20100726_0932 add leeway to target?
-#      waarden[0] = gemiddeld
-=end
 
 
 class Array
@@ -110,19 +76,22 @@ class Numeric
     restseconden = (seconden.to_i % 60)
     case restseconden
     when 0
-      secondenstring = " exact"
-    when 1..5
+      secondenstring = " precisely"
+    when 1
       secondenstring = restseconden.to_s + " second"
     else
-      secondenstring = ""
+      secondenstring = restseconden.to_s + " seconds"
     end
     case minuten
     when 0
       return secondenstring
     when 1  
       return minuten.to_s + " minute " + secondenstring
+    when 2..5  
+      return minuten.to_s + " minute " + secondenstring
     else
-      return minuten.to_s + " minutes " + secondenstring
+      afgerondeminuten = (seconden / 60).round
+      return afgerondeminuten.to_s + " minutes"
     end
   end
 end
