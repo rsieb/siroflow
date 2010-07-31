@@ -64,8 +64,8 @@ end
 # ======================
 # = Loop through tasks =
 # ======================
-@teller = 0
 @tasks.each do |taak|
+  @teller = @tasks.index(taak)
   @log.debug("@teller is #{@teller.inspect} #{@teller.class}")
   @log.debug("taak is #{taak.inspect} #{taak.class}")
   # taak.each do |naam,waarden|
@@ -234,7 +234,6 @@ end
     File.open( @laadbestand, 'w' ) do |out|
       YAML.dump( @tasks, out )
     end
-    @teller =+ 1
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
 end
