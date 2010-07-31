@@ -14,31 +14,69 @@ def shout(saying)
   #@log.debug "Putting and saying #{saying}"
 end 
 
-def median(array)
-  return nil if array.empty?
-  return array[0] if array.size == 1
-  array = array.sort
-  #@log.debug("Mediaanwaarden zijn #{array.inspect} #{array.class}")
-  m_pos = (array.size / 2)
-  #@log.debug("Gekozen mediaanpositie is #{m_pos.inspect} #{m_pos.class}")
-  if array.size % 2 == 1 then
-    #@log.debug("Mediaan is waarde op positie #{m_pos} = #{array[m_pos]}")
-    return array[m_pos]
-  else
-    mymedian = (array[m_pos-1] + array[m_pos])/2
-    #@log.debug("Mediaan is gemiddelde van waarden op positie #{m_pos-1} en #{m_pos} = #{mymedian}")
-    return mymedian
+
+
+
+
+class Array
+  #Reduces an array only to the values higher than 0
+  def valid_stats
+    return nil if self.empty?
+    geldige = Array.new()
+    self.each do |tijd|
+      if tijd > 0 then
+        geldige.push(tijd)
+      end
+    end
+    return geldige
   end
+
+  # mathematical mean
+  def mean
+    return nil if self.empty?
+    return self[0] if self.size == 1
+    totaal = 0 
+    self.each do |getal|
+      totaal = totaal + getal.to_f  
+    end
+    return totaal/(self.size)
+  end  
+
+  def median
+    # TODO 20100730_1116 integrated in Array class, still untested!
+    return nil if self.empty?
+    return self[0] if self.size == 1
+    self.sort!
+    #@log.debug("Mediaanwaarden zijn #{array.inspect} #{array.class}")
+    m_pos = (self.size / 2)
+    #@log.debug("Gekozen mediaanpositie is #{m_pos.inspect} #{m_pos.class}")
+    if self.size % 2 == 1 then
+      #@log.debug("Mediaan is waarde op positie #{m_pos} = #{array[m_pos]}")
+      return self[m_pos]
+    else
+      mymedian = (self[m_pos-1].to_f + self[m_pos].to_f)/2
+      #@log.debug("Mediaan is gemiddelde van waarden op positie #{m_pos-1} en #{m_pos} = #{mymedian}")
+      return mymedian
+    end
+  end
+
+    
 end
+
+
 
 class Numeric
   def to_human
     seconden = self.to_f
-    minuten = (seconden / 60).to_i
+    if seconden < 0 then
+      frontstring = "Exception "
+      seconden = 0 - seconden
+    end
+      minuten = (seconden / 60).to_i
     restseconden = (seconden.to_i % 60)
     case restseconden
     when 0
-      secondenstring = " exact"
+      secondenstring = " precisely"
     when 1
       secondenstring = restseconden.to_s + " second"
     else
@@ -49,8 +87,11 @@ class Numeric
       return secondenstring
     when 1  
       return minuten.to_s + " minute " + secondenstring
+    when 2..5  
+      return minuten.to_s + " minute " + secondenstring
     else
-      return minuten.to_s + " minutes " + secondenstring
+      afgerondeminuten = (seconden / 60).round
+      return afgerondeminuten.to_s + " minutes"
     end
   end
 end

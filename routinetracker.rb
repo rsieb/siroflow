@@ -66,21 +66,12 @@ end
 # ======================
 @tasks.each do |taak|
   @teller = @tasks.index(taak)
-  @log.debug("@teller is #{@teller.inspect} #{@teller.class}")
-  @log.debug("taak is #{taak.inspect} #{taak.class}")
-  # taak.each do |naam,waarden|
-  #   puts naam.inspect
-  #   puts waarden.inspect
-  # end
-  # break
-
   taak.each do |naam,waarden|
     #ψ ] Read title, target, set counter
     activiteit = naam
     @log.debug "activiteit = #{activiteit}"
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
-    @doel = waarden[0]
-    @log.debug "@doel = #{@doel} seconden"
+    @doel = waarden.valid_stats.median
     @gedaan = nil
     # =======================
     # = Task Restart loop =
@@ -88,18 +79,10 @@ end
     while @gedaan == nil
       print "\e[H\e[2J"
       #ψ ]] Recalculate end time
-      # @log.level = Logger::DEBUG
-      # @log.debug "@totaalseconden = #{@totaalseconden} seconden"
-      # @log.debug "@afgerond[#{@teller}] = #{@afgerond[@teller]} seconden"
-      # @log.debug "@doel = #{@doel} seconden"
       nogverwacht = @totaalseconden - @afgerond[@teller]
-      # @log.debug "nogverwacht = #{nogverwacht} seconden"
       starttijd = Time.now()
-      # @log.debug "starttijd = #{starttijd}"
       @doeltijd = starttijd + @doel
-      # @log.debug "@doeltijd = #{@doeltijd}"
       endtime = starttijd + nogverwacht
-      # @log.debug "endtime = #{endtime.strftime("%H:%M:%S")} "
       #ψ ]] Say title, counter against target
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       shout("#{activiteit}, #{(@doel).to_human}.")
@@ -194,39 +177,7 @@ end
     # @log.debug "@eindtijd = #{@eindtijd}"
     #ψ ] Store real end time
     if @eindtijd != 0
-      # insert new result at position 1 (because 0 is the calculated target)
-      waarden.insert(1,@eindtijd)
-      # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
-      #ψ ] Calculate new start time for next time
-      geldige = 0
-      totaal = 0
-      mediaanwaarden = Array.new()
-      grootte = waarden.size
-      # @log.debug "Grootte is #{grootte}"
-      waarden[1..grootte].each do |tijd|
-        # @log.debug "Tijd is #{tijd.inspect} van soort #{tijd.class}"
-        if tijd > 0
-          geldige = geldige + 1
-          # @log.debug "Geldige is #{geldige}"
-          mediaanwaarden.push(tijd.to_f)
-          # @log.debug "Mediaanwaarden zijn #{mediaanwaarden.inspect}"
-          totaal = totaal + tijd
-          # @log.debug "Totaal is #{totaal}" 
-        end # if tijd > 0
-      end #waarden.each
-      if geldige > 0
-        # FIXED 20100726_1248  20100726_1230 change average to median 
-        gemiddeld = (totaal / geldige)
-        mediaan = median(mediaanwaarden)
-      else
-        gemiddeld = @eindtijd
-      end
-      # @log.debug "Gemiddeld is #{gemiddeld}"
-      # @log.debug "Mediaan is #{mediaan}"
-      # TODO 20100726_0932 add leeway to target?
-      #      waarden[0] = gemiddeld
-      waarden[0] = mediaan * 1.25 # motivational factor - do 25% better
-      # @log.debug "Nieuwe waarden zijn #{waarden.inspect}"
+      waarden.unshift(@eindtijd)
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
