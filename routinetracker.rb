@@ -136,7 +136,7 @@ end
           score = ((@eindtijd - @doel) / @afwijking )
           teken = "Slow"
         else
-          score = ((@doel - @eindtijd) / @afwijking )
+          score = ( @afwijking / (@doel - @eindtijd) )
           teken = "Fast"
         end
         # puts "@eindtijd is #{@eindtijd}"
