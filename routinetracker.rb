@@ -5,61 +5,61 @@
 
 require 'yaml'
 
-require 'logger'
-@log=Logger.new(STDOUT)
-@log.level = Logger::INFO
-
 require 'readline'
 # Store the state of the terminal
 stty_save = `stty -g`.chomp
+# Allow for user cancellations without generating an exception
 trap('INT') { system('stty', stty_save); exit }
 
+#ψ Most small routines in separate file
 require '_routine_methods'
 
-#ψ Get data (1) in-file (2) from external file or sqlite dbase (sync'ing) (3) from a choice of multiple data sets
+#ψ Get data from external file
 
+#ψ Clear screen and welcome user
 print "\e[H\e[2J"
 puts "\nWelcome to RoutineTracker!\n"
 say "Welcome!"
 puts "\nLooking for files ending in .routine.yaml ...\n"
+#ψ All routines available are stored in the same directory and ending in *.routine.yaml
 @keuze = Dir.glob("*.routine.yaml")
-#@log.debug(@keuze.inspect)
+#ψ Show the possible routines to the user
 @keuze.each_index do |number|
   # correcting for counting from 1 to reserve 0 value for strings and cancellatons
   puts "[#{number+1}] #{@keuze[number]}"
 end
+# Ask the user for his choice
 mijnkeuze = Readline.readline('> ', true)
+# Take the first character of the choice and ensure it is an integer
 doen = mijnkeuze[0..0].to_i
-#@log.debug(doen.inspect)
+# This determines the file to load
 @laadbestand = @keuze[doen-1]
-#@log.debug(@laadbestand.inspect)
+# Test if the file exists - error and exit if not
 unless (  defined?(@laadbestand) && @laadbestand != nil )
   puts "Your choice was not valid. Exiting."
   exit 1
 end
 
+# Now we can load the file
 puts "Loading #{@laadbestand}..."
 @tasks = YAML.load_file( @laadbestand )
-#@log.debug(@tasks.inspect)
 
 #ψ Calculate totals
+# initialize empty value for total number of seconds
 @totaalseconden = 0
+# initialize empty array for total seconds of finished tasks
 @afgerond = Array.new()
+# loop through tasks
 @tasks.each_index do |nummer|
-  #@log.debug("@tasks[#{nummer}] is #{@tasks[nummer].inspect} #{@tasks[nummer].class}")
-  # taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}      
+  # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}      
+  # this is an array of hashes, now we need to loop through the hash itself
   @tasks[nummer].each do |naam,waarden|
-    # store the target seconds already done at the beginning of each task
+    # seconds already done at the beginning of each task equals total seconds from previous loop
     @afgerond[nummer] = @totaalseconden
-    #@log.debug("@afgerond[#{nummer}] is #{@afgerond[nummer].inspect} #{@afgerond[nummer].class}")
-    # FIXED 20100726_0942 heb ik "@totaalseconden" überhaupt nog nodig? Ja om projecties te berekenen
-    # FIXED 20100726_2128 adding 5 seconds to compensate for all the speaking
-    @totaalseconden = @totaalseconden + waarden[0]
-    #@log.debug("@totaalseconden is #{@totaalseconden.inspect} #{@totaalseconden.class}")
+    # add the new number of seconds to generate a new total
+    @totaalseconden = @totaalseconden + waarden.valid_stats.median
   end
 end
-#@log.debug("Totaalseconden is #{@totaalseconden}")
-#@log.debug("@afgerond is #{@afgerond.inspect} #{@afgerond.class}")                                                  ; @log.level = Logger::INFO
 
 # ======================
 # = Loop through tasks =
@@ -69,9 +69,14 @@ end
   taak.each do |naam,waarden|
     #ψ ] Read title, target, set counter
     activiteit = naam
-    @log.debug "activiteit = #{activiteit}"
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
     @doel = waarden.valid_stats.median
+    # now calculate the standard deviation
+    @afwijking = waarden.valid_stats.stdev
+    if ( @afwijking == nil || @afwijking == 0 ) then
+      @afwijking = 1
+    end
+      
     @gedaan = nil
     # =======================
     # = Task Restart loop =
@@ -83,54 +88,43 @@ end
       starttijd = Time.now()
       @doeltijd = starttijd + @doel
       endtime = starttijd + nogverwacht
+      lowtgttime = @doeltijd - @afwijking
+      hightgttime = @doeltijd + @afwijking
       #ψ ]] Say title, counter against target
+      shout "#{endtime.strftime("%H:%M")}"
+      puts "Routine finish projected by #{endtime.strftime("%H:%M")} "
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       shout("#{activiteit}, #{(@doel).to_human}.")
       #ψ ]] Start the clock
-      puts "Starting #{starttijd.strftime("%H:%M")}, finish by #{@doeltijd.strftime("%H:%M")}"
-      puts "Routine done by #{endtime.strftime("%H:%M")} "
-      # @log.level = Logger::INFO
+      puts "Starting #{starttijd.strftime("%H:%M:%S")}, expected by #{@doeltijd.strftime("%H:%M:%S")}"
+      puts "Finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
       # TODO 20100725_1010 Add Pause option
       status = statusinput[0..0]
-      # @log.debug "status = #{status}"
 
       #ψ ]] Process user input
       case status
       when "s"
-        # @log.debug "SKIP"        
         @gedaan = Time.now()
-        # @log.debug "@gedaan = #{@gedaan}"        
         @eindtijd = 0
-        # @log.debug "@eindtijd = #{@eindtijd}"    
 
       when "r"
-        # @log.debug "RESTART"        
         @gedaan = nil
-        # @log.debug "@gedaan = #{@gedaan}"        
         starttijd = Time.now()
-        # @log.debug "starttijd = #{starttijd}"        
         @doeltijd = starttijd + @doel
-        # @log.debug "@doel = #{@doel}"        
         say "Restarted"
 
       when "e"
-        # @log.debug "EXCEPTION"        
         @gedaan = Time.now()
-        # @log.debug "@gedaan = #{@gedaan}"        
         @eindtijd = (starttijd - @gedaan)
-        # @log.debug "@eindtijd = #{@eindtijd}"        
         say "Exception"
         puts "Targeted #{@doel.to_human} \nFinished in #{-@eindtijd.to_human} \nException noted" 
 
       else
-        # @log.debug "status = f"        
         @gedaan = Time.now()
-        # @log.debug "@gedaan = #{@gedaan}"        
         @eindtijd = (@gedaan - starttijd)
-        # @log.debug "@eindtijd = #{@eindtijd}"        
         say("#{@eindtijd.to_human}") 
         puts "Targeted #{@doel.to_human} \nFinished in #{@eindtijd.to_human} " 
       end
@@ -139,49 +133,40 @@ end
 
 
     #ψ Evaluate result and give user feedback
-    # @log.debug "@doel is #{@doel}"
-    # @log.debug "@eindtijd is #{@eindtijd}"
     # TODO 20100726_0930 base score calculation on STDEVs, mins and maxs
-    score = (100 * @eindtijd / @doel).to_i
+    # score = (100 * @eindtijd / @doel).to_i
+    # puts "@eindtijd = #{@eindtijd}"
+    # puts "@doel = #{@doel}"
+    # puts "@"
+
+    score = ((@eindtijd - @doel)/@afwijking).abs
+    # puts "@eindtijd is #{@eindtijd}"
+    # puts "@doel is #{@doel}"
+    puts "@eindtijd - @doel is #{@eindtijd - @doel}"
+    puts "@afwijking is #{@afwijking}"
+    puts "@score is #{@score}"
     if score > 0 then
-      #shout("#{score} percent")
-      # @log.debug "Score is #{score}"
-      case score
-      when 0..10
-        shout "Skipped"
-      when 11..20
-        shout "Too low?" 
-      when 21..33
-        shout "Very low"
-      when 34..50
-        shout "Low"
-      when 51..66
-        shout "Lowish"
-      when 67..133
-        shout "In range" 
-      when 134..199
-        shout "Highish" 
-      when 200..299
-        shout "High" 
-      when 300..499
-        shout("Very high") 
-      when 500..999
-        shout("Too high?") 
-      when 1000..10000
-        shout("Exception?") 
+      case score.round
+      when 0
+        shout "Excellent"
+      when 1
+        shout "Good"
+      when 2
+        shout "Acceptable" 
+      when 3
+        shout "Hmmm"
+      when 4
+        shout "Off"
       else
-        shout("...out of range...")
+        shout "Wildly off"
       end     
     end
-    # @log.debug "@gedaan = #{@gedaan}"
-    # @log.debug "@eindtijd = #{@eindtijd}"
     #ψ ] Store real end time
     if @eindtijd != 0
-      waarden.unshift(@eindtijd)
+      waarden.unshift(@eindtijd).sort!
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
-    #@log.debug "Tasks array is now #{@tasks.inspect}"
     File.open( @laadbestand, 'w' ) do |out|
       YAML.dump( @tasks, out )
     end
