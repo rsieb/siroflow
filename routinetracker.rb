@@ -70,7 +70,7 @@ end
     #ψ ] Read title, target, set counter
     activiteit = naam
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
-    @doel = waarden.valid_stats.median
+    @doel = waarden.valid_stats.mean
     # now calculate the standard deviation
     @afwijking = waarden.valid_stats.stdev_notzero
     # if ( @afwijking == nil || @afwijking == 0 ) then
@@ -82,8 +82,8 @@ end
     # = Task Restart loop =
     # =======================
     while @gedaan == nil
-      #print "\e[H\e[2J"
-      puts "\n\n * * * \n\n"
+      print "\e[H\e[2J"
+      #puts "\n\n * * * \n\n"
       #ψ ]] Recalculate end time
       nogverwacht = @totaalseconden - @afgerond[@teller]
       starttijd = Time.now()
@@ -92,10 +92,10 @@ end
       lowtgttime = @doeltijd - @afwijking
       hightgttime = @doeltijd + @afwijking
       #ψ ]] Say title, counter against target
-      shout "Projecting #{endtime.strftime("%H:%M")}"
-      puts "Routine finish projected by #{endtime.strftime("%H:%M")} "
+      say "Projecting #{endtime.strftime("%H:%M")}"
+      puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      shout("#{activiteit}, #{(@doel - @afwijking).to_human} to #{@doel+@afwijking.to_human}.")
+      shout("#{activiteit}, #{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}.")
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
@@ -126,7 +126,7 @@ end
         @gedaan = Time.now()
         @eindtijd = (@gedaan - starttijd)
         say("#{@eindtijd.to_human}") 
-        puts "Targeted #{@doel.to_human} \nFinished in #{@eindtijd.to_human} " 
+        puts "Targeted #{@doel.to_human} \nFinished #{@gedaan.strftime("%H:%M:%S")} in #{@eindtijd.to_human} " 
 
         #ψ Evaluate result and give user feedback
         # unless the task was canceled or marked as an exception
@@ -142,14 +142,14 @@ end
         # puts "@eindtijd is #{@eindtijd}"
         # puts "@doel is #{@doel}"
         if score != 0 then
-          shout "#{score} #{teken}"
+          shout "#{teken} #{score.round}"
           case score.round
           when 0
             shout "Excellent"
           when 1
             shout "Good"
           else
-            # do nothing
+            shout "OK"
           end     
         end
 
