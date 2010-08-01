@@ -105,7 +105,7 @@ class Numeric
     restseconden = (seconden.to_i % 60)
     case restseconden
     when 0
-      secondenstring = " precisely"
+      secondenstring = "precisely"
     when 1
       secondenstring = restseconden.to_s + " second"
     else
@@ -117,7 +117,7 @@ class Numeric
     when 1  
       return minuten.to_s + " minute " + secondenstring
     when 2..5  
-      return minuten.to_s + " minute " + secondenstring
+      return minuten.to_s + " minutes " + secondenstring
     else
       afgerondeminuten = (seconden / 60).round
       return afgerondeminuten.to_s + " minutes"

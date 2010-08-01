@@ -72,11 +72,11 @@ end
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
     @doel = waarden.valid_stats.median
     # now calculate the standard deviation
-    @afwijking = waarden.valid_stats.stdev
-    if ( @afwijking == nil || @afwijking == 0 ) then
-      @afwijking = 1
-    end
-      
+    @afwijking = waarden.valid_stats.stdev_notzero
+    # if ( @afwijking == nil || @afwijking == 0 ) then
+    #   @afwijking = 1
+    # end
+
     @gedaan = nil
     # =======================
     # = Task Restart loop =
@@ -92,13 +92,12 @@ end
       lowtgttime = @doeltijd - @afwijking
       hightgttime = @doeltijd + @afwijking
       #ψ ]] Say title, counter against target
-      shout "#{endtime.strftime("%H:%M")}"
+      shout "Projecting #{endtime.strftime("%H:%M")}"
       puts "Routine finish projected by #{endtime.strftime("%H:%M")} "
       # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      shout("#{activiteit}, #{(@doel).to_human}.")
+      shout("#{activiteit}, #{(@doel - @afwijking).to_human} to #{@doel+@afwijking.to_human}.")
       #ψ ]] Start the clock
-      puts "Starting #{starttijd.strftime("%H:%M:%S")}, expected by #{@doeltijd.strftime("%H:%M:%S")}"
-      puts "Finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
+      puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
@@ -128,40 +127,37 @@ end
         @eindtijd = (@gedaan - starttijd)
         say("#{@eindtijd.to_human}") 
         puts "Targeted #{@doel.to_human} \nFinished in #{@eindtijd.to_human} " 
+
+        #ψ Evaluate result and give user feedback
+        # unless the task was canceled or marked as an exception
+
+        # FIXED 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
+        if @eindtijd > @doel then
+          score = ((@eindtijd - @doel) / @afwijking )
+          teken = "Slow"
+        else
+          score = ((@doel - @eindtijd) / @afwijking )
+          teken = "Fast"
+        end
+        # puts "@eindtijd is #{@eindtijd}"
+        # puts "@doel is #{@doel}"
+        if score != 0 then
+          shout "#{score} #{teken}"
+          case score.round
+          when 0
+            shout "Excellent"
+          when 1
+            shout "Good"
+          else
+            # do nothing
+          end     
+        end
+
       end
 
     end #ψ End while user not finished
 
 
-    #ψ Evaluate result and give user feedback
-    # TODO 20100726_0930 base score calculation on STDEVs, mins and maxs
-    # score = (100 * @eindtijd / @doel).to_i
-    # puts "@eindtijd = #{@eindtijd}"
-    # puts "@doel = #{@doel}"
-    # puts "@"
-
-    score = ((@eindtijd - @doel)/@afwijking).abs
-    # puts "@eindtijd is #{@eindtijd}"
-    # puts "@doel is #{@doel}"
-    puts "@eindtijd - @doel is #{@eindtijd - @doel}"
-    puts "@afwijking is #{@afwijking}"
-    puts "@score is #{@score}"
-    if score > 0 then
-      case score.round
-      when 0
-        shout "Excellent"
-      when 1
-        shout "Good"
-      when 2
-        shout "Acceptable" 
-      when 3
-        shout "Hmmm"
-      when 4
-        shout "Off"
-      else
-        shout "Wildly off"
-      end     
-    end
     #ψ ] Store real end time
     if @eindtijd != 0
       waarden.unshift(@eindtijd).sort!
