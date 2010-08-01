@@ -41,6 +41,35 @@ class Array
     end
     return totaal/(self.size)
   end  
+  
+  # variance necessary for standard deviation, copied from "# Statistical methods for arrays. Also see NArray Ruby library."
+    def variance
+      m = self.mean
+      sum = 0.0
+      self.each {|v| sum += (v-m)**2 }
+      sum/self.size
+    end
+
+    def stdev
+      Math.sqrt(self.variance)
+    end
+    
+    def stdev_notzero
+      s = self.stdev
+      if s == 0 then
+        # check if the average is a real value
+        if self.mean == 0
+          # if not, just take one second as an assumption
+          s = 1 
+        else
+          # otherwise, we take 10% deviation as an assumption
+          s = ( self.mean / 10 )
+        end
+      end
+      return s
+    end
+  
+  
 
   def median
     # TODO 20100730_1116 integrated in Array class, still untested!
@@ -76,7 +105,7 @@ class Numeric
     restseconden = (seconden.to_i % 60)
     case restseconden
     when 0
-      secondenstring = " precisely"
+      secondenstring = "precisely"
     when 1
       secondenstring = restseconden.to_s + " second"
     else
@@ -88,7 +117,7 @@ class Numeric
     when 1  
       return minuten.to_s + " minute " + secondenstring
     when 2..5  
-      return minuten.to_s + " minute " + secondenstring
+      return minuten.to_s + " minutes " + secondenstring
     else
       afgerondeminuten = (seconden / 60).round
       return afgerondeminuten.to_s + " minutes"
