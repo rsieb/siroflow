@@ -181,7 +181,7 @@ end
       YAML.dump( @tasks, out )
     end
     File.open("/tmp/routinetracker.log", 'w+')  do |f|
-      f.write("RoutineTracker IDLE")
+      f.write("RoutineTracker IDLE  \n")
     end
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
