@@ -82,8 +82,8 @@ end
     # = Task Restart loop =
     # =======================
     while @gedaan == nil
-      print "\e[H\e[2J"
-      #puts "\n\n * * * \n\n"
+      #print "\e[H\e[2J"
+      puts "\n\n * * * \n\n"
       #ψ ]] Recalculate end time
       nogverwacht = @totaalseconden - @afgerond[@teller]
       starttijd = Time.now()
