@@ -95,13 +95,14 @@ end
       hightgttime = @doeltijd + @afwijking
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
       #ψ ]] Say title, counter against target
-      say "Projecting #{endtime.strftime("%H:%M")}"
+      say "By #{endtime.strftime("%H:%M")}"
       puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
       
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      shout("#{activiteit}, #{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}.")
+      shout("#{activiteit.upcase}")
+      puts "#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}."
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
-        f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M:%S") + "–" + hightgttime.strftime("%H:%M:%S") + "\t\n")
+        f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \n")
       end
       
       #ψ ]] Start the clock
@@ -143,19 +144,16 @@ end
         # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
         if @eindtijd > @doel then
           score = ((@eindtijd - @doel) / @afwijking )
-          teken = "Slow"
+          teken = "slower"
         else
-          score = ( @afwijking / (@doel - @eindtijd) )
-          teken = "Fast"
+          score = ((@doel - @eindtijd) / @afwijking )
+          teken = "faster"
         end
         # TODO 20100802_1327 Exception generates an error due to "saying" a negative value
         
         if score != 0 then
-          if score.round > 0
-            shout "#{teken} #{score.round}"
-          else
-            shout "Score negative or zero"
-          end
+            detailscore = ((10.0 *score).round)/10.0
+            shout "#{detailscore.to_s} #{teken} "
           case score.round
           when 0
             shout "Excellent"
