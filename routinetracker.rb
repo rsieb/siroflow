@@ -71,6 +71,8 @@ end
     activiteit = naam
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
     @doel = waarden.valid_stats.mean
+    # DONE 20100802_1327 Calculate stdev rather than average
+    
     # now calculate the standard deviation
     @afwijking = waarden.valid_stats.stdev_notzero
     # if ( @afwijking == nil || @afwijking == 0 ) then
@@ -91,16 +93,23 @@ end
       endtime = starttijd + nogverwacht
       lowtgttime = @doeltijd - @afwijking
       hightgttime = @doeltijd + @afwijking
+      # TODO 20100802_1324 put all these calcs in log file for easy comparison
       #ψ ]] Say title, counter against target
       say "Projecting #{endtime.strftime("%H:%M")}"
       puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
-      # FIXED 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
+      
+      # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       shout("#{activiteit}, #{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}.")
+      File.open("/tmp/routinetracker.log", 'w+')  do |f|
+        f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M:%S") + "–" + hightgttime.strftime("%H:%M:%S") + "\t\n")
+      end
+      
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
+      # TODO 20100802_1325 Add "Combine with previous" option
       # TODO 20100725_1010 Add Pause option
       status = statusinput[0..0]
 
@@ -131,7 +140,7 @@ end
         #ψ Evaluate result and give user feedback
         # unless the task was canceled or marked as an exception
 
-        # FIXED 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
+        # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
         if @eindtijd > @doel then
           score = ((@eindtijd - @doel) / @afwijking )
           teken = "Slow"
@@ -139,10 +148,14 @@ end
           score = ( @afwijking / (@doel - @eindtijd) )
           teken = "Fast"
         end
-        # puts "@eindtijd is #{@eindtijd}"
-        # puts "@doel is #{@doel}"
+        # TODO 20100802_1327 Exception generates an error due to "saying" a negative value
+        
         if score != 0 then
-          shout "#{teken} #{score.round}"
+          if score.round > 0
+            shout "#{teken} #{score.round}"
+          else
+            shout "Score negative or zero"
+          end
           case score.round
           when 0
             shout "Excellent"
@@ -154,6 +167,7 @@ end
         end
 
       end
+      # TODO 20100802_1328 Ask user for notes at end of task
 
     end #ψ End while user not finished
 
@@ -164,8 +178,12 @@ end
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
+    # DONE 20100802_1327 - save values on every loop
     File.open( @laadbestand, 'w' ) do |out|
       YAML.dump( @tasks, out )
+    end
+    File.open("/tmp/routinetracker.log", 'w+')  do |f|
+      f.write("RoutineTracker IDLE")
     end
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
