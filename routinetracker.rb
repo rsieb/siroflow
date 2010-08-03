@@ -102,7 +102,7 @@ end
       shout("#{activiteit.upcase}")
       puts "#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}."
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
-        f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \n")
+        f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
       end
       
       #ψ ]] Start the clock
@@ -181,7 +181,7 @@ end
       YAML.dump( @tasks, out )
     end
     File.open("/tmp/routinetracker.log", 'w+')  do |f|
-      f.write("RoutineTracker IDLE  \n")
+      f.write("RoutineTracker IDLE  \t\n")
     end
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
