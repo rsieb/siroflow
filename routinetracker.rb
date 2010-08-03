@@ -94,12 +94,10 @@ end
       lowtgttime = @doeltijd - @afwijking
       hightgttime = @doeltijd + @afwijking
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
-      #ψ ]] Say title, counter against target
-      say "By #{endtime.strftime("%H:%M")}"
-      puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
       
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      shout("#{activiteit.upcase}")
+      puts("#{activiteit.upcase}")
+      say("#{activiteit}")
       puts "#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}."
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
@@ -107,6 +105,10 @@ end
       
       #ψ ]] Start the clock
       puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
+
+      #ψ ]] Say title, counter against target
+      say "Done #{endtime.strftime("%H:%M")}?"
+      puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
@@ -144,10 +146,10 @@ end
         # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
         if @eindtijd > @doel then
           score = ((@eindtijd - @doel) / @afwijking )
-          teken = "slower"
+          teken = "slow"
         else
           score = ((@doel - @eindtijd) / @afwijking )
-          teken = "faster"
+          teken = "fast"
         end
         # TODO 20100802_1327 Exception generates an error due to "saying" a negative value
         
@@ -156,11 +158,11 @@ end
             shout "#{detailscore.to_s} #{teken} "
           case score.round
           when 0
-            shout "Excellent"
+            shout "Right on track"
           when 1
-            shout "Good"
+            shout "Near enough"
           else
-            shout "OK"
+            shout "Finished"
           end     
         end
 
