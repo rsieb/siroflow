@@ -162,7 +162,7 @@ end
           when 1
             shout "Near enough"
           else
-            shout "Finished"
+            shout "At least it's done"
           end     
         end
 
