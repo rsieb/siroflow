@@ -43,6 +43,7 @@ end
 # Now we can load the file
 puts "Loading #{@laadbestand}..."
 @tasks = YAML.load_file( @laadbestand )
+@aantal = @tasks.size
 
 #ψ Calculate totals
 # initialize empty value for total number of seconds
@@ -96,8 +97,9 @@ end
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
       
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      puts("#{activiteit.upcase}")
+      puts("#{activiteit.upcase} (#{@teller}/#{@aantal})")
       say("#{activiteit}")
+      say("Task #{@teller} of #{@aantal}")
       puts "#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}."
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
@@ -107,7 +109,7 @@ end
       puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
       #ψ ]] Say title, counter against target
-      say "Done #{endtime.strftime("%H:%M")}?"
+      say "Projecting #{endtime.strftime("%H:%M")}?"
       puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
 
       #ψ ]] Wait for user input
@@ -115,13 +117,14 @@ end
       # TODO 20100802_1325 Add "Combine with previous" option
       # TODO 20100725_1010 Add Pause option
       status = statusinput[0..0]
+      @gedaan = Time.now()
 
       #ψ ]] Process user input
       case status
       when "s"
-        @gedaan = Time.now()
         @eindtijd = 0
 
+      
       when "r"
         @gedaan = nil
         starttijd = Time.now()
@@ -129,13 +132,11 @@ end
         say "Restarted"
 
       when "e"
-        @gedaan = Time.now()
         @eindtijd = (starttijd - @gedaan)
         say "Exception"
         puts "Targeted #{@doel.to_human} \nFinished in #{-@eindtijd.to_human} \nException noted" 
 
       else
-        @gedaan = Time.now()
         @eindtijd = (@gedaan - starttijd)
         say("#{@eindtijd.to_human}") 
         puts "Targeted #{@doel.to_human} \nFinished #{@gedaan.strftime("%H:%M:%S")} in #{@eindtijd.to_human} " 
@@ -155,7 +156,7 @@ end
         
         if score != 0 then
             detailscore = ((10.0 *score).round)/10.0
-            shout "#{detailscore.to_s} #{teken} "
+#            shout "#{detailscore.to_s} #{teken} "
           case score.round
           when 0
             shout "Right on track"
