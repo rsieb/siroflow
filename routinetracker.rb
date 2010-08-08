@@ -96,21 +96,21 @@ end
       hightgttime = @doeltijd + @afwijking
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
       
+      #ψ ]] Say title, counter against target
+      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
+      puts "#{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
-      puts("#{activiteit.upcase} (#{@teller}/#{@aantal})")
       say("#{activiteit}")
-      say("Task #{@teller} of #{@aantal}")
-      puts "#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human}."
+      puts("\n\n\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
+      say("#{@doel.to_human}")
+      puts "#{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
+      #ψ ]] Start the clock
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
       end
       
-      #ψ ]] Start the clock
-      puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
+      #puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
-      #ψ ]] Say title, counter against target
-      say "Projecting #{endtime.strftime("%H:%M")}?"
-      puts "Projecting routine finish by #{endtime.strftime("%H:%M:%S")} "
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
@@ -134,12 +134,12 @@ end
       when "e"
         @eindtijd = (starttijd - @gedaan)
         say "Exception"
-        puts "Targeted #{@doel.to_human} \nFinished in #{-@eindtijd.to_human} \nException noted" 
+        puts "Targeted #{@doel.to_human}\nFinished in #{-@eindtijd.to_human} \nException noted" 
 
       else
         @eindtijd = (@gedaan - starttijd)
         say("#{@eindtijd.to_human}") 
-        puts "Targeted #{@doel.to_human} \nFinished #{@gedaan.strftime("%H:%M:%S")} in #{@eindtijd.to_human} " 
+        puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} " 
 
         #ψ Evaluate result and give user feedback
         # unless the task was canceled or marked as an exception
@@ -156,7 +156,7 @@ end
         
         if score != 0 then
             detailscore = ((10.0 *score).round)/10.0
-            shout "#{detailscore.to_s} #{teken}"
+            # shout "#{detailscore.to_s} #{teken}"
           case score.to_i
       # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
           when 0
