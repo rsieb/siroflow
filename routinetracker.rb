@@ -58,7 +58,7 @@ puts "Loading #{@laadbestand}..."
     # seconds already done at the beginning of each task equals total seconds from previous loop
     @afgerond[nummer] = @totaalseconden
     # add the new number of seconds to generate a new total
-    @totaalseconden = @totaalseconden + waarden.valid_stats.median
+    @totaalseconden = @totaalseconden + waarden.valid_stats.mean
   end
 end
 
@@ -156,14 +156,15 @@ end
         
         if score != 0 then
             detailscore = ((10.0 *score).round)/10.0
-#            shout "#{detailscore.to_s} #{teken} "
-          case score.round
+            shout "#{detailscore.to_s} #{teken}"
+          case score.to_i
+      # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
           when 0
-            shout "Right on track"
+            shout "On #{teken} track"
           when 1
-            shout "Near enough"
+            shout "A bit #{teken}"
           else
-            shout "At least it's done"
+            shout "Sorry, too #{teken}"
           end     
         end
 
