@@ -97,7 +97,7 @@ end
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
       
       #ψ ]] Say title, counter against target
-      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
+#      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
       puts "#{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       say("#{activiteit}")
