@@ -58,7 +58,7 @@ puts "Loading #{@laadbestand}..."
     # seconds already done at the beginning of each task equals total seconds from previous loop
     @afgerond[nummer] = @totaalseconden
     # add the new number of seconds to generate a new total
-    @totaalseconden = @totaalseconden + waarden.valid_stats.mean
+    @totaalseconden = @totaalseconden + waarden.valid_stats.median
   end
 end
 
@@ -71,9 +71,9 @@ end
     #ψ ] Read title, target, set counter
     activiteit = naam
     # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
-    @doel = waarden.valid_stats.mean
+    @doel = waarden.valid_stats.median
     # DONE 20100802_1327 Calculate stdev rather than average
-    
+
     # now calculate the standard deviation
     @afwijking = waarden.valid_stats.stdev_notzero
     # if ( @afwijking == nil || @afwijking == 0 ) then
@@ -95,9 +95,9 @@ end
       lowtgttime = @doeltijd - @afwijking
       hightgttime = @doeltijd + @afwijking
       # TODO 20100802_1324 put all these calcs in log file for easy comparison
-      
+
       #ψ ]] Say title, counter against target
-#      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
+      #      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
       puts "#{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       say("#{activiteit}")
@@ -108,7 +108,7 @@ end
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
       end
-      
+
       #puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
 
@@ -124,7 +124,7 @@ end
       when "s"
         @eindtijd = 0
 
-      
+
       when "r"
         @gedaan = nil
         starttijd = Time.now()
@@ -153,12 +153,12 @@ end
           teken = "fast"
         end
         # TODO 20100802_1327 Exception generates an error due to "saying" a negative value
-        
+
         if score != 0 then
-            detailscore = ((10.0 *score).round)/10.0
-            # shout "#{detailscore.to_s} #{teken}"
+          detailscore = ((10.0 *score).round)/10.0
+          # shout "#{detailscore.to_s} #{teken}"
           case score.to_i
-      # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
+            # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
           when 0
             shout "On #{teken} track"
           when 1
@@ -177,6 +177,15 @@ end
     #ψ ] Store real end time
     if @eindtijd != 0
       waarden.unshift(@eindtijd).sort!
+      wgrootte = waarden.size
+      mingrootte = 5
+      # leave time to build up some extra values, otherwise outliers are immediately chopped off
+      if wgrootte > (3 * mingrootte)
+        # cut half of difference to the front
+        waarden.shift((wgrootte-mingrootte)/2)
+        # and cut half of difference to the back
+        waarden.pop((wgrootte-mingrootte)/2)
+      end
     end # if @eindtijd
     # DONE 20100725_0828 reproject end time 20100726_1229
     #ψ Store data for next time
