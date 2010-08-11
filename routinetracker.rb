@@ -26,7 +26,7 @@ puts "\nLooking for files ending in .routine.yaml ...\n"
 #ψ Show the possible routines to the user
 @keuze.each_index do |number|
   # correcting for counting from 1 to reserve 0 value for strings and cancellatons
-  puts "[#{(number+1).to_s(30)}] #{@keuze[number]}"
+  print "[#{(number+1).to_s(30)}] #{@keuze[number].gsub(".routine.yaml","")}   "
 end
 # Ask the user for his choice
 mijnkeuze = Readline.readline('> ', true)
