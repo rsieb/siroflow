@@ -26,14 +26,14 @@ puts "\nLooking for files ending in .routine.yaml ...\n"
 #ψ Show the possible routines to the user
 @keuze.each_index do |number|
   # correcting for counting from 1 to reserve 0 value for strings and cancellatons
-  puts "[#{number+1}] #{@keuze[number]}"
+  puts "[#{(number+1).to_s(30)}] #{@keuze[number]}"
 end
 # Ask the user for his choice
 mijnkeuze = Readline.readline('> ', true)
 # Take the first character of the choice and ensure it is an integer
-doen = mijnkeuze[0..0].to_i
+doen = mijnkeuze[0..0].to_i(30) - 1
 # This determines the file to load
-@laadbestand = @keuze[doen-1]
+@laadbestand = @keuze[doen]
 # Test if the file exists - error and exit if not
 unless (  defined?(@laadbestand) && @laadbestand != nil )
   puts "Your choice was not valid. Exiting."
@@ -85,8 +85,8 @@ end
     # = Task Restart loop =
     # =======================
     while @gedaan == nil
-      #print "\e[H\e[2J"
-      puts "\n\n * * * \n\n"
+      print "\e[H\e[2J"
+      #puts "\n\n * * * \n\n"
       #ψ ]] Recalculate end time
       nogverwacht = @totaalseconden - @afgerond[@teller]
       starttijd = Time.now()
@@ -101,7 +101,7 @@ end
       puts "#{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
       # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
       say("#{activiteit}")
-      puts("\n\n\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
+      puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
       say("#{@doel.to_human}")
       puts "#{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
       #ψ ]] Start the clock
