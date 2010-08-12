@@ -40,6 +40,7 @@ unless (  defined?(@laadbestand) && @laadbestand != nil )
   exit 1
 end
 
+bbeeggiinnttiijjdd = Time.now()
 # Now we can load the file
 puts "Loading #{@laadbestand}..."
 @tasks = YAML.load_file( @laadbestand )
@@ -160,11 +161,11 @@ end
           case score.to_i
             # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
           when 0
-            shout "On #{teken} track"
+            shout "On track, #{teken}"
           when 1
             shout "A bit #{teken}"
           else
-            shout "Sorry, too #{teken}"
+            shout "Too #{teken}"
           end     
         end
 
@@ -199,6 +200,9 @@ end
   end #ψ End loop through defined task
   # TODO 20100725_0828 report total score
 end
+print "\n\n"
+eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
+shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}. Congratulations!"
 
 
 
