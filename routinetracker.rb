@@ -114,7 +114,7 @@ end
 
 
       #ψ ]] Wait for user input
-      statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception ',true)
+      statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception [q]uit? ',true)
       # TODO 20100802_1325 Add "Combine with previous" option
       # TODO 20100725_1010 Add Pause option
       status = statusinput[0..0]
@@ -125,6 +125,11 @@ end
       when "s"
         @eindtijd = 0
 
+      when "q"
+        File.open("/tmp/routinetracker.log", 'w+')  do |f|
+          f.write("RoutineTracker IDLE  \t\n")
+        end
+        exit
 
       when "r"
         @gedaan = nil
@@ -134,8 +139,7 @@ end
 
       when "e"
         @eindtijd = (starttijd - @gedaan)
-        say "Exception"
-        puts "Targeted #{@doel.to_human}\nFinished in #{-@eindtijd.to_human} \nException noted" 
+        shout("Exception")
 
       else
         @eindtijd = (@gedaan - starttijd)
