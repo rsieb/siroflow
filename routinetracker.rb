@@ -115,6 +115,7 @@ end
 
       #ψ ]] Wait for user input
       statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception [q]uit? ',true)
+      # TODO 2010-08-20_1401-0700  Add "Go back one step" option
       # TODO 20100802_1325 Add "Combine with previous" option
       # TODO 20100725_1010 Add Pause option
       status = statusinput[0..0]
