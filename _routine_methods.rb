@@ -12,7 +12,7 @@ def shout(saying)
   puts saying
   say(saying)
   #@log.debug "Putting and saying #{saying}"
-end 
+end
 
 
 
@@ -35,41 +35,41 @@ class Array
   def mean
     return nil if self.empty?
     return self[0] if self.size == 1
-    totaal = 0 
+    totaal = 0
     self.each do |getal|
-      totaal = totaal + getal.to_f  
+      totaal = totaal + getal.to_f
     end
     return totaal/(self.size)
-  end  
-  
-  # variance necessary for standard deviation, copied from "# Statistical methods for arrays. Also see NArray Ruby library."
-    def variance
-      m = self.mean
-      sum = 0.0
-      self.each {|v| sum += (v-m)**2 }
-      sum/self.size
-    end
+  end
 
-    def stdev
-      Math.sqrt(self.variance)
-    end
-    
-    def stdev_notzero
-      s = self.stdev
-      if s == 0 then
-        # check if the average is a real value
-        if self.mean == 0
-          # if not, just take one second as an assumption
-          s = 1 
-        else
-          # otherwise, we take 10% deviation as an assumption
-          s = ( self.mean / 10 )
-        end
+  # variance necessary for standard deviation, copied from "# Statistical methods for arrays. Also see NArray Ruby library."
+  def variance
+    m = self.mean
+    sum = 0.0
+    self.each {|v| sum += (v-m)**2 }
+    sum/self.size
+  end
+
+  def stdev
+    Math.sqrt(self.variance)
+  end
+
+  def stdev_notzero
+    s = self.stdev
+    if s == 0 then
+      # check if the average is a real value
+      if self.mean == 0
+        # if not, just take one second as an assumption
+        s = 1
+      else
+        # otherwise, we take 10% deviation as an assumption
+        s = ( self.mean / 10 )
       end
-      return s
     end
-  
-  
+    return s
+  end
+
+
 
   def median
     # TODO 20100730_1116 integrated in Array class, still untested!
@@ -89,11 +89,11 @@ class Array
     end
   end
 
-    
+
 end
 
 
-
+# 2010-08-19_1838-0700 NICETOHAVE replace with specific Duration class?
 class Numeric
   def to_human
     seconden = self.to_f
@@ -101,8 +101,37 @@ class Numeric
       frontstring = "Exception "
       seconden = 0 - seconden
     end
-      minuten = (seconden / 60).to_i
+    uren = (seconden / 3600).to_i
+    seconden = seconden - (3600 * uren)
+    minuten = (seconden / 60).to_i
     restseconden = (seconden.to_i % 60)
+
+    # TODO 2010-08-19_1843-0700 clean up hours-minutes-seconds calculation
+    ignoreseconds = nil
+    case uren
+    when 0
+      urenstring = ""
+    when 1
+      urenstring = "#{uren.to_s} hour "
+      ignoreseconds = true
+    else 2
+      urenstring = "#{uren.to_s} hours "
+      ignoreseconds = true
+    end
+
+    case minuten
+    when 0
+      minutenstring = ""
+    when 1
+      minutenstring = "#{minuten.to_s} minute "
+    when 2..5
+      minutenstring = "#{minuten.to_s} minutes "
+    else
+      afgerondeminuten = minuten + (restseconden / 60).round
+      minutenstring = " #{afgerondeminuten.to_s} minutes "
+      ignoreseconds = true
+    end
+
     case restseconden
     when 0
       secondenstring = "precisely"
@@ -111,39 +140,34 @@ class Numeric
     else
       secondenstring = restseconden.to_s + " seconds"
     end
-    case minuten
-    when 0
-      return secondenstring
-    when 1  
-      return minuten.to_s + " minute " + secondenstring
-    when 2..5  
-      return minuten.to_s + " minutes " + secondenstring
+
+    if ignoreseconds then
+      return urenstring + minutenstring
     else
-      afgerondeminuten = (seconden / 60).round
-      return afgerondeminuten.to_s + " minutes"
+      return urenstring + minutenstring + secondenstring
     end
   end
 end
 
 
 # require 'arrayx' # separate post
-# 
+#
 # # Statistical methods for arrays. Also see NArray Ruby library.
-# 
+#
 # class Float
-# 
+#
 #   def roundf(decimel_places)
 #       temp = self.to_s.length
 #       sprintf("%#{temp}.#{decimel_places}f",self).to_f
 #   end
-# 
+#
 # end
-# 
+#
 # class Integer
-# 
+#
 #   # For easy reading e.g. 10000 -> 10,000 or 1000000 -> 100,000
 #   # Call with argument to specify delimiter.
-# 
+#
 #   def ts(delimiter=',')
 #     st = self.to_s.reverse
 #     r = ""
@@ -167,30 +191,30 @@ end
 #     end
 #     r.reverse
 #   end
-# 
+#
 # end
-# 
+#
 # =======================================================
 # = From http://codesnippets.joyent.com/posts/show/1159 =
 # =======================================================
 # require 'arrayx' # separate post
-# 
+#
 # # Statistical methods for arrays. Also see NArray Ruby library.
-# 
+#
 # class Float
-# 
+#
 #   def roundf(decimel_places)
 #       temp = self.to_s.length
 #       sprintf("%#{temp}.#{decimel_places}f",self).to_f
 #   end
-# 
+#
 # end
-# 
+#
 # class Integer
-# 
+#
 #   # For easy reading e.g. 10000 -> 10,000 or 1000000 -> 100,000
 #   # Call with argument to specify delimiter.
-# 
+#
 #   def ts(delimiter=',')
 #     st = self.to_s.reverse
 #     r = ""
@@ -214,65 +238,65 @@ end
 #     end
 #     r.reverse
 #   end
-# 
+#
 # end
 
 # class Array
-# 
+#
 #   def sum
 #     inject( nil ) { |sum,x| sum ? sum+x : x }
 #   end
-# 
+#
 #   def mean
 #     sum=0
 #     self.each {|v| sum += v}
 #     sum/self.size.to_f
 #   end
-# 
+#
 #   def variance
 #     m = self.mean
 #     sum = 0.0
 #     self.each {|v| sum += (v-m)**2 }
 #     sum/self.size
 #   end
-# 
+#
 #   def stdev
 #     Math.sqrt(self.variance)
 #   end
-# 
+#
 #   def count                                 # => Returns a hash of objects and their frequencies within array.
 #     k=Hash.new(0)
 #     self.each {|x| k[x]+=1 }
 #     k
 #   end
-#     
+#
 #   def ^(other)                              # => Given two arrays a and b, a^b returns a new array of objects *not* found in the union of both.
 #     (self | other) - (self & other)
 #   end
-# 
+#
 #   def freq(x)                               # => Returns the frequency of x within array.
 #     h = self.count
 #     h(x)
 #   end
-# 
+#
 #   def maxcount                              # => Returns highest count of any object within array.
 #     h = self.count
 #     x = h.values.max
 #   end
-# 
+#
 #   def mincount                              # => Returns lowest count of any object within array.
 #     h = self.count
 #     x = h.values.min
 #   end
-# 
+#
 #   def outliers(x)                           # => Returns a new array of object(s) with x highest count(s) within array.
-#     h = self.count                                                              
+#     h = self.count
 #     min = self.count.values.uniq.sort.reverse.first(x).min
 #     h.delete_if { |x,y| y < min }.keys.sort
 #   end
-# 
+#
 #   def zscore(value)                         # => Standard deviations of value from mean of dataset.
 #     (value - mean) / stdev
 #   end
-# 
+#
 # end

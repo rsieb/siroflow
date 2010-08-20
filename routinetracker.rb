@@ -53,7 +53,7 @@ puts "Loading #{@laadbestand}..."
 @afgerond = Array.new()
 # loop through tasks
 @tasks.each_index do |nummer|
-  # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}      
+  # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}
   # this is an array of hashes, now we need to loop through the hash itself
   @tasks[nummer].each do |naam,waarden|
     # seconds already done at the beginning of each task equals total seconds from previous loop
@@ -143,8 +143,8 @@ end
 
       else
         @eindtijd = (@gedaan - starttijd)
-        say("#{@eindtijd.to_human}") 
-        puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} " 
+        say("#{@eindtijd.to_human}")
+        puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
 
         #ψ Evaluate result and give user feedback
         # unless the task was canceled or marked as an exception
@@ -207,9 +207,3 @@ end
 print "\n\n"
 eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
 shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}. Congratulations!"
-
-
-
-
-
-
