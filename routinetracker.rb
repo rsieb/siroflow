@@ -25,6 +25,9 @@ puts "\nLooking for files ending in .routine.yaml ...\n"
 @keuze = Dir.glob("*.routine.yaml")
 #ψ Show the possible routines to the user
 @keuze.each_index do |number|
+  # TODO 2010-08-20_1432-0700 replace this with printing nicely in columns
+  # either just space them out halfway on the screen or print an array
+  # as two columns as discussed on http://railsforum.com/viewtopic.php?id=15716
   # correcting for counting from 1 to reserve 0 value for strings and cancellatons
   print "[#{(number+1).to_s(30)}] #{@keuze[number].gsub(".routine.yaml","")}   "
 end
