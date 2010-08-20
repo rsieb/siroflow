@@ -11,7 +11,6 @@ end
 def shout(saying)
   puts saying
   say(saying)
-  #@log.debug "Putting and saying #{saying}"
 end
 
 
