@@ -1,4 +1,13 @@
 #!/usr/bin/env ruby
 
-puts "Hello world"
-require '_routine_methods.rb' ; puts [1,2,3,4,5].mean-:1: private method `mean' called for [1, 2, 3, 4, 5]:Array (NoMethodError)
+require 'rubygems'
+require 'appscript'
+require 'osax'
+require '_routine_methods'
+
+doel = 1837 # seconden
+# rare omweg om met Time te kunnen werken
+#  t = Time.gm(2000,"jan",1,20,15,1)   #=> Sat Jan 01 20:15:01 UTC 2000
+puts doel, doel.to_human, doel.to_minuteur
+# include Appscript
+#  app("Minuteur").StartCountdown("001000")

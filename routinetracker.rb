@@ -4,8 +4,12 @@
 
 
 require 'yaml'
-
+require 'rubygems'
+require 'appscript'
+require 'osax'
 require 'readline'
+include Appscript
+
 # Store the state of the terminal
 stty_save = `stty -g`.chomp
 # Allow for user cancellations without generating an exception
@@ -107,8 +111,11 @@ end
       say("#{activiteit}")
       puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
       say("#{@doel.to_human}")
-      puts "#{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
+      puts "#{@doel.to_human}
+     (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
       #ψ ]] Start the clock
+      app("Minuteur").StartCountdown(@doel.to_minuteur)
+      
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
       end

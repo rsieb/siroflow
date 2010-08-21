@@ -94,6 +94,13 @@ end
 
 # 2010-08-19_1838-0700 NICETOHAVE replace with specific Duration class?
 class Numeric
+  
+  def to_minuteur
+    basistijd = Time.gm(2010,"jan",1,0,0,0)
+    return (basistijd + self).strftime("%H%M%S")
+  end
+  
+  
   def to_human
     seconden = self.to_f
     if seconden < 0 then
@@ -105,7 +112,7 @@ class Numeric
     minuten = (seconden / 60).to_i
     restseconden = (seconden.to_i % 60)
 
-    # TODO 2010-08-19_1843-0700 clean up hours-minutes-seconds calculation
+    # TODO 2010-08-19_1843-0700 clean up hours-minutes-seconds calculation in line with how I do it for to_minuteur
     ignoreseconds = nil
     case uren
     when 0
