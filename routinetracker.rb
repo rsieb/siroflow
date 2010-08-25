@@ -41,7 +41,7 @@ while true == true
   # Ask the user for his choice
   mijnkeuze = Readline.readline('> ', true)
   if mijnkeuze == "Q" then
-    exit
+    exit 0
   end if
   # Take the first character of the choice and ensure it is an integer
   doen = mijnkeuze[0..0].to_i(30) - 1
@@ -49,7 +49,7 @@ while true == true
   @laadbestand = @keuze[doen]
   # Test if the file exists - error and exit if not
   unless (  defined?(@laadbestand) && @laadbestand != nil )
-    puts "Your choice was not valid. Exiting."
+    puts "Your choice was not valid. Exiting..."
     exit 1
   end
 
@@ -85,7 +85,7 @@ while true == true
       #ψ ] Read title, target, set counter
       activiteit = naam
       # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
-      @doel = waarden.valid_stats.median
+      @doel = waarden.valid_stats.mean
       # DONE 20100802_1327 Calculate stdev rather than average
 
       # now calculate the standard deviation
@@ -116,7 +116,8 @@ while true == true
         # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
         say("#{activiteit}")
         puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
-        say("#{@doel.to_human}")
+#       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
+#       say("#{@doel.to_human}")
         puts "#{@doel.to_human}
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
