@@ -19,6 +19,9 @@ trap('INT') { system('stty', stty_save); exit }
 require '_routine_methods'
 
 #ψ Get data from external file
+@savings = Hash.new()
+@savings = YAML.load_file( "_geschoren.yaml" )
+@totaalgeschoren = @savings[Time.now.strftime("%Y-%m-%d")] || @totaalgeschoren = 0
 
 #ψ Clear screen and welcome user
 print "\e[H\e[2J"
@@ -198,7 +201,7 @@ while true == true
           end
 
           if @geschoren.to_i > 0
-            shout "Total shaved #{@geschoren.to_human}"
+            shout "Total #{@geschoren.to_human}"
           end
 
         end
@@ -235,5 +238,11 @@ while true == true
   print "\n\n"
   eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
   shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
-  shout "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent. Congratulations!"
+  shout "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent!"
+  @totaalgeschoren = @totaalgeschoren + @geschoren
+  @savings[Time.now.strftime("%Y-%m-%d")] = @totaalgeschoren
+  shout "Already shaved #{(@totaalgeschoren).to_human} today. Congratulations!"
+  File.open("_geschoren.yaml", 'w+')  do |out|
+    YAML.dump( @savings, out )
+  end
 end
