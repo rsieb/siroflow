@@ -76,6 +76,8 @@ while true == true
     end
   end
 
+  @geschoren = 0
+
   # ======================
   # = Loop through tasks =
   # ======================
@@ -116,14 +118,14 @@ while true == true
         # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
         say("#{activiteit}")
         puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
-#       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
-#       say("#{@doel.to_human}")
+        #       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
+        #       say("#{@doel.to_human}")
         puts "#{@doel.to_human}
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
         app("Minuteur").StartCountdown((@doel).to_minuteur)
-#        app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
+        #        app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
         end
@@ -165,6 +167,7 @@ while true == true
 
         else
           @eindtijd = (@gedaan - starttijd)
+
           say("#{@eindtijd.to_human}")
           puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
 
@@ -172,16 +175,10 @@ while true == true
           # unless the task was canceled or marked as an exception
 
           # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
-          if @eindtijd > @doel then
-            score = ((@eindtijd - @doel) / @afwijking )
+          @verschil = @doel - @eindtijd
+          if @verschil < 0  then
+            score = -(@verschil/@afwijking)
             teken = "slow"
-          else
-            score = ((@doel - @eindtijd) / @afwijking )
-            teken = "fast"
-          end
-          # TODO 20100802_1327 Exception generates an error due to "saying" a negative value
-
-          if score != 0 then
             detailscore = ((10.0 *score).round)/10.0
             # shout "#{detailscore.to_s} #{teken}"
             case score.to_i
@@ -193,6 +190,15 @@ while true == true
             else
               shout "Too #{teken}"
             end     
+          else
+            if @verschil.to_i > 0 then
+              shout "Shaved off #{@verschil.to_human}"
+            end
+            @geschoren = @geschoren + @verschil
+          end
+
+          if @geschoren.to_i > 0
+            shout "Total shaved #{@geschoren.to_human}"
           end
 
         end
@@ -228,5 +234,6 @@ while true == true
   end
   print "\n\n"
   eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
-  shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}. Congratulations!"
+  shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
+  shout "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent. Congratulations!"
 end
