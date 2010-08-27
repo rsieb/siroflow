@@ -79,6 +79,12 @@ while true == true
     end
   end
 
+  @myevent = app("iCal").make(:at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end, :new => :event, :with_properties => {
+      :start_date => Time.now(),
+      :end_date => Time.now() + @totaalseconden,
+      :summary => "#{@laadbestand}"
+  })
+
   @geschoren = 0
 
   # ======================
@@ -132,7 +138,14 @@ while true == true
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
         end
-
+        icallog = @myevent.description.get.to_s
+        if icallog == "missing_value" then
+          icallog = "Routinetracker.rb ©2010 by Roland Siebelink"
+        end
+        icalentry = "\n#{Time.now.strftime("%x %X")} #{activiteit} #{@doel.to_human}"
+        @myevent.description.set(icallog + icalentry)
+        @myevent.end_date.set(endtime)
+        
         #puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
 
@@ -155,6 +168,13 @@ while true == true
           File.open("/tmp/routinetracker.log", 'w+')  do |f|
             f.write("RoutineTracker IDLE  \t\n")
           end
+          @totaalgeschoren = @totaalgeschoren + @geschoren
+          @savings[Time.now.strftime("%Y-%m-%d")] = @totaalgeschoren
+          shout "Already shaved #{(@totaalgeschoren).to_human} today. Congratulations!"
+          File.open("_geschoren.yaml", 'w+')  do |out|
+            YAML.dump( @savings, out )
+          end
+          
           # TODO 2010-08-21_1434-0700 should just go back to main menu, not leave program
           exit
 
@@ -195,13 +215,13 @@ while true == true
             end     
           else
             if @verschil.to_i > 0 then
-              shout "Shaved off #{@verschil.to_human}"
+              shout "#{@verschil.to_human} shaved"
             end
             @geschoren = @geschoren + @verschil
           end
 
           if @geschoren.to_i > 0
-            shout "Total #{@geschoren.to_human}"
+            shout "Total #{@geschoren.to_human} shaved"
           end
 
         end
@@ -238,7 +258,7 @@ while true == true
   print "\n\n"
   eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
   shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
-  shout "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent!"
+  puts "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent!"
   @totaalgeschoren = @totaalgeschoren + @geschoren
   @savings[Time.now.strftime("%Y-%m-%d")] = @totaalgeschoren
   shout "Already shaved #{(@totaalgeschoren).to_human} today. Congratulations!"
