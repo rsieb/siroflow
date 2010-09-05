@@ -72,6 +72,7 @@ while true == true
     # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}
     # this is an array of hashes, now we need to loop through the hash itself
     @tasks[nummer].each do |naam,waarden|
+      # TODO 2010-08-29_2057-0700 replace single values in YAML with hash structure containing dates and status and notes, use OmniOutliner to model first
       # seconds already done at the beginning of each task equals total seconds from previous loop
       @afgerond[nummer] = @totaalseconden
       # add the new number of seconds to generate a new total
@@ -80,9 +81,9 @@ while true == true
   end
 
   @myevent = app("iCal").make(:at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end, :new => :event, :with_properties => {
-      :start_date => Time.now(),
-      :end_date => Time.now() + @totaalseconden,
-      :summary => "#{@laadbestand}"
+                                :start_date => Time.now(),
+                                :end_date => Time.now() + @totaalseconden,
+                                :summary => "#{@laadbestand.gsub(".routine.yaml","")}"
   })
 
   @geschoren = 0
@@ -125,6 +126,9 @@ while true == true
         #      say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
         puts "#{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
         # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
+        if @geschoren.to_i > 0
+          puts "Total #{(100*@verschil/@doel).to_i} percent off"
+        end
         say("#{activiteit}")
         puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
         #       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
@@ -133,11 +137,13 @@ while true == true
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
-        app("Minuteur").StartCountdown((@doel).to_minuteur)
-        #        app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
+        #        app("Minuteur").StartCountdown((@doel).to_minuteur)
+        app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
-          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
+#          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M") + "   \t\n")
+          f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M"))
         end
+        app("iCal").run
         icallog = @myevent.description.get.to_s
         if icallog == "missing_value" then
           icallog = "Routinetracker.rb ©2010 by Roland Siebelink"
@@ -145,7 +151,7 @@ while true == true
         icalentry = "\n#{Time.now.strftime("%x %X")} #{activiteit} #{@doel.to_human}"
         @myevent.description.set(icallog + icalentry)
         @myevent.end_date.set(endtime)
-        
+
         #puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
 
@@ -174,7 +180,7 @@ while true == true
           File.open("_geschoren.yaml", 'w+')  do |out|
             YAML.dump( @savings, out )
           end
-          
+
           # TODO 2010-08-21_1434-0700 should just go back to main menu, not leave program
           exit
 
@@ -198,6 +204,7 @@ while true == true
           # unless the task was canceled or marked as an exception
 
           # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
+          # TODO 2010-08-28_1202-0700 this is such a mess, move to logging all and then letting view decide what to display
           @verschil = @doel - @eindtijd
           if @verschil < 0  then
             score = -(@verschil/@afwijking)
@@ -207,22 +214,19 @@ while true == true
             case score.to_i
               # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
             when 0
-              shout "On track, #{teken}"
+              puts "On track, #{teken}"
             when 1
-              shout "A bit #{teken}"
+              puts "A bit #{teken}"
             else
-              shout "Too #{teken}"
+              puts "Too #{teken}"
             end     
           else
             if @verschil.to_i > 0 then
-              shout "#{@verschil.to_human} shaved"
+              shout "#{(100*@verschil/@doel).to_i} percent off"
             end
             @geschoren = @geschoren + @verschil
           end
 
-          if @geschoren.to_i > 0
-            shout "Total #{@geschoren.to_human} shaved"
-          end
 
         end
         # TODO 20100802_1328 Ask user for notes at end of task
@@ -233,36 +237,37 @@ while true == true
       #ψ ] Store real end time
       if @eindtijd != 0
         waarden.unshift(@eindtijd).sort!
-        wgrootte = waarden.size
-        mingrootte = 5
         # leave time to build up some extra values, otherwise outliers are immediately chopped off
-        if wgrootte > (3 * mingrootte)
-          # cut half of difference to the front
-          waarden.shift((wgrootte-mingrootte)/2)
-          # and cut half of difference to the back
-          waarden.pop((wgrootte-mingrootte)/2)
-        end
-      end # if @eindtijd
-      # DONE 20100725_0828 reproject end time 20100726_1229
-      #ψ Store data for next time
-      # DONE 20100802_1327 - save values on every loop
-      File.open( @laadbestand, 'w' ) do |out|
-        YAML.dump( @tasks, out )
+        # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
+        # wgrootte = waarden.size
+        # mingrootte = 5
+        # if wgrootte > (3 * mingrootte)
+        #   # cut half of difference to the front
+        #   waarden.shift((wgrootte-mingrootte)/2)
+            #   # and cut half of difference to the back
+            #   waarden.pop((wgrootte-mingrootte)/2)
+            # end
+          end # if @eindtijd
+          # DONE 20100725_0828 reproject end time 20100726_1229
+          #ψ Store data for next time
+          # DONE 20100802_1327 - save values on every loop
+          File.open( @laadbestand, 'w' ) do |out|
+            YAML.dump( @tasks, out )
+          end
+          File.open("/tmp/routinetracker.log", 'w+')  do |f|
+            f.write("RoutineTracker IDLE")
+          end
+        end #ψ End loop through defined task
+        # TODO 20100725_0828 report total score
       end
-      File.open("/tmp/routinetracker.log", 'w+')  do |f|
-        f.write("RoutineTracker IDLE  \t\n")
+      print "\n\n"
+      eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
+      shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
+      puts "Total #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent off!"
+      @totaalgeschoren = @totaalgeschoren + @geschoren
+      @savings[Time.now.strftime("%Y-%m-%d")] = @totaalgeschoren
+      shout "Already shaved #{(@totaalgeschoren).to_human} today. Congratulations!"
+      File.open("_geschoren.yaml", 'w+')  do |out|
+        YAML.dump( @savings, out )
       end
-    end #ψ End loop through defined task
-    # TODO 20100725_0828 report total score
-  end
-  print "\n\n"
-  eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
-  shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
-  puts "Shaved off #{@geschoren.to_human} or #{(@geschoren/(@geschoren + eeiinnddttiidd)*100).to_i} percent!"
-  @totaalgeschoren = @totaalgeschoren + @geschoren
-  @savings[Time.now.strftime("%Y-%m-%d")] = @totaalgeschoren
-  shout "Already shaved #{(@totaalgeschoren).to_human} today. Congratulations!"
-  File.open("_geschoren.yaml", 'w+')  do |out|
-    YAML.dump( @savings, out )
-  end
-end
+    end
