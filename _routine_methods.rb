@@ -4,8 +4,11 @@
 # = Methods =
 # ===========
 def say(saying)
-  system("say #{saying}")
-  #@log.debug "Said #{saying}"
+  if File.exist?("/Users/rs/Desktop/silent") then
+    system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
+  else
+    system("say #{saying}")
+  end
 end
 
 def shout(saying)
@@ -107,13 +110,25 @@ class Numeric
       frontstring = "Exception "
       seconden = 0 - seconden
     end
-    uren = (seconden / 3600).to_i
-    seconden = seconden - (3600 * uren)
-    minuten = (seconden / 60).to_i
+    dagen = (seconden / 86400 ).to_i
+    secondenmindagen = seconden - (86400 * dagen)
+    uren = (secondenmindagen / 3600).to_i
+    secondenminuren = secondenmindagen - (3600 * uren)
+    minuten = (secondenminuren / 60).to_i
     restseconden = (seconden.to_i % 60)
 
     # TODO 2010-08-19_1843-0700 clean up hours-minutes-seconds calculation in line with how I do it for to_minuteur
     ignoreseconds = nil
+
+    case dagen
+    when 0
+      dagenstring = ""
+    when 1
+      dagenstring = "#{dagen.to_s} tasks "
+    else 2
+      dagenstring = "#{dagen.to_s} tasks "
+    end
+
     case uren
     when 0
       urenstring = ""
@@ -148,9 +163,9 @@ class Numeric
     end
 
     if ignoreseconds then
-      return urenstring + minutenstring
+      return dagenstring + urenstring + minutenstring
     else
-      return urenstring + minutenstring + secondenstring
+      return dagenstring + urenstring + minutenstring + secondenstring
     end
   end
 end

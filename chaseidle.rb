@@ -2,7 +2,7 @@
 
 require '/Users/rs/Dropbox/Library/Scripts/Routinetracker/_routine_methods.rb'
 
-if File.exist?("/Users/rs/Desktop/shutup") then
+if File.exist?("/Users/rs/Desktop/silent") then
   stil = true
 else
   stil = false
@@ -18,7 +18,8 @@ File.open("/tmp/routinetracker.log", "r")  do |f|
         say("IDLE")
       end
     else
-      system("/usr/local/bin/growlnotify -p 0 -t 'RoutineTracker' -m \"#{line}\" ")
+      tijdmelding = Time.now().strftime("%H:%M:%S")
+      system("/usr/local/bin/growlnotify -p 0 -t \"#{tijdmelding}\" -m \"#{line}\" ")
       firstword = line.split(/ /)[0]
       unless stil 
         say(firstword)
