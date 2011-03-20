@@ -130,7 +130,8 @@ while true == true # endless loop until interrupted
       # =======================
       while @gedaan == nil
         print "\e[H\e[2J"
-        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
+# => taking this out because it takes too much time on every loop
+#        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
         begin
           iTunes.next_track
           iTunes.play
@@ -243,11 +244,11 @@ while true == true # endless loop until interrupted
             case score.to_i
               # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
             when 0
-              puts "On track, #{teken}"
+              shout("On track, #{teken}")
             when 1
-              puts "A bit #{teken}"
+              shout( "A bit #{teken}")
             else
-              puts "Too #{teken}"
+              shout("Too #{teken}") 
             end     
           else
             if @verschil.to_i > 0 then
@@ -282,7 +283,7 @@ while true == true # endless loop until interrupted
         # leave time to build up some extra values, otherwise outliers are immediately chopped off
         # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
         wgrootte = waarden.size
-        mingrootte = 5
+        mingrootte = 3
         if wgrootte > (3 * mingrootte)
           # cut half of difference to the front
           waarden.shift((wgrootte-mingrootte)/2)
