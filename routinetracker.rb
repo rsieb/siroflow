@@ -130,14 +130,6 @@ while true == true # endless loop until interrupted
       # =======================
       while @gedaan == nil
         print "\e[H\e[2J"
-# => taking this out because it takes too much time on every loop
-#        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
-        begin
-          iTunes.next_track
-          iTunes.play
-        rescue
-          puts("Some problem with iTunes")
-        end
         puts ""
         #puts "\n\n * * * \n\n"
         #ψ ]] Recalculate end time
@@ -171,6 +163,15 @@ while true == true # endless loop until interrupted
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
           f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M"))
         end
+        # moving iTunes to after Minuteur to avoid the 10 second delay
+        # => taking this out because it takes too much time on every loop
+        #        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
+                begin
+                  iTunes.next_track
+                  iTunes.play
+                rescue
+                  puts("Some problem with iTunes")
+                end
         app("iCal").run
         icallog = @myevent.description.get.to_s
         if icallog == "missing_value" then
