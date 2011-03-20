@@ -159,6 +159,7 @@ while true == true # endless loop until interrupted
         #app("Minuteur").activate
         app("Minuteur").StartCountdown((@doel).to_minuteur)
         #app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
+
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
           f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M"))
@@ -166,12 +167,12 @@ while true == true # endless loop until interrupted
         # moving iTunes to after Minuteur to avoid the 10 second delay
         # => taking this out because it takes too much time on every loop
         #        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
-                begin
-                  iTunes.next_track
-                  iTunes.play
-                rescue
-                  puts("Some problem with iTunes")
-                end
+        begin
+          iTunes.next_track
+          iTunes.play
+        rescue
+          puts("Some problem with iTunes")
+        end
         app("iCal").run
         icallog = @myevent.description.get.to_s
         if icallog == "missing_value" then
@@ -240,23 +241,26 @@ while true == true # endless loop until interrupted
           if @verschil < 0  then
             score = -(@verschil/@afwijking)
             teken = "slow"
-            detailscore = ((10.0 *score).round)/10.0
+            #            detailscore = ((10.0 *score).round)/10.0
             # shout "#{detailscore.to_s} #{teken}"
-            case score.to_i
-              # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
-            when 0
-              shout("On track, #{teken}")
-            when 1
-              shout( "A bit #{teken}")
-            else
-              shout("Too #{teken}") 
-            end     
           else
-            if @verschil.to_i > 0 then
-              # shout "#{(100*@verschil/@doel).to_i} percent off"
-            end
-            @bezig = @bezig + @eindtijd
+            score = (@verschil/@afwijking)
+            teken = "fast"
           end
+          # if @verschil.to_i > 0 then
+          #   # shout "#{(100*@verschil/@doel).to_i} percent off"
+          # end
+          @bezig = @bezig + @eindtijd
+          # end
+          case score.to_i
+            # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
+          when 0
+            shout("On track, #{teken}")
+          when 1
+            shout( "A bit #{teken}")
+          else
+            shout("Too #{teken}") 
+          end     
 
 
         end
