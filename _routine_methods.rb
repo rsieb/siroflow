@@ -4,9 +4,8 @@
 # = Methods =
 # ===========
 def say(saying)
-  if File.exist?("/Users/rs/Desktop/silent") then
-    system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
-  else
+  system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
+  unless File.exist?("/Users/rs/Desktop/silent") then
     system("say #{saying}")
   end
 end
