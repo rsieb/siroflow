@@ -68,6 +68,12 @@ while true == true # endless loop until interrupted
   end
 
   bbeeggiinnttiijjdd = Time.now()
+  begin
+    app("TimeBoxed").activate
+    app("TimeBoxed").start
+  rescue
+    "Some problem with TimeBoxed"
+  end
   # Now we can load the file
   puts "Loading #{@laadbestand}..."
   @tasks = YAML.load_file( @laadbestand )
@@ -157,12 +163,13 @@ while true == true # endless loop until interrupted
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
-        begin
-#          app("Minuteur").activate
-          app("Minuteur").StartCountdown((@doel).to_minuteur)
-        rescue
-          puts "Some problem with Minuteur"
-        end
+        #        begin
+        #          app("Minuteur").activate
+        #       app("Timeboxed").Start
+        #          app("Minuteur").StartCountdown((@doel).to_minuteur)
+        #        rescue
+        #          puts "Some problem with TimeBoxed"
+        #        end
         #app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
@@ -170,8 +177,6 @@ while true == true # endless loop until interrupted
           f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M") + "–" + hightgttime.strftime("%H:%M"))
         end
         # moving iTunes to after Minuteur to avoid the 10 second delay
-        # => taking this out because it takes too much time on every loop
-        #        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
         # begin
         #   iTunes.next_track
         #   iTunes.play
@@ -192,7 +197,7 @@ while true == true # endless loop until interrupted
 
         #ψ ]] Wait for user input
         statusinput = Readline.readline('[f]inished [s]kip [r]estart [e]xception e[x]it? ',true)
-#        app("Minuteur").quit
+        #        app("Minuteur").quit
         # TODO 2010-08-20_1401-0700  Add "Go back one step" option
         # TODO 20100802_1325 Add "Combine with previous" option
         # TODO 20100725_1010 Add Pause option
@@ -298,51 +303,51 @@ while true == true # endless loop until interrupted
       end
       shout "#{oordeel} #{plaatsteller.ordinalize} place."
 
-        #ψ ] Store real end time
-        if @eindtijd != 0
-          waarden.unshift(@eindtijd).sort!
-          # leave time to build up some extra values, otherwise outliers are immediately chopped off
-          # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
-          wgrootte = waarden.size
-          mingrootte = 4
-          if wgrootte > (3 * mingrootte)
-            # cut half of difference to the front
-            waarden.shift((wgrootte-mingrootte)/2)
-            # and cut half of difference to the back
-            waarden.pop((wgrootte-mingrootte)/2)
-          end
-        end # if @eindtijd
-        # DONE 20100725_0828 reproject end time 20100726_1229
-        #ψ Store data for next time
-        # DONE 20100802_1327 - save values on every loop
-        File.open( @laadbestand, 'w' ) do |out|
-          YAML.dump( @tasks, out )
+      #ψ ] Store real end time
+      if @eindtijd != 0
+        waarden.unshift(@eindtijd).sort!
+        # leave time to build up some extra values, otherwise outliers are immediately chopped off
+        # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
+        wgrootte = waarden.size
+        mingrootte = 4
+        if wgrootte > (3 * mingrootte)
+          # cut half of difference to the front
+          waarden.shift((wgrootte-mingrootte)/2)
+          # and cut half of difference to the back
+          waarden.pop((wgrootte-mingrootte)/2)
         end
-        File.open("/tmp/routinetracker.log", 'w+')  do |f|
-          f.write("RoutineTracker IDLE")
-        end
-      end #ψ End loop through defined task
-      # TODO 20100725_0828 report total score
-      if @breekmij then
-        @breekmij = false
-        break
+      end # if @eindtijd
+      # DONE 20100725_0828 reproject end time 20100726_1229
+      #ψ Store data for next time
+      # DONE 20100802_1327 - save values on every loop
+      File.open( @laadbestand, 'w' ) do |out|
+        YAML.dump( @tasks, out )
       end
+      File.open("/tmp/routinetracker.log", 'w+')  do |f|
+        f.write("RoutineTracker IDLE")
+      end
+    end #ψ End loop through defined task
+    # TODO 20100725_0828 report total score
+    if @breekmij then
+      @breekmij = false
+      break
     end
-    print "\n\n"
-    eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
-    shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
-    # puts "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
-    @myevent.end_date.set(Time.now()+1)
-    @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
-    @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
-    @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
-    shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
-    File.open("_bezig.yaml", 'w+')  do |out|
-      YAML.dump( @active, out )
-    end
-    #app("TextMate").open MacTypes::Alias.path(@laadbestand)
-    #app('TextMate').activate
-    #    app('iCal').activate
-
-    @laadbestand = nil
   end
+  print "\n\n"
+  eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
+  shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
+  # puts "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
+  @myevent.end_date.set(Time.now()+1)
+  @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
+  @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
+  @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
+  shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+  File.open("_bezig.yaml", 'w+')  do |out|
+    YAML.dump( @active, out )
+  end
+  #app("TextMate").open MacTypes::Alias.path(@laadbestand)
+  #app('TextMate').activate
+  #    app('iCal').activate
+
+  @laadbestand = nil
+end
