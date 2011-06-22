@@ -13,13 +13,13 @@ File.open("/tmp/routinetracker.log", "r")  do |f|
     # puts "The string is $#{line}$"
     testwaarde = line.match("IDLE").to_s
     if testwaarde == "IDLE" then
-      system("/usr/local/bin/growlnotify -p 0 -m \"IDLE\" ")
+      system("/usr/local/bin/growlnotify -p 0 -m \"stijvelul IDLE\" ")
       unless stil 
         say("IDLE")
       end
     else
       tijdmelding = Time.now().strftime("%H:%M:%S")
-      system("/usr/local/bin/growlnotify -p 0 -t \"#{tijdmelding}\" -m \"#{line}\" ")
+      system("/usr/local/bin/growlnotify -p 0 -t \"lekkerkontje #{tijdmelding}\" -m \"#{line}\" ")
       firstword = line.split(/ /)[0]
       unless stil 
         say(firstword)
