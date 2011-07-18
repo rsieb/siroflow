@@ -9,23 +9,32 @@ class Main
     f.close
   rescue
     f = File.new("/tmp/routinetracker.log", "w+")
-    f.puts("IDLE man!")
+    f.write("IDLE •")
     retry
   end
 
   #puts "The string is $#{line}$"
   testwaarde = line.match("IDLE").to_s
-  if testwaarde == "IDLE" then
-#    system("/usr/local/bin/growlnotify -p 4 -m 'IDLE' ")    
-    system("/usr/local/bin/growlnotify -p 5 #{line} ")    
-    unless File.exist?("/Users/rs/Desktop/silent") then
-      system("say #{line}")
-    end
-  else
-    #firstword = line.split(/ /)[0]
-    #system("/usr/local/bin/growlnotify -p 0 -m #{firstword} ")    
-    system("/usr/local/bin/growlnotify -p 0 -m #{line} ")    
-  end
+  puts line
+  puts testwaarde
+
+ if testwaarde == "IDLE" then
+   #    system("/usr/local/bin/growlnotify -p 4 -m 'IDLE' ")    
+   system("/usr/local/bin/growlnotify -p 5 -t 'Superfocus' -m '#{line}' ")    
+   #system("open -a ScreenSaverEngine")
+   f = File.open("/tmp/routinetracker.log", "a")
+   f.write("•")
+   f.close
+   # unless File.exist?("/Users/rs/Desktop/silent") then
+   #   system("say #{line}")
+   # end
+ else
+   sayable = line.split(/\#/)[0]
+   system("/usr/local/bin/growlnotify -p 0 -t 'Superfocus' -m '#{sayable}' ")    
+   # unless File.exist?("/Users/rs/Desktop/silent") then
+   #   system("say '#{sayable}'")
+   # end
+ end
 
 end
 
