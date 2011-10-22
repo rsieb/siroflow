@@ -1,4 +1,4 @@
-#!/usr/bin/archi -i386 ruby
+#!/usr/bin/arch -i386 ruby
 
 #ψ Set up libraries and data definitions
 
@@ -6,7 +6,7 @@
 require 'rubygems'
 require 'yaml'
 require 'appscript' ; include Appscript
-require 'osax' ; include OSAX
+#require 'osax' ; include OSAX
 require 'readline'
 require 'active_support/core_ext/integer/inflections'
 
@@ -67,20 +67,20 @@ while true == true # endless loop until interrupted
     exit 1
   end
 
-  sa = OSAX::ScriptingAddition.new("StandardAdditions")
-  sa.activate
-  mywork = sa.display_dialog("What have you picked from Superfocus?", :default_answer => "Social media", :buttons => ['Cancel ', 'Start'], :default_button => 2)
-  mytask = mywork[:text_returned]
-  # 
-  # if mywork[:button_returned] == 'Cancel ' then
-  #   exit
-  # end
-  # 
-  # if ( mytask == "" || mytask == "missing value") then
-  #   exit
-  # end
-  # 
-  #end
+  # sa = OSAX::ScriptingAddition.new("StandardAdditions")
+  # sa.activate
+  # mywork = sa.display_dialog("What have you picked from Superfocus?", :default_answer => "Social media", :buttons => ['Cancel ', 'Start'], :default_button => 2)
+  # mytask = mywork[:text_returned]
+  # # 
+  # # if mywork[:button_returned] == 'Cancel ' then
+  # #   exit
+  # # end
+  # # 
+  # # if ( mytask == "" || mytask == "missing value") then
+  # #   exit
+  # # end
+  # # 
+  # #end
 
 
   bbeeggiinnttiijjdd = Time.now()
@@ -113,9 +113,10 @@ while true == true # endless loop until interrupted
     end
   end
 
+  mytask = @laadbestand.gsub(".routine.yaml","")
+  
   taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
   app("iCal").windows[1].switch_view(:to => :week_view)
-  #  say "#{@laadbestand.gsub(".routine.yaml","")}"
   say "#{mytask}"
   @myevent = app("iCal").make(
   :at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end,

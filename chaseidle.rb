@@ -21,13 +21,14 @@ class Main
  if testwaarde == "IDLE" then
    #    system("/usr/local/bin/growlnotify -p 4 -m 'IDLE' ")    
    system("/usr/local/bin/growlnotify -p 5 -t 'Superfocus' -m '#{line}' ")    
-   #system("open -a ScreenSaverEngine")
+   sleep 1
+   system("open -a ScreenSaverEngine")
    f = File.open("/tmp/routinetracker.log", "a")
    f.write("•")
    f.close
-   # unless File.exist?("/Users/rs/Desktop/silent") then
-   #   system("say #{line}")
-   # end
+   unless File.exist?("/Users/rs/Desktop/silent") then
+     system("say #{line}")
+   end
  else
    sayable = line.split(/\#/)[0]
    system("/usr/local/bin/growlnotify -p 0 -t 'Superfocus' -m '#{sayable}' ")    
