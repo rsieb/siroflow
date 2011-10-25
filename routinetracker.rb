@@ -296,31 +296,32 @@ while true == true # endless loop until interrupted
           #   shout("Too #{teken}") 
           # end     
 
+          # TOP X Scoring
+          plaatsteller = 1
+          waarden.sort!.each do |referentie|
+            if @eindtijd > referentie
+              plaatsteller = plaatsteller + 1
+            else
+              break
+            end # if @eindtijd > referentie
+          end # waarden.each
+          case plaatsteller
+          when 1
+            oordeel = "Woohoo! You won "
+          when 2
+            oordeel = "Excellent, you got the"
+          when 3
+            oordeel = "Good, "
+          when 4..5
+            oordeel = "Not bad, "
+          else
+            oordeel = "Concentrate! Only "
+          end # case plaatsteller
+          shout "#{oordeel} #{plaatsteller.ordinalize} place."
+
         end # case status
       end #ψ End while user not finished
 
-      # TOP X Scoring
-      plaatsteller = 1
-      waarden.sort!.each do |referentie|
-        if @eindtijd > referentie
-          plaatsteller = plaatsteller + 1
-        else
-          break
-        end # if @eindtijd > referentie
-      end # waarden.each
-      case plaatsteller
-      when 1
-        oordeel = "Woohoo! You won "
-      when 2
-        oordeel = "Excellent, you got the"
-      when 3
-        oordeel = "Good, "
-      when 4..5
-        oordeel = "Not bad, "
-      else
-        oordeel = "Concentrate! Only "
-      end # case plaatsteller
-      shout "#{oordeel} #{plaatsteller.ordinalize} place."
 
       #ψ ] Store real end time
       if @eindtijd != 0
@@ -339,9 +340,11 @@ while true == true # endless loop until interrupted
       # DONE 20100725_0828 reproject end time 20100726_1229
       #ψ Store data for next time
       # DONE 20100802_1327 - save values on every loop
-      File.open( @laadbestand, 'w' ) do |out|
-        YAML.dump( @tasks, out )
-      end # File.open
+      if @tasks != nil
+        File.open( @laadbestand, 'w' ) do |out|
+          YAML.dump( @tasks, out )
+        end # File.open
+      end
       File.open("/tmp/routinetracker.log", 'w+')  do |f|
         f.write("RoutineTracker IDLE")
       end # File.open
