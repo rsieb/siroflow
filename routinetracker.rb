@@ -183,14 +183,11 @@ while true == true # endless loop until interrupted
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
-        # begin
-        #   app("Minuteur").activate
-        #   #             app("Timeboxed").reset
-        #   app("Minuteur").StartCountdown((@doel).to_minuteur)
-        # rescue
-        #   puts "Some problem with Minuteur"
-        # end
-        #app("Minuteur").StartCountdown((@doel+@afwijking).to_minuteur)
+begin
+  app("Pomodoro").start("#{activiteit.upcase}", :duration => @doel/60.0)
+rescue
+  say("Error starting Pomodoro")
+end  
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
@@ -227,12 +224,23 @@ while true == true # endless loop until interrupted
         case status
         when "s"
           @eindtijd = 0
+          begin
+            app("Pomodoro").reset
+          rescue
+            say("Error resetting Pomodoro")
+          end  
 
         when "x"
           # TODO 2010-08-21_1434-0700 move this to a try - rescue - ensure statement
           # File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #   f.write("RoutineTracker IDLE  \t\n")
           # end
+          begin
+            app("Pomodoro").reset
+          rescue
+            say("Error resetting Pomodoro")
+          end  
+          
           # eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
           # @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
           # @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
@@ -256,13 +264,29 @@ while true == true # endless loop until interrupted
           starttijd = Time.now()
           @doeltijd = starttijd + @doel
           say "Restarted"
+          begin
+            app("Pomodoro").reset
+          rescue
+            say("Error resetting Pomodoro")
+          end  
 
         when "e"
           @eindtijd = (starttijd - @gedaan)
           shout("Exception")
+          begin
+            app("Pomodoro").force_completion
+          rescue
+            say("Error completing Pomodoro")
+          end  
 
         else
           @eindtijd = (@gedaan - starttijd)
+
+          begin
+            app("Pomodoro").force_completion
+          rescue
+            say("Error completing Pomodoro")
+          end  
 
           say("#{@eindtijd.to_human}")
           puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
