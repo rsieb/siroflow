@@ -118,17 +118,17 @@ while true == true # endless loop until interrupted
   mytask = @laadbestand.gsub(".routine.yaml","")
 
   taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
-  app("iCal").windows[1].switch_view(:to => :week_view)
+#  app("iCal").windows[1].switch_view(:to => :week_view)
   say "#{mytask}"
-  @myevent = app("iCal").make(
-  :at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end,
-  :new => :event,
-  :with_properties => {
-    :start_date => Time.now(),
-    :end_date => Time.now() + @totaalseconden,
-    :summary => "#{taaknummer} #{mytask} #{(@totaalseconden/60).to_i}/"
-  }
-  )
+  # @myevent = app("iCal").make(
+  # :at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end,
+  # :new => :event,
+  # :with_properties => {
+  #   :start_date => Time.now(),
+  #   :end_date => Time.now() + @totaalseconden,
+  #   :summary => "#{taaknummer} #{mytask} #{(@totaalseconden/60).to_i}/"
+  # }
+  # )
   @totaalminuten = (@totaalseconden/60 + 0.5 ).to_i + 1
   begin
     app("Pomodoro").start("#{mytask}", :duration => @totaalminuten)
@@ -201,14 +201,14 @@ while true == true # endless loop until interrupted
         # rescue
         #   puts("Some problem with iTunes")
         # end
-        app("iCal").run
-        icallog = @myevent.description.get.to_s
-        if icallog == "missing_value" then
-          icallog = "Routinetracker.rb (c)2010-2011 by Roland Siebelink"
-        end
-        icalentry = "\n#{Time.now.strftime("%x %X")} #{activiteit} #{@doel.to_human}"
-        @myevent.description.set(icallog + icalentry)
-        @myevent.end_date.set(endtime+3600)
+        # # app("iCal").run
+        # # icallog = @myevent.description.get.to_s
+        # # if icallog == "missing_value" then
+        # #   icallog = "Routinetracker.rb (c)2010-2011 by Roland Siebelink"
+        # # end
+        # # icalentry = "\n#{Time.now.strftime("%x %X")} #{activiteit} #{@doel.to_human}"
+        # @myevent.description.set(icallog + icalentry)
+        # @myevent.end_date.set(endtime+3600)
         #puts "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
 
