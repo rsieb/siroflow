@@ -37,12 +37,6 @@ if ARGV[0] then
   @laadbestand = ARGV[0]
 end
 
-begin
-  app("Pomodoro").reset
-rescue
-  say("Error resetting Pomodoro")
-end  
-
 # FIXED 2010-08-21_1346-0700 adding endless loop
 while true == true # endless loop until interrupted
   system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
@@ -135,6 +129,12 @@ while true == true # endless loop until interrupted
     :summary => "#{taaknummer} #{mytask} #{(@totaalseconden/60).to_i}/"
   }
   )
+  @totaalminuten = (@totaalseconden/60 + 0.5 ).to_i + 1
+  begin
+    app("Pomodoro").start("#{mytask}", :duration => @totaalminuten)
+  rescue
+    say("Error starting Pomodoro")
+  end  
   #  app("iCal").activate
   #  @myevent.show
   @bezig = 0
@@ -189,11 +189,6 @@ while true == true # endless loop until interrupted
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
-        begin
-          app("Pomodoro").start("#{activiteit}", :duration => (@doel/60))
-        rescue
-          say("Error starting Pomodoro")
-        end  
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
@@ -241,11 +236,6 @@ while true == true # endless loop until interrupted
           # File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #   f.write("RoutineTracker IDLE  \t\n")
           # end
-          begin
-            app("Pomodoro").reset
-          rescue
-            say("Error resetting Pomodoro")
-          end  
 
           # eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
           # @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
@@ -270,29 +260,13 @@ while true == true # endless loop until interrupted
           starttijd = Time.now()
           @doeltijd = starttijd + @doel
           say "Restarted"
-          begin
-            app("Pomodoro").reset
-          rescue
-            say("Error resetting Pomodoro")
-          end  
 
         when "e"
           @eindtijd = (starttijd - @gedaan)
           shout("Exception")
-          begin
-            app("Pomodoro").force_completion
-          rescue
-            say("Error completing Pomodoro")
-          end  
 
         else
           @eindtijd = (@gedaan - starttijd)
-
-          begin
-            app("Pomodoro").force_completion
-          rescue
-            say("Error completing Pomodoro")
-          end  
 
           say("#{@eindtijd.to_human}")
           puts "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
@@ -386,8 +360,14 @@ while true == true # endless loop until interrupted
       exit
     end
   end
+  
   print "\n\n"
   eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
+  begin
+    app("Pomodoro").force_completion
+  rescue
+    say("Error completing Pomodoro")
+  end  
   shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
   # puts "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
   @myevent.end_date.set(Time.now()+1)
