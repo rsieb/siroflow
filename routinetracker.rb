@@ -37,6 +37,12 @@ if ARGV[0] then
   @laadbestand = ARGV[0]
 end
 
+begin
+  app("Pomodoro").reset
+rescue
+  say("Error resetting Pomodoro")
+end  
+
 # FIXED 2010-08-21_1346-0700 adding endless loop
 while true == true # endless loop until interrupted
   system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
@@ -116,7 +122,7 @@ while true == true # endless loop until interrupted
   end
 
   mytask = @laadbestand.gsub(".routine.yaml","")
-  
+
   taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
   app("iCal").windows[1].switch_view(:to => :week_view)
   say "#{mytask}"
@@ -183,11 +189,11 @@ while true == true # endless loop until interrupted
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
         #ψ ]] Start the clock
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
-begin
-  app("Pomodoro").start("#{activiteit.upcase}", :duration => @doel/60.0)
-rescue
-  say("Error starting Pomodoro")
-end  
+        begin
+          app("Pomodoro").start("#{activiteit}", :duration => (@doel/60))
+        rescue
+          say("Error starting Pomodoro")
+        end  
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
@@ -240,7 +246,7 @@ end
           rescue
             say("Error resetting Pomodoro")
           end  
-          
+
           # eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
           # @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
           # @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
