@@ -131,7 +131,7 @@ while true == true # endless loop until interrupted
   # )
   @totaalminuten = (@totaalseconden/60 + 0.5 ).to_i + 1
   begin
-    app("Pomodoro").start("#{mytask}", :duration => @totaalminuten)
+    app("Pomodoro").start("#{mytask} #rout", :duration => @totaalminuten)
   rescue
     say("Error starting Pomodoro")
   end  
@@ -370,8 +370,8 @@ while true == true # endless loop until interrupted
   end  
   shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
   # puts "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
-  @myevent.end_date.set(Time.now()+1)
-  @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
+  # @myevent.end_date.set(Time.now()+1)
+  # @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
   @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
   @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
   shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
