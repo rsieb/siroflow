@@ -184,16 +184,24 @@ while true == true # endless loop until interrupted
         say("#{activiteit}")
         puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
         #       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
-        #       say("#{@doel.to_human}")
+        #   FIXED 201110280841 not using Minuteur anymore so are we reversing this?
+        shout("#{@doel.to_human}")
         puts "#{@doel.to_human}
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
-        #ψ ]] Start the clock
+
+# ===================
+# = Start the clock =
+# ===================
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
           f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M") + "--" + hightgttime.strftime("%H:%M"))
         end
+        app("TimeBoxed").reset
+        app("TimeBoxed").timer_duration.set(@doel)
+#        app("TimeBoxed").activate
+        app("TimeBoxed").start
         # moving iTunes to after Minuteur to avoid the 10 second delay
         # begin
         #   iTunes.next_track
@@ -334,7 +342,7 @@ while true == true # endless loop until interrupted
         # leave time to build up some extra values, otherwise outliers are immediately chopped off
         # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
         wgrootte = waarden.size
-        mingrootte = 4
+        mingrootte = 3
         if wgrootte > (3 * mingrootte)
           # cut half of difference to the front
           waarden.shift((wgrootte-mingrootte)/2)
