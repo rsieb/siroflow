@@ -184,8 +184,6 @@ while true == true # endless loop until interrupted
         say("#{activiteit}")
         puts("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
         #       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
-        #   FIXED 201110280841 not using Minuteur anymore so are we reversing this?
-        shout("#{@doel.to_human}")
         puts "#{@doel.to_human}
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
 
@@ -233,11 +231,6 @@ while true == true # endless loop until interrupted
         case status
         when "s"
           @eindtijd = 0
-          begin
-            app("Pomodoro").reset
-          rescue
-            say("Error resetting Pomodoro")
-          end  
 
         when "x"
           # TODO 2010-08-21_1434-0700 move this to a try - rescue - ensure statement
@@ -353,7 +346,7 @@ while true == true # endless loop until interrupted
       # DONE 20100725_0828 reproject end time 20100726_1229
       #ψ Store data for next time
       # DONE 20100802_1327 - save values on every loop
-      if @tasks != nil
+      if ( @tasks != nil && @laadbestand != nil )
         File.open( @laadbestand, 'w' ) do |out|
           YAML.dump( @tasks, out )
         end # File.open
