@@ -194,7 +194,7 @@ while true == true # endless loop until interrupted
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
-          f.write("#{activiteit} <" + @doeltijd.strftime("%H:%M") + "--" + hightgttime.strftime("%H:%M"))
+          f.write("#{activiteit} by #{@doeltijd.strftime("%H:%M")} #rout")
         end
         app("TimeBoxed").reset
         app("TimeBoxed").timer_duration.set(@doel)
