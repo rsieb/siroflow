@@ -29,20 +29,20 @@ class Main
     # unless File.exist?("/Users/rs/Desktop/silent") then
     #   system("say #{line}")
     # end
-  else
-    # DONE 201111031354 temporary implementation before changing routinetracker
-    # sayable2 = line.split(/\#/)[0]
-    # sayable = sayable2.split("<")[0] + " by " + sayable2.split("--")[1]
-    # DONE 201111031354 replace this over time with 
-    sayable = line.split(" ")[0]
-    tijd = line.split(" by ")[1]
-    unless !tijd
-      sayable = "#{sayable} by #{tijd}"
-    end
-    system("/usr/local/bin/growlnotify -p 0 -t 'Superfocus' -m '#{line}' ")    
-    unless File.exist?("/Users/rs/Desktop/silent") then
-      system("say '#{sayable}'")
-    end
+  # else
+  #   # DONE 201111031354 temporary implementation before changing routinetracker
+  #   # sayable2 = line.split(/\#/)[0]
+  #   # sayable = sayable2.split("<")[0] + " by " + sayable2.split("--")[1]
+  #   # DONE 201111031354 replace this over time with 
+  #   sayable = line.split(" ")[0]
+  #   tijd = line.split(" by ")[1]
+  #   unless !tijd
+  #     sayable = "#{sayable} by #{tijd}"
+  #   end
+  #   system("/usr/local/bin/growlnotify -p 0 -t 'Superfocus' -m '#{line}' ")    
+  #   unless File.exist?("/Users/rs/Desktop/silent") then
+  #     system("say '#{sayable}'")
+  #   end
   end
 
 end

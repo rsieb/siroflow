@@ -102,6 +102,7 @@ while true == true # endless loop until interrupted
   @tasks = YAML.load_file( @laadbestand )
   @aantal = @tasks.size
 
+
   #ψ Calculate totals
   # initialize empty value for total number of seconds
   @totaalseconden = 0
@@ -121,6 +122,12 @@ while true == true # endless loop until interrupted
   end
 
   mytask = @laadbestand.gsub(".routine.yaml","")
+  # Do we need a task description?
+  if mytask.start_with?("aah")
+    puts "Describe your task and the project it fits under?"
+    mytask = Readline.readline('> ', true)
+  end
+    
 
   taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
 #  app("iCal").windows[1].switch_view(:to => :week_view)
@@ -151,7 +158,7 @@ while true == true # endless loop until interrupted
     @teller = @tasks.index(taak)
     taak.each do |naam,waarden|
       #ψ ] Read title, target, set counter
-      activiteit = naam
+      activiteit = mytask + " " & naam
       # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
       @doel = waarden.valid_stats.mean * 0.99 # just a tiny speed up factor
       # DONE 20100802_1327 Calculate stdev rather than average
