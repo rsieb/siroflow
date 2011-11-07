@@ -83,6 +83,11 @@ while true == true # endless loop until interrupted
   # # end
   # # 
   # #end
+  begin
+    app("Pomodoro").quit
+  rescue
+    say("Error quitting Pomodoro")
+  end  
 
 
   bbeeggiinnttiijjdd = Time.now()
@@ -196,11 +201,16 @@ while true == true # endless loop until interrupted
           #          f.write("#{activiteit}, " + lowtgttime.strftime("%H:%M") +  + "   \t\n")
           f.write("#{activiteit} by #{@doeltijd.strftime("%H:%M")} #rout")
         end
-        app("TimeBoxed").reset
-        app("TimeBoxed").timer_duration.set(@doel)
-#        app("TimeBoxed").activate
-        app("TimeBoxed").start
-        # moving iTunes to after Minuteur to avoid the 10 second delay
+        iterm = Appscript::app("iTerm")
+myterminal =iterm.terminals[1]
+mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress"})
+mysession.exec(:command => "/bin/bash")
+mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb '#{activiteit}' #{@doel}")
+#         app("TimeBoxed").reset
+#         app("TimeBoxed").timer_duration.set(@doel)
+# #        app("TimeBoxed").activate
+#         app("TimeBoxed").start
+#         # moving iTunes to after Minuteur to avoid the 10 second delay
         # begin
         #   iTunes.next_track
         #   iTunes.play

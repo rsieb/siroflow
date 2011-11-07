@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'appscript' ; include Appscript
+require 'appscript' 
 
 
 
@@ -12,8 +12,8 @@ require 'appscript' ; include Appscript
 # # include Appscript
 # #  app("Minuteur").StartCountdown("001000")
 
-begin
-  app("Pomodoro").reset
-rescue
-  app("Pomodoro").start
-end  
+iterm = Appscript::app("iTerm")
+myterminal =iterm.terminals[1]
+mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress"})
+mysession.exec(:command => "/bin/bash")
+mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb 'make tea' 120")
