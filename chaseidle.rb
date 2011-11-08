@@ -26,9 +26,9 @@ class Main
     f = File.open("/tmp/routinetracker.log", "a")
     f.write("•")
     f.close
-    # unless File.exist?("/Users/rs/Desktop/silent") then
-    #   system("say #{line}")
-    # end
+    unless File.exist?("/Users/rs/Desktop/silent") then
+      system("say #{line}")
+    end
   # else
   #   # DONE 201111031354 temporary implementation before changing routinetracker
   #   # sayable2 = line.split(/\#/)[0]

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wKU
 
-
+SECONDSCORRECTION = 0.99 # of normally calculated time
 $taskname = ARGV[0].to_s
 $inputtime = ARGV[1].to_f
 
@@ -44,7 +44,7 @@ feedbackloop = {
 	0.33 => "One third",
 	0.5  => "Halfway",
 	0.67 => "Two thirds",
-	0.8	 => "Pareto",
+	0.8	 => "20% left",
 	0.9	 => "10% left",
 	0.925 => "Finish up now",
 	0.95 => "Almost done",
@@ -55,28 +55,28 @@ feedbackloop = {
 	1.0 => "Time is up!"
 }
 
-puts feedbackloop.inspect
-puts feedbackloop.class
+# puts feedbackloop.inspect
+# puts feedbackloop.class
 
 tijdloop = Hash.new()
 feedbackloop.each do |voorbij,uitspraak|
 	tijdloop[percent_to_seconds($inputtime,voorbij)]=uitspraak
 end
 
-puts tijdloop.inspect
-puts tijdloop.class
+# puts tijdloop.inspect
+# puts tijdloop.class
 
 # pseudo construct array with breaks
 tijdserie = tijdloop.sort
 teller = 0.0
 tijdserie.each do |mijnhash|
-	@reltime = mijnhash[0]-teller
+	@reltime = (mijnhash[0]-teller)*SECONDSCORRECTION
 	teller = teller + @reltime
 	mijnhash[0]=@reltime
 end
-
-puts tijdserie.inspect
-puts tijdserie.class
+# 
+# puts tijdserie.inspect
+# puts tijdserie.class
 
 #pseudo run array#pseudo 
 tijdserie.each do |wachten|
@@ -84,4 +84,9 @@ tijdserie.each do |wachten|
 	shout($taskname + " " + wachten[1])
 end
 
-load 'annoyme.rb'
+# now start bugging me
+1000.times.each do |keer|
+	shout "Finish #{$taskname}"
+	sleep 1
+end
+

@@ -39,7 +39,7 @@ end
 
 # FIXED 2010-08-21_1346-0700 adding endless loop
 while true == true # endless loop until interrupted
-  system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
+  #system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
   unless @laadbestand
     puts "\nLooking for files ending in .routine.yaml ...\n"
     #ψ All routines available are stored in the same directory and ending in *.routine.yaml
@@ -158,7 +158,7 @@ while true == true # endless loop until interrupted
     @teller = @tasks.index(taak)
     taak.each do |naam,waarden|
       #ψ ] Read title, target, set counter
-      activiteit = mytask + " " & naam
+      activiteit = "#{mytask} #{naam}"
       # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
       @doel = waarden.valid_stats.mean * 0.99 # just a tiny speed up factor
       # DONE 20100802_1327 Calculate stdev rather than average
