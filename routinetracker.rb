@@ -209,10 +209,11 @@ while true == true # endless loop until interrupted
           f.write("#{activiteit} by #{@doeltijd.strftime("%H:%M")} #rout")
         end
         iterm = Appscript::app("iTerm")
-myterminal =iterm.terminals[1]
-mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress"})
+myterminal =iterm.make(:new => :terminal, :with_properties => {:name => "progress terminal"})
+mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress session"})
 mysession.exec(:command => "/bin/bash")
 mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb '#{activiteit}' #{@doel}")
+iterm.activate
 #         app("TimeBoxed").reset
 #         app("TimeBoxed").timer_duration.set(@doel)
 # #        app("TimeBoxed").activate

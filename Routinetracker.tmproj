@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>routinetracker.rb</string>
+	<string>progress.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -13,8 +13,6 @@
 			<string>Routinetracker</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>selected</key>
-			<true/>
 			<key>sourceDirectory</key>
 			<string></string>
 		</dict>
@@ -23,20 +21,6 @@
 	<integer>226</integer>
 	<key>metaData</key>
 	<dict>
-		<key>Routinetracker.tmproj</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>aahsolong.routine.yaml</key>
 		<dict>
 			<key>caret</key>
@@ -70,28 +54,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>57</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>36</integer>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>routinetracker.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>21</integer>
+				<integer>93</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>212</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>7</integer>
+			<integer>135</integer>
 		</dict>
 		<key>sandbox.rb</key>
 		<dict>
@@ -124,7 +108,6 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>Routinetracker.tmproj</string>
 		<string>sandbox.rb</string>
 		<string>aahsolong.routine.yaml</string>
 		<string>progress.rb</string>
