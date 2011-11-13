@@ -124,7 +124,7 @@ class Numeric
       dagenstring = ""
     when 1
       dagenstring = "#{dagen.to_s} tasks "
-    else 2
+    else
       dagenstring = "#{dagen.to_s} tasks "
     end
 
@@ -134,7 +134,7 @@ class Numeric
     when 1
       urenstring = "#{uren.to_s} hour "
       ignoreseconds = true
-    else 2
+    else
       urenstring = "#{uren.to_s} hours "
       ignoreseconds = true
     end

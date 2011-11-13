@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>progress.rb</string>
+	<string>routinetracker.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,33 +21,77 @@
 	<integer>226</integer>
 	<key>metaData</key>
 	<dict>
-		<key>aahsolong.routine.yaml</key>
+		<key>Routinetracker.tmproj</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>gototraining.routine.yaml</key>
+		<key>_routine_methods.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>47</integer>
+		</dict>
+		<key>chaseidle.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
+			<integer>3</integer>
+		</dict>
+		<key>plannedpomodoro.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
 			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
 		</dict>
 		<key>progress.rb</key>
 		<dict>
@@ -68,51 +112,54 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>93</integer>
+				<integer>79</integer>
 				<key>line</key>
-				<integer>212</integer>
+				<integer>146</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>135</integer>
+			<integer>129</integer>
 		</dict>
 		<key>sandbox.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>17</integer>
+				<integer>39</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>10</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>write_article.routine.yaml</key>
+		<key>silence_minuter.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>9</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>104</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>63</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>sandbox.rb</string>
-		<string>aahsolong.routine.yaml</string>
 		<string>progress.rb</string>
 		<string>routinetracker.rb</string>
-		<string>gototraining.routine.yaml</string>
+		<string>plannedpomodoro.rb</string>
+		<string>_routine_methods.rb</string>
+		<string>chaseidle.rb</string>
+		<string>silence_minuter.rb</string>
+		<string>Routinetracker.tmproj</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -129,6 +176,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{763, 70}, {958, 778}}</string>
+	<string>{{191, 365}, {935, 529}}</string>
 </dict>
 </plist>

@@ -25,7 +25,7 @@ require './_routine_methods'
 
 #ψ Get data from external file
 @active = Hash.new()
-@active = YAML.load_file( "_bezig.yaml" )
+@active = YAML.load_file( "yamls/_bezig.yaml" )
 @totaalbezig = @active[Time.now.strftime("%Y-%m-%d")] || @totaalbezig = 0
 
 #ψ Clear screen and welcome user
@@ -43,14 +43,14 @@ while true == true # endless loop until interrupted
   unless @laadbestand
     puts "\nLooking for files ending in .routine.yaml ...\n"
     #ψ All routines available are stored in the same directory and ending in *.routine.yaml
-    @keuze = Dir.glob("*.routine.yaml")
+    @keuze = Dir.glob("yamls/*.routine.yaml")
     #ψ Show the possible routines to the user
     @keuze.each_index do |number|
       # TODO 2010-08-20_1432-0700 replace this with printing nicely in columns
       # either just space them out halfway on the screen or print an array
       # as two columns as discussed on http://railsforum.com/viewtopic.php?id=15716
       # correcting for counting from 1 to reserve 0 value for strings and cancellatons
-      print "[#{(number+1).to_s(36)}] #{@keuze[number].gsub(".routine.yaml","")}  "
+      print "[#{(number+1).to_s(36)}] #{@keuze[number].gsub(".routine.yaml","").gsub("yamls/","")}  "
     end
     print " or e[X]uit"
     # Ask the user for his choice
@@ -85,10 +85,10 @@ while true == true # endless loop until interrupted
   # #end
   begin
     app("Pomodoro").quit
-  rescue
-    say("Error quitting Pomodoro")
-  end  
-
+  rescue Exception => e
+    puts e.message
+    puts e.backtrace.inspect
+  end
 
   bbeeggiinnttiijjdd = Time.now()
   # begin
@@ -121,17 +121,17 @@ while true == true # endless loop until interrupted
     end
   end
 
-  mytask = @laadbestand.gsub(".routine.yaml","")
+  mytask = @laadbestand.gsub(".routine.yaml","").gsub("yamls/","")
   # Do we need a task description?
   if mytask.start_with?("aah")
     puts "Describe your task and the project it fits under?"
     mytask = Readline.readline('> ', true)
   end
-    
+
 
   taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
-#  app("iCal").windows[1].switch_view(:to => :week_view)
-  say "#{mytask}"
+  #  app("iCal").windows[1].switch_view(:to => :week_view)
+  #  say "#{mytask}"
   # @myevent = app("iCal").make(
   # :at => app.calendars[its.name.eq("Tracker")].calendars[1].events.end,
   # :new => :event,
@@ -142,11 +142,14 @@ while true == true # endless loop until interrupted
   # }
   # )
   @totaalminuten = (@totaalseconden/60 + 0.5 ).to_i + 1
-  begin
-    app("Pomodoro").start("#{mytask} #rout", :duration => @totaalminuten)
-  rescue
-    say("Error starting Pomodoro")
-  end  
+
+begin
+say "Starting Pomodoro for #{mytask} with duration of #{@totaalminuten} minutes"
+    app("Pomodoro").start("#{mytask}", :duration => @totaalminuten)
+ rescue Exception => e
+    puts e.message
+    puts e.backtrace.inspect
+  end
   #  app("iCal").activate
   #  @myevent.show
   @bezig = 0
@@ -158,7 +161,7 @@ while true == true # endless loop until interrupted
     @teller = @tasks.index(taak)
     taak.each do |naam,waarden|
       #ψ ] Read title, target, set counter
-      activiteit = "#{mytask} #{naam}"
+      activiteit = "#{naam}"
       # TODO 20100726_0931 move target calculation to beginning of code, keeping only real results in database?
       @doel = waarden.valid_stats.mean * 0.99 # just a tiny speed up factor
       # DONE 20100802_1327 Calculate stdev rather than average
@@ -199,9 +202,9 @@ while true == true # endless loop until interrupted
         puts "#{@doel.to_human}
         (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
 
-# ===================
-# = Start the clock =
-# ===================
+        # ===================
+        # = Start the clock =
+        # ===================
         # NICETOHAVE 2010-08-21_1409-0700 add "leisurely" or "aggressive" option to set target differently based on mood of user. Or based on average performance so far?
 
         File.open("/tmp/routinetracker.log", 'w+')  do |f|
@@ -209,16 +212,18 @@ while true == true # endless loop until interrupted
           f.write("#{activiteit} by #{@doeltijd.strftime("%H:%M")} #rout")
         end
         iterm = Appscript::app("iTerm")
-myterminal =iterm.make(:new => :terminal, :with_properties => {:name => "progress terminal"})
-mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress session"})
-mysession.exec(:command => "/bin/bash")
-mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb '#{activiteit}' #{@doel}")
-iterm.activate
-#         app("TimeBoxed").reset
-#         app("TimeBoxed").timer_duration.set(@doel)
-# #        app("TimeBoxed").activate
-#         app("TimeBoxed").start
-#         # moving iTunes to after Minuteur to avoid the 10 second delay
+        oldterminal = iterm.terminals[1]
+        myterminal = iterm.make(:new => :terminal)
+        mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress session"})
+        mysession.exec(:command => "/bin/bash")
+        mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb '#{activiteit}' #{@doel}")
+        oldterminal.activate
+
+        #         app("TimeBoxed").reset
+        #         app("TimeBoxed").timer_duration.set(@doel)
+        # #        app("TimeBoxed").activate
+        #         app("TimeBoxed").start
+        #         # moving iTunes to after Minuteur to avoid the 10 second delay
         # begin
         #   iTunes.next_track
         #   iTunes.play
@@ -246,6 +251,12 @@ iterm.activate
         @gedaan = Time.now()
 
         #ψ ]] Process user input
+
+        begin
+          mysession.terminate
+        rescue
+          # probably already closed
+        end
         case status
         when "s"
           @eindtijd = 0
@@ -379,22 +390,23 @@ iterm.activate
       exit
     end
   end
-  
+
   print "\n\n"
   eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
   begin
     app("Pomodoro").force_completion
-  rescue
-    say("Error completing Pomodoro")
-  end  
-  shout "#{@laadbestand.gsub(".routine.yaml"," routine")} done in #{eeiinnddttiidd.to_human}."
+  rescue Exception => e
+    puts e.message
+    puts e.backtrace.inspect
+  end
+  shout "#{@laadbestand.gsub(".routine.yaml"," routine").gsub("yamls/","")} done in #{eeiinnddttiidd.to_human}."
   # puts "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
   # @myevent.end_date.set(Time.now()+1)
   # @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
   @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
   @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
   shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
-  File.open("_bezig.yaml", 'w+')  do |out|
+  File.open("yamls/_bezig.yaml", 'w+')  do |out|
     YAML.dump( @active, out )
   end # File.open
   # #app("TextMate").open MacTypes::Alias.path(@laadbestand)

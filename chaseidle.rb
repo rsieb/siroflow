@@ -7,11 +7,13 @@ require '/Users/rs/Dropbox/Library/Scripts/Routinetracker/_routine_methods.rb'
 
 
 module IdleChaser
-  ACIVITYFILE = "/tmp/routinetracker.log"
+  ACTIVITYFILE = "/tmp/routinetracker.log"
+  IDLEMARKER = "•"
 
   class Terminal
 
     def initialize
+      @terminal = "blabla"
     end
 
     @@instance = Terminal.new
@@ -20,11 +22,12 @@ module IdleChaser
       return @@instance
     end
 
-    def self.silent?
-      @@silent File.exist?("/Users/rs/Desktop/silent")
+    def silent?
+      @@silent = File.exist?("/Users/rs/Desktop/silent")
+      return @@silent
     end
 
-    def self.say(saying)
+    def say(saying)
       system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
       unless self.silent
         system("say #{saying}")
@@ -32,11 +35,11 @@ module IdleChaser
     end
 
     def self.chaseup(sayable)
-      say(sayable)
+      say("Work on #{sayable}")
       sleep 2
       system("open -a ScreenSaverEngine")
       f = File.open("/tmp/routinetracker.log", "a")
-      f.write("*")
+      f.write("#{IDLEMARKER}")
       f.close
     end
 
@@ -47,71 +50,65 @@ module IdleChaser
     private_class_method :new
   end
 
-  class Planning
+  class Log
+
+    attr_reader :contents
+
     def initialize
-      @events = Appscript::app("iCal").calendars["Planning"].events.get
+      unless File.exist?(ACTIVITYFILE)
+        f = File.new(ACTIVITYFILE, "w+")
+        f.write("IDLE #{IDLEMARKER}")
+        f.close        
+      end
+      @reader = File.open(ACTIVITYFILE, "r")
+      @contents = @reader.gets
+      @reader.close
     end
 
-    def target
-      currentappt = @events.find_all{|mtg|
-        mtg.start_date.get < Time.now() &&
-        mtg.end_date.get > Time.now()
-        }.first.summary.get
-        if ( !currentappt || @current == :missing_value )
-          return nil
-        else
-          return currentappt
-        end
-      end
+    @@instance = Log.new
 
-      def actual
-        begin 
-          f = File.open("/tmp/routinetracker.log", "r")
-          line = f.gets
-        rescue
-          # if this file doesn't exist, we just create it
-          f = File.new("/tmp/routinetracker.log", "w+")
-          f.write("IDLE *")
-          retry
-        ensure
-          f.close
-        end
-
-        return line
-      end
-
-      def idle?(input)
-        input.match("IDLE").to_s
-      end
-
+    def self.instance
+      return @@instance
     end
 
-    class Main
+    def idle
+      @writer = File.open(ACTIVITYFILE, "a")
+      @writer.write("#{IDLEMARKER}")
+      @writer.close
+    end
 
-      if testwaarde == "IDLE" then
+  end
 
-        #    system("/usr/local/bin/growlnotify -p 4 -m 'IDLE' ")    
-        system("/usr/local/bin/growlnotify -p 5 -t 'Superfocus' -m '#{line}' ")    
-        unless File.exist?("/Users/rs/Desktop/silent") then
-          system("say '#{sayable}'")
-        end
-        #    load '/Users/rs/Dropbox/Library/Scripts/Routinetracker/plannedpomodoro.rb'
+  class Activity
+
+    def self.target
+      currentappts = Appscript::app("iCal").calendars["Planning"].events.get.find_all{|mtg|
+        mtg.start_date.get < Time.now() && mtg.end_date.get > Time.now()
+      }
+      currentappt = currentappts.first.summary.get
+      if ( !currentappt || currentappt == :missing_value )
+        return nil
       else
-        # DONE 201111031354 temporary implementation before changing routinetracker
-        # sayable2 = line.split(/\#/)[0]
-        # sayable = sayable2.split("<")[0] + " by " + sayable2.split("--")[1]
-        # DONE 201111031354 replace this over time with 
-        sayable = line.split(" ")[0]
-        # tijd = line.split(" by ")[1]
-        # unless !tijd
-        #   sayable = "#{sayable} by #{tijd}"
-        # end
-        system("/usr/local/bin/growlnotify -p 0 -t 'Superfocus' -m '#{line}' ")    
-        unless File.exist?("/Users/rs/Desktop/silent") then
-          system("say '#{sayable}'")
-        end
+        return currentappt
       end
+    end
 
+    def self.idle?(summary)
+      summary.match("IDLE").to_s.size > 0
+    end
+
+    def self.actual
+      Log.instance.contents.split(' #')[0]
+    end
+
+  end
+
+  class Main < Activity
+    if idle?(actual) 
+      Terminal.chaseup(target)
+    else
+      Terminal.remind(actual)
     end
   end
+
 end
