@@ -1,9 +1,5 @@
-#!/usr/bin/env ruby
-####!/usr/bin/arch -i386 ruby
-
-
-#ψ Set up libraries and data definitions
-
+#!/usr/bin/env ruby -wKU
+# encoding: UTF-8
 
 require 'rubygems'
 require 'yaml'
