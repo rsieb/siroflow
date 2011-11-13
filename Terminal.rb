@@ -4,7 +4,10 @@ module RoutineTracker
   class Terminal
 
     def initialize
-      @terminal = "blabla"
+      # Store the state of the terminal
+      stty_save = `stty -g`.chomp
+      # Allow for user cancellations without generating an exception
+      @terminal = trap('INT') { system('stty', stty_save); exit }
     end
 
     @@instance = Terminal.new
@@ -13,20 +16,35 @@ module RoutineTracker
       return @@instance
     end
 
-    def self.silent?
+    def silent?
       @@silent = File.exist?("/Users/rs/Desktop/silent")
       return @@silent
     end
 
-    def self.say(saying)
+    def notify(printable)
+      puts(printable)  
+    end
+    
+    def ask(instruction, prompt)
+      @@instance.notify(instruction)
+      Readline.readline(prompt, true)
+    end
+
+    def say(saying)
       system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
-      unless Terminal.silent?
+      unless @@instance.silent?
         system("say #{saying}")
       end
     end
+    
+    def shout(saying)
+      @@instance.notify(saying)
+      @@instance.say(saying)
+    end
+    
 
     def self.chaseup(sayable)
-      Terminal.say("Work on #{sayable}")
+      @@instance.say("Work on #{sayable}")
       sleep 2
       system("open -a ScreenSaverEngine")
       f = File.open("/tmp/routinetracker.log", "a")
@@ -35,9 +53,16 @@ module RoutineTracker
     end
 
     def self.remind(sayable)
-      Terminal.say(sayable)
+      @@instance.say(sayable)
     end
 
+    def welcome(software)
+      #ψ Clear screen and welcome user
+      print "\e[H\e[2J"
+      puts "\nWelcome to #{software}!\n"
+      @@instance.say "Welcome!"
+    end
+    
     private_class_method :new
   end
 

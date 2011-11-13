@@ -7,7 +7,7 @@ require 'appscript'
 require_relative 'Terminal'
 require_relative 'Log'
 require_relative 'Activity'
-require_relative 'Pomodoro'
+#require_relative 'Pomodoro'
 
 module RoutineTracker
 

@@ -10,10 +10,6 @@ def say(saying)
   end
 end
 
-def shout(saying)
-  puts saying
-  say(saying)
-end
 
 
 
