@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>routinetracker.rb</string>
+	<string>Activity.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,6 +21,48 @@
 	<integer>226</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Activity.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>Log.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>35</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>Pomodoro.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Routinetracker.tmproj</key>
 		<dict>
 			<key>caret</key>
@@ -35,19 +77,33 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>Terminal.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>_routine_methods.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>24</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>47</integer>
+			<integer>0</integer>
 		</dict>
 		<key>chaseidle.rb</key>
 		<dict>
@@ -56,12 +112,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>19</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>3</integer>
+			<integer>0</integer>
 		</dict>
 		<key>plannedpomodoro.rb</key>
 		<dict>
@@ -70,7 +126,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>25</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -83,14 +139,14 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>18</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>25</integer>
 			</dict>
 		</dict>
 		<key>progress.rb</key>
@@ -112,14 +168,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>79</integer>
+				<integer>10</integer>
 				<key>line</key>
-				<integer>146</integer>
+				<integer>150</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>129</integer>
+			<integer>116</integer>
 		</dict>
 		<key>sandbox.rb</key>
 		<dict>
@@ -155,9 +211,13 @@
 		<string>sandbox.rb</string>
 		<string>progress.rb</string>
 		<string>routinetracker.rb</string>
+		<string>Activity.rb</string>
 		<string>plannedpomodoro.rb</string>
 		<string>_routine_methods.rb</string>
 		<string>chaseidle.rb</string>
+		<string>Pomodoro.rb</string>
+		<string>Log.rb</string>
+		<string>Terminal.rb</string>
 		<string>silence_minuter.rb</string>
 		<string>Routinetracker.tmproj</string>
 	</array>
@@ -176,6 +236,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{191, 365}, {935, 529}}</string>
+	<string>{{0, 0}, {1870, 1058}}</string>
 </dict>
 </plist>
