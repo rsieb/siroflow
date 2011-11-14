@@ -324,9 +324,9 @@ module RoutineTracker
           YAML.dump( @tasks, out )
         end # File.open
       end
-      File.open("/tmp/routinetracker.log", 'w+')  do |f|
-        f.write("RoutineTracker IDLE")
-      end # File.open
+      # File.open("/tmp/routinetracker.log", 'w+')  do |f|
+      #   f.write("RoutineTracker IDLE")
+      # end # File.open
     end #ψ taak.each
     # TODO 20100725_0828 report total score
     if @breekmij then

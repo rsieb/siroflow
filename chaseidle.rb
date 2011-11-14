@@ -4,9 +4,9 @@
 require 'rubygems'
 require 'appscript'
 #require_relative '_routine_methods'
-require_relative 'Terminal'
-require_relative 'Log'
-require_relative 'Activity'
+require '/Users/rs/rt/Terminal.rb'
+require '/Users/rs/rt/Log.rb'
+require '/Users/rs/rt/Activity.rb'
 #require_relative 'Pomodoro'
 
 module RoutineTracker

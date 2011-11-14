@@ -102,8 +102,8 @@ tijdserie.each do |wachten|
 end
 
 # now start bugging me
-1000.times.each do |keer|
+100.times.each do |keer|
   shout "Finish #{$taskname}"
-  sleep 1
+  sleep 5
 end
 
