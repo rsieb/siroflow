@@ -1,4 +1,10 @@
 Routrack::Application.routes.draw do
+  resources :performances
+
+  resources :tasks
+
+  resources :routines
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
