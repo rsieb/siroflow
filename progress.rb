@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wKU
 
-SECONDSCORRECTION = 2.4 # of normally calculated time per comment
+SECONDSCORRECTION = 2.3 # of normally calculated time per comment
 $taskname = ARGV[0].to_s
 $inputtime = ARGV[1].to_f
 

@@ -36,7 +36,7 @@ module RoutineTracker
     # while true == true # endless loop until interrupted
     #system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
     unless @laadbestand
-      @terminal.notify "\nLooking for files ending in .routine.yaml ...\n"
+      @terminal.info "\nLooking for files ending in .routine.yaml ...\n"
       #ψ All routines available are stored in the same directory and ending in *.routine.yaml
       @keuze = Dir.glob("yamls/*.routine.yaml")
       #ψ Show the possible routines to the user
@@ -61,14 +61,14 @@ module RoutineTracker
       # Test if the file exists - error and exit if not
     end
     unless (  defined?(@laadbestand) && @laadbestand != nil )
-      @terminal.notify "Your choice was not valid. Exiting..."
+      @terminal.error "Your choice was not valid. Exiting..."
       exit 1
     end
 
     bbeeggiinnttiijjdd = Time.now()
 
     # Now we can load the file
-    @terminal.notify "Loading #{@laadbestand}..."
+    @terminal.debug "Loading #{@laadbestand}..."
     @tasks = YAML.load_file( @laadbestand )
     @aantal = @tasks.size
 
@@ -138,15 +138,14 @@ module RoutineTracker
 
           #ψ ]] Say title, counter against target
           #      @terminal.say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
-          @terminal.notify "#{activiteit} #{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
+          @terminal.debug "#{activiteit} #{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
           # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
           if @bezig.to_i > 0
-            @terminal.notify "Total #{(100*@verschil/@doel).to_i} percent off"
+            @terminal.info "Total #{(100*@verschil/@doel).to_i} percent off"
           end
-          @terminal.say("#{activiteit}")
-          @terminal.notify("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
+          @terminal.info("\n\n#{activiteit.upcase} (#{@teller+1}/#{@aantal+1})")
           #       FIXED 2010-08-21_1841-0700 let the target minutes be said by Minuteur :)
-          @terminal.notify "#{@doel.to_human}
+          @terminal.debug "#{@doel.to_human}
           (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})."
 
           # ===================
@@ -175,7 +174,7 @@ module RoutineTracker
           #   iTunes.next_track
           #   iTunes.play
           # rescue
-          #   @terminal.notify("Some problem with iTunes")
+          #   @terminal.warn("Some problem with iTunes")
           # end
           # # app("iCal").run
           # # icallog = @myevent.description.get.to_s
@@ -185,7 +184,7 @@ module RoutineTracker
           # # icalentry = "\n#{Time.now.strftime("%x %X")} #{activiteit} #{@doel.to_human}"
           # @myevent.description.set(icallog + icalentry)
           # @myevent.end_date.set(endtime+3600)
-          #@terminal.notify "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
+          #@terminal.debug "Starting #{starttijd.strftime("%H:%M:%S")}, finish between #{lowtgttime.strftime("%H:%M:%S")} and #{hightgttime.strftime("%H:%M:%S")}"
 
 
           #ψ ]] Wait for user input
@@ -227,7 +226,7 @@ module RoutineTracker
             #          @eindtijd = (@gedaan - starttijd)
             @eindtijd = 0
             # @terminal.say("#{@eindtijd.to_human}")
-            # @terminal.notify "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
+            # @terminal.debug "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
 
             # TODO 2010-08-21_1434-0700 should just go back to main menu, not leave program
             @laadbestand = nil
@@ -246,8 +245,8 @@ module RoutineTracker
           else
             @eindtijd = (@gedaan - starttijd)
 
-            @terminal.say("#{@eindtijd.to_human}")
-            @terminal.notify "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
+            @terminal.info("#{@eindtijd.to_human}")
+            @terminal.debug "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
 
             #ψ Evaluate result and give user feedback
             # unless the task was canceled or marked as an exception
@@ -339,17 +338,10 @@ module RoutineTracker
       end
     end
 
-    print "\n\n"
+    @terminal.info "\n\n"
     eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
-    begin
-      app("Pomodoro").force_completion
-      app("iTerm").quit
-    rescue Exception => e
-      @terminal.notify e.message
-      @terminal.notify e.backtrace.inspect
-    end
     @terminal.shout "#{@laadbestand.gsub(".routine.yaml"," routine").gsub("yamls/","")} done in #{eeiinnddttiidd.to_human}."
-    # @terminal.notify "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
+    # @terminal.debug "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
     # @myevent.end_date.set(Time.now()+1)
     # @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
     @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
@@ -358,14 +350,20 @@ module RoutineTracker
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
       YAML.dump( @active, out )
     end # File.open
-    # #app("TextMate").open MacTypes::Alias.path(@laadbestand)
-    # #app('TextMate').activate
-    # #    app('iCal').activate
-    # 
-    #   # @laadbestand = nil
-    # end
+    begin
+      app("Pomodoro").force_completion
+      app("iTerm").quit
+    rescue Exception => e
+      @terminal.error " #{e.message}\n\n#{e.backtrace.inspect}"
+    end
+    app("TextMate").open MacTypes::Alias.path(@laadbestand)
+    app('TextMate').activate
+#    app('iCal').activate
+
+    @laadbestand = nil
   end
 end
+
 
 
 

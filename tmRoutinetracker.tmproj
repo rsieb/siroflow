@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>routinetracker.rb</string>
+	<string>progress.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,7 +18,7 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>265</integer>
+	<integer>167</integer>
 	<key>metaData</key>
 	<dict>
 		<key>Activity.rb</key>
@@ -34,6 +34,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>Terminal.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>94</integer>
+				<key>line</key>
+				<integer>33</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>24</integer>
 		</dict>
 		<key>chaseidle.rb</key>
 		<dict>
@@ -54,14 +68,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>22</integer>
+				<integer>3</integer>
 				<key>line</key>
-				<integer>59</integer>
+				<integer>22</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>40</integer>
+			<integer>10</integer>
 		</dict>
 		<key>routine2/any_long_task.routine2.yaml</key>
 		<dict>
@@ -82,14 +96,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>107</integer>
+				<integer>367</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>26</integer>
+			<integer>21</integer>
 		</dict>
 		<key>routrack/app/controllers/routines_controller.rb</key>
 		<dict>
@@ -329,33 +343,103 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>yamls/aahsolong.routine.yaml</key>
+		<key>tmRoutinetracker.tmproj</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>yamls/aahsomedium.routine.yaml</key>
+		<key>yamls/02m.routine.yaml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>1</integer>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>yamls/05m.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>yamls/10m.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>yamls/20m.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>yamls/45m.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>8</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>yamls/_bezig.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>74</integer>
 		</dict>
 		<key>yamls/beforebed.routine.yaml</key>
 		<dict>
@@ -370,20 +454,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>yamls/breakfast.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>42</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>3</integer>
 		</dict>
 		<key>yamls/evening.routine.yaml</key>
 		<dict>
@@ -446,9 +516,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>10</integer>
+				<integer>9</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -476,7 +546,7 @@
 				<key>column</key>
 				<integer>9</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>10</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -539,20 +609,6 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>yamls/goodtodo12.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>yamls/gototraining.routine.yaml</key>
 		<dict>
 			<key>caret</key>
@@ -575,34 +631,6 @@
 				<integer>9</integer>
 				<key>line</key>
 				<integer>2</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/jobapps.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/laundry.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -644,9 +672,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>46</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -688,9 +716,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -716,28 +744,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>8</integer>
 				<key>line</key>
-				<integer>59</integer>
+				<integer>55</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/quicktask.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>5</integer>
 		</dict>
 		<key>yamls/showerdress.routine.yaml</key>
 		<dict>
@@ -798,8 +812,6 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>yamls/aahsolong.routine.yaml</string>
-		<string>yamls/aahsomedium.routine.yaml</string>
 		<string>yamls/beforebed.routine.yaml</string>
 		<string>yamls/evening.routine.yaml</string>
 		<string>yamls/fast_test.routine.yaml</string>
@@ -807,45 +819,32 @@
 		<string>yamls/fl_antiprocr.routine.yaml</string>
 		<string>yamls/fl_blessing.routine.yaml</string>
 		<string>yamls/followups.routine.yaml</string>
-		<string>yamls/goodtodo12.routine.yaml</string>
 		<string>yamls/gototraining.routine.yaml</string>
 		<string>yamls/inboxes.routine.yaml</string>
 		<string>yamls/lunchtime.routine.yaml</string>
-		<string>yamls/jobapps.routine.yaml</string>
-		<string>yamls/laundry.routine.yaml</string>
+		<string>yamls/outofbed.routine.yaml</string>
 		<string>yamls/pipeline.routine.yaml</string>
 		<string>yamls/prepinterview.routine.yaml</string>
-		<string>yamls/quicktask.routine.yaml</string>
+		<string>yamls/quicksports.routine.yaml</string>
 		<string>yamls/tarot.routine.yaml</string>
 		<string>yamls/toworktohome.routine.yaml</string>
 		<string>yamls/write_article.routine.yaml</string>
 		<string>chaseidle.rb</string>
+		<string>Terminal.rb</string>
 		<string>progress.rb</string>
+		<string>tmRoutinetracker.tmproj</string>
+		<string>yamls/02m.routine.yaml</string>
+		<string>yamls/05m.routine.yaml</string>
+		<string>yamls/45m.routine.yaml</string>
+		<string>yamls/_bezig.yaml</string>
+		<string>yamls/20m.routine.yaml</string>
+		<string>yamls/10m.routine.yaml</string>
 		<string>routinetracker.rb</string>
-		<string>yamls/outofbed.routine.yaml</string>
-		<string>yamls/breakfast.routine.yaml</string>
 		<string>yamls/showerdress.routine.yaml</string>
-		<string>yamls/quicksports.routine.yaml</string>
-		<string>routrack/config/routes.rb</string>
-		<string>routrack/config/application.rb</string>
-		<string>routrack/config/boot.rb</string>
-		<string>routrack/app/models/routine.rb</string>
-		<string>routrack/app/controllers/routines_controller.rb</string>
-		<string>routrack/config/environments/development.rb</string>
-		<string>routrack/config/initializers/backtrace_silencers.rb</string>
-		<string>routrack/config/initializers/inflections.rb</string>
-		<string>routrack/config/initializers/mime_types.rb</string>
-		<string>routrack/config/initializers/secret_token.rb</string>
-		<string>routrack/config/initializers/session_store.rb</string>
-		<string>routrack/config/initializers/wrap_parameters.rb</string>
-		<string>routrack/config/locales/en.yml</string>
-		<string>routrack/config/environment.rb</string>
-		<string>routrack/app/models/task.rb</string>
 		<string>sandbox.rb</string>
 		<string>yamls/fl_declutter.routine.yaml</string>
 		<string>routine2/any_long_task.routine2.yaml</string>
 		<string>Activity.rb</string>
-		<string>routrack/app/models/performance.rb</string>
 		<string>yamls/fl_errands.routine.yaml</string>
 		<string>yamls/fl_planning.routine.yaml</string>
 		<string>yamls/fl_admin.routine.yaml</string>
@@ -853,8 +852,6 @@
 		<string>yamls/fl_spirit.routine.yaml</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<false/>
-	<key>showFileHierarchyPanel</key>
 	<true/>
 	<key>treeState</key>
 	<dict>
@@ -863,18 +860,10 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict>
-				<key>yamls</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
+			<dict/>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{624, 0}, {1249, 1058}}</string>
+	<string>{{268, 0}, {952, 778}}</string>
 </dict>
 </plist>
