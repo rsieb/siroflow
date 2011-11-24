@@ -17,53 +17,24 @@ require_relative 'routrack/config/application'
 module RoutineTracker
 
   class Main
+    
+    #@runroutine = Routine.run(ARGV[0])
+    
+    # capture command line arguments: routine and task 
+    if ARGV[0]
+      @laadbestand = ARGV[0]
+    else
+      @laadbestand = "yamls/fast_test.routine.yaml"
+    end
+    if ARGV[1]
+      @overalltask = ARGV[1]
+    else
+      @overalltask = nil
+    end
+
+    
     @terminal = RoutineTracker::Terminal.instance
     @terminal.welcome("RoutineTracker")
-
-    #ψ Get data from external file
-    @active = Hash.new()
-    @active = YAML.load_file( "yamls/_bezig.yaml" )
-    @totaalbezig = @active[Time.now.strftime("%Y-%m-%d")] || @totaalbezig = 0
-
-    if ARGV[0] then
-      @laadbestand = ARGV[0]
-    end
-    if ARGV[1] then
-      @overalltask = ARGV[1]
-    end
-
-    # # FIXED 2010-08-21_1346-0700 adding endless loop
-    # while true == true # endless loop until interrupted
-    #system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Focus.scpt")
-    unless @laadbestand
-      @terminal.info "\nLooking for files ending in .routine.yaml ...\n"
-      #ψ All routines available are stored in the same directory and ending in *.routine.yaml
-      @keuze = Dir.glob("yamls/*.routine.yaml")
-      #ψ Show the possible routines to the user
-      keuzestring = ""
-      @keuze.each_index do |number|
-        # TODO 2010-08-20_1432-0700 replace this with printing nicely in columns
-        # either just space them out halfway on the screen or print an array
-        # as two columns as discussed on http://railsforum.com/viewtopic.php?id=15716
-        # correcting for counting from 1 to reserve 0 value for strings and cancellatons
-        keuzestring = keuzestring + "[#{(number+1).to_s(36)}] #{@keuze[number].gsub(".routine.yaml","").gsub("yamls/","")}  "
-      end
-      keuzestring = keuzestring + " or e[X]uit"
-      # Ask the user for his choice
-      mijnkeuze = @terminal.ask(keuzestring,"> ")
-      if mijnkeuze == "X" then
-        exit 0
-      end if
-      # Take the first character of the choice and ensure it is an integer
-      doen = mijnkeuze[0..0].to_i(36) - 1
-      # This determines the file to load
-      @laadbestand = @keuze[doen]
-      # Test if the file exists - error and exit if not
-    end
-    unless (  defined?(@laadbestand) && @laadbestand != nil )
-      @terminal.error "Your choice was not valid. Exiting..."
-      exit 1
-    end
 
     bbeeggiinnttiijjdd = Time.now()
 
@@ -92,6 +63,11 @@ module RoutineTracker
     end
 
     mytask = @laadbestand.gsub(".routine.yaml","").gsub("yamls/","")
+
+    #ψ Get data from external file - moved this from earlier in script
+    @active = Hash.new()
+    @active = YAML.load_file( "yamls/_bezig.yaml" )
+    @totaalbezig = @active[Time.now.strftime("%Y-%m-%d")] || @totaalbezig = 0
 
     taaknummer = ((@totaalbezig/86400).to_i + 1).to_s.rjust(2,'0') + " "
     @totaalminuten = (@totaalseconden/60 + 0.5 ).to_i + 1
@@ -137,7 +113,7 @@ module RoutineTracker
           # TODO 20100802_1324 put all these calcs in log file for easy comparison
 
           #ψ ]] Say title, counter against target
-          #      @terminal.say "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
+          #      @terminal.info "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
           @terminal.debug "#{activiteit} #{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
           # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
           if @bezig.to_i > 0
@@ -217,7 +193,7 @@ module RoutineTracker
             # eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
             # @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
             # @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
-            # @terminal.shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+            # @terminal.warn "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
             # @myevent.end_date.set(Time.now())
             # File.open("_bezig.yaml", 'w+')  do |out|
             #   YAML.dump( @active, out )
@@ -225,7 +201,7 @@ module RoutineTracker
             @breekmij = true
             #          @eindtijd = (@gedaan - starttijd)
             @eindtijd = 0
-            # @terminal.say("#{@eindtijd.to_human}")
+            # @terminal.info("#{@eindtijd.to_human}")
             # @terminal.debug "#{@gedaan.strftime("%H:%M:%S")}\nTargeted #{@doel.to_human} (#{(@doel - @afwijking).to_human} to #{(@doel + @afwijking).to_human})\nFinished #{@eindtijd.to_human} "
 
             # TODO 2010-08-21_1434-0700 should just go back to main menu, not leave program
@@ -236,11 +212,11 @@ module RoutineTracker
             @gedaan = nil
             starttijd = Time.now()
             @doeltijd = starttijd + @doel
-            @terminal.say "Restarted"
+            @terminal.info "Restarted"
 
           when "e"
             @eindtijd = (starttijd - @gedaan)
-            @terminal.shout("Exception")
+            @terminal.warn("Exception")
 
           else
             @eindtijd = (@gedaan - starttijd)
@@ -258,24 +234,24 @@ module RoutineTracker
             #   score = -(@verschil/@afwijking)
             #   teken = "slow"
             #   #            detailscore = ((10.0 *score).round)/10.0
-            #   # @terminal.shout "#{detailscore.to_s} #{teken}"
+            #   # @terminal.warn "#{detailscore.to_s} #{teken}"
             # else
             #   score = (@verschil/@afwijking)
             #   teken = "fast"
             # end
             # # if @verschil.to_i > 0 then
-            # #   # @terminal.shout "#{(100*@verschil/@doel).to_i} percent off"
+            # #   # @terminal.warn "#{(100*@verschil/@doel).to_i} percent off"
             # # end
             # @bezig = @bezig + @eindtijd
             # # end
             # case score.to_i
             #   # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
             # when 0
-            #   @terminal.shout("On track, #{teken}")
+            #   @terminal.warn("On track, #{teken}")
             # when 1
-            #   @terminal.shout( "A bit #{teken}")
+            #   @terminal.warn( "A bit #{teken}")
             # else
-            #   @terminal.shout("Too #{teken}") 
+            #   @terminal.warn("Too #{teken}") 
             # end     
 
             # TOP X Scoring
@@ -299,7 +275,7 @@ module RoutineTracker
             else
               oordeel = "Concentrate! Only "
             end # case plaatsteller
-            @terminal.shout "#{oordeel} #{plaatsteller.ordinalize} place."
+            @terminal.warn "#{oordeel} #{plaatsteller.ordinalize} place."
 
           end # case status
         end #ψ End while user not finished
@@ -340,13 +316,13 @@ module RoutineTracker
 
     @terminal.info "\n\n"
     eeiinnddttiidd = Time.now() - bbeeggiinnttiijjdd
-    @terminal.shout "#{@laadbestand.gsub(".routine.yaml"," routine").gsub("yamls/","")} done in #{eeiinnddttiidd.to_human}."
+    @terminal.warn "#{@laadbestand.gsub(".routine.yaml"," routine").gsub("yamls/","")} done in #{eeiinnddttiidd.to_human}."
     # @terminal.debug "Total #{@bezig.to_human} or #{(@bezig/(@bezig + eeiinnddttiidd)*100).to_i} percent off!"
     # @myevent.end_date.set(Time.now()+1)
     # @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
     @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
     @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
-    @terminal.shout "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+    @terminal.warn "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
       YAML.dump( @active, out )
     end # File.open
@@ -358,7 +334,7 @@ module RoutineTracker
     end
     app("TextMate").open MacTypes::Alias.path(@laadbestand)
     app('TextMate').activate
-#    app('iCal').activate
+    #    app('iCal').activate
 
     @laadbestand = nil
   end

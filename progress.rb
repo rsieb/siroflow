@@ -95,6 +95,7 @@ end
 # puts tijdserie.class
 
 #pseudo run array#pseudo 
+shout $taskname
 tijdserie.each do |wachten|
   sleep wachten[0]
   #	shout($taskname + " " + wachten[1])
