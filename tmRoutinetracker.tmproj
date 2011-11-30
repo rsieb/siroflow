@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>routrack/app/models/routine.rb</string>
+	<string>yamls/lunchtime.routine.yaml</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -56,35 +56,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>19</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>16</integer>
-		</dict>
-		<key>routrack/app/controllers/application_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
 				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>routrack/app/controllers/routines_controller.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>29</integer>
-				<key>line</key>
-				<integer>15</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -96,9 +68,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>1</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -110,30 +82,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>33</integer>
+				<integer>4</integer>
 				<key>line</key>
-				<integer>9</integer>
+				<integer>10</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>27</integer>
-				<key>line</key>
-				<integer>9</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>33</integer>
-				<key>line</key>
-				<integer>9</integer>
-			</dict>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -143,20 +99,6 @@
 				<integer>22</integer>
 				<key>line</key>
 				<integer>2</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>routrack/config.ru</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>25</integer>
-				<key>line</key>
-				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -175,9 +117,23 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>routrack/config/boot.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>routrack/config/database.yml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -322,23 +278,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>34</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>20</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>4</integer>
-		</dict>
-		<key>routrack/db/migrate/20111114163434_create_routines.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>22</integer>
-				<key>line</key>
-				<integer>3</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -583,6 +525,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>yamls/lunchtime.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>yamls/pipeline.routine.yaml</key>
 		<dict>
 			<key>caret</key>
@@ -686,18 +642,14 @@
 	<array>
 		<string>yamls/quicksports.routine.yaml</string>
 		<string>routinetracker.rb</string>
-		<string>yamls/_bezig.yaml</string>
-		<string>routrack/app/models/routine.rb</string>
-		<string>routrack/app/controllers/routines_controller.rb</string>
-		<string>routrack/config.ru</string>
-		<string>routrack/config/routes.rb</string>
+		<string>yamls/lunchtime.routine.yaml</string>
 		<string>routrack/app/models/performance.rb</string>
-		<string>routrack/app/controllers/application_controller.rb</string>
-		<string>routrack/app/models/task.rb</string>
-		<string>routrack/db/migrate/20111114163519_create_performances.rb</string>
-		<string>routrack/db/migrate/20111114163434_create_routines.rb</string>
-		<string>routrack/db/schema.rb</string>
-		<string>routrack/db/migrate/20111114163458_create_tasks.rb</string>
+		<string>routrack/config/routes.rb</string>
+		<string>routrack/config/application.rb</string>
+		<string>routrack/config/database.yml</string>
+		<string>routrack/config/boot.rb</string>
+		<string>routrack/app/models/routine.rb</string>
+		<string>yamls/_bezig.yaml</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -711,35 +663,12 @@
 			<true/>
 			<key>subItems</key>
 			<dict>
-				<key>routrack</key>
+				<key>yamls</key>
 				<dict>
 					<key>isExpanded</key>
 					<true/>
 					<key>subItems</key>
-					<dict>
-						<key>app</key>
-						<dict>
-							<key>isExpanded</key>
-							<true/>
-							<key>subItems</key>
-							<dict>
-								<key>controllers</key>
-								<dict>
-									<key>isExpanded</key>
-									<true/>
-									<key>subItems</key>
-									<dict/>
-								</dict>
-								<key>models</key>
-								<dict>
-									<key>isExpanded</key>
-									<true/>
-									<key>subItems</key>
-									<dict/>
-								</dict>
-							</dict>
-						</dict>
-					</dict>
+					<dict/>
 				</dict>
 			</dict>
 		</dict>
