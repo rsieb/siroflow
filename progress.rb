@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby -wKU
+require './_routine_methods'
+
+puts RUBY_VERSION
 
 SECONDSCORRECTION = 2.3 # of normally calculated time per comment
 $taskname = ARGV[0].to_s
@@ -24,14 +27,10 @@ end
 
 def say(saying)
   system("/usr/local/bin/growlnotify -p 0 -m \"#{saying}\" ")
+  puts "#{saying}"
   unless File.exist?("/Users/rs/Desktop/silent") then
     system("say #{saying}")
   end
-end
-
-def shout(saying)
-  puts saying
-  say(saying)
 end
 
 # Randomize terminal color, I want some color in my life!
@@ -42,35 +41,36 @@ if $inputtime > 60
   feedbackloop = {
     0.0 => "Starting",
     0.1 => "10%",
-    0.2 => "20%",
-    0.3 => "30%",
-    0.4 => "40%",
+    0.2 => "20",
+    0.3 => "30",
+    0.4 => "40",
     # 0.33 => "One third",
     0.5  => "Halfway",
     # 0.67 => "Two thirds",
-    0.6	 => "40% left",
-    0.7	 => "30% left",
-    0.8	 => "20% left",
-    0.9	 => "10",
-    # 0.925 => "Finish up now",
-    0.91 => "9",
-    0.92 => "8",
-    0.93 => "7",
-    0.94 => "6",
-    0.95 => "5",
-    0.96 => "4",
-    0.97 => "3",
-    0.98 => "2",
-    0.99 => "1",
-    1.0 => "Time is up!"
+    0.54	 => "54",
+    0.58	 => "58",
+    0.62	 => "62",
+    0.66	 => "66",
+    0.7	 => "70",
+    0.73	 => "73",
+    0.77	 => "77",
+    0.80	 => "80"
   }
+  5.times do |seconde|
+    sleutel = (80.0 + (2 * seconde.to_f))/100
+    feedbackloop[sleutel] = "#{80+(2*seconde)}"
+  end
+  11.times do |seconde|
+    sleutel = (90.0 + seconde.to_f)/100
+    feedbackloop[sleutel] = "#{90+seconde}"
+  end
 else
   feedbackloop = {
     0.0 => "Starting",
     0.25 => "One quarter",
     0.5  => "Halfway",
     0.67 => "Three quarters",
-    0.9	 => "10% left",
+    0.8	 => "10% left",
     0.97 => "In three",
     0.99 => "In one",
     1.0 => "Time is up!"
@@ -104,17 +104,17 @@ end
 # puts tijdserie.class
 
 #pseudo run array#pseudo 
-shout $taskname
+say $taskname
 tijdserie.each do |wachten|
   sleep wachten[0]
-  #	shout($taskname + " " + wachten[1])
-  shout(wachten[1])
+  #	say($taskname + " " + wachten[1])
+  say(wachten[1])
 end
 
 # now start bugging me
-
-250.times.each do |keer|
-  shout "Finish #{$taskname}"
-  sleep 5
+@starttime = Time.now()
+1000.times.each do |keer|
+  @delay = Time.now()-@starttime
+  say "#{@delay.to_f.to_human}"
 end
 

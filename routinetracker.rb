@@ -282,19 +282,19 @@ module RoutineTracker
 
 
         #ψ ] Store real end time
-        if @eindtijd != 0
+#        if @eindtijd != 0
           waarden.unshift(@eindtijd).sort!
           # leave time to build up some extra values, otherwise outliers are immediately chopped off
           # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
           wgrootte = waarden.size
-          mingrootte = 3
+          mingrootte = 4
           if wgrootte > (3 * mingrootte)
             # cut half of difference to the front
             waarden.shift((wgrootte-mingrootte)/2)
             # and cut half of difference to the back
             waarden.pop((wgrootte-mingrootte)/2)
           end # if wgrootte >
-        end # if @eindtijd !=0
+#        end # if @eindtijd !=0
         # DONE 20100725_0828 reproject end time 20100726_1229
         #ψ Store data for next time
         # DONE 20100802_1327 - save values on every loop

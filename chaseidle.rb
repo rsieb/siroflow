@@ -7,13 +7,17 @@ require 'appscript'
 require '/Users/rs/rt/Terminal.rb'
 require '/Users/rs/rt/Log.rb'
 require '/Users/rs/rt/Activity.rb'
-#require_relative 'Pomodoro'
+require '/Users/rs/rt/Pomodoro.rb'
 
 module RoutineTracker
 
   class Main < Activity
     if idle?(actual) 
-      Terminal.chaseup(target)
+      # begin
+      #   Pomodoro.start("AUTO " + target)
+      # rescue
+        Terminal.chaseup(target)      
+      # end
     else
       Terminal.remind(actual)
     end

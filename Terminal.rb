@@ -68,7 +68,7 @@ module RoutineTracker
     end
 
     def self.chaseup(sayable)
-      @@instance.warn("Start #{sayable}")
+      @@instance.warn("A little bit of #{sayable}")
       sleep 2
       system("open -a ScreenSaverEngine")
       f = File.open("/tmp/routinetracker.log", "a")

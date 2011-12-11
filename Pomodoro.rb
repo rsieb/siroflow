@@ -2,9 +2,9 @@ module RoutineTracker
 
   class Pomodoro
 
-    def start(activity,duration=25)
+    def self.start(activity)
       begin
-        Appscript::app("Pomodoro").start("#{@activity} ", :duration => duration)
+        Appscript::app("Pomodoro").start("#{activity} ", :duration => 60)
       rescue Exception => e
         puts "Error starting Pomodoro"
         puts e.message

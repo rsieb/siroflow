@@ -7,7 +7,7 @@ module RoutineTracker
       }
       currentappt = currentappts.first.summary.get
       if ( !currentappt || currentappt == :missing_value )
-        return nil
+        return "goodtodo"
       else
         return currentappt
       end
