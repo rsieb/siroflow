@@ -5,12 +5,16 @@ module RoutineTracker
       currentappts = Appscript::app("iCal").calendars["Planning"].events.get.find_all{|mtg|
         mtg.start_date.get < Time.now() && mtg.end_date.get > Time.now()
       }
-      currentappt = currentappts.first.summary.get
-      if ( !currentappt || currentappt == :missing_value )
-        return "goodtodo"
-      else
-        return currentappt
-      end
+      begin
+          return currentappt = currentappts.first.summary.get
+        rescue
+          return "goodtodo"
+        end          
+      # if ( !currentappt || currentappt == :missing_value )
+      #   return "goodtodo"
+      # else
+      #   return currentappt
+      # end
     end
 
     def self.idle?(summary)

@@ -115,6 +115,7 @@ module RoutineTracker
           #ψ ]] Say title, counter against target
           #      @terminal.info "From #{starttijd.strftime("%H:%M")} to #{endtime.strftime("%H:%M")}?"
           @terminal.debug "#{activiteit} #{starttijd.strftime("%H:%M:%S")} Projecting routine finish by #{endtime.strftime("%H:%M:%S")}\n"
+          @terminal.warn "Done by #{endtime.strftime('%H:%M')}"
           # DONE 20100727_1121 20100726_0934 announce seconds as human-understandable minutes and seconds
           if @bezig.to_i > 0
             @terminal.info "Total #{(100*@verschil/@doel).to_i} percent off"
@@ -275,7 +276,7 @@ module RoutineTracker
             else
               oordeel = "Concentrate! Only "
             end # case plaatsteller
-            @terminal.warn "#{oordeel} #{plaatsteller.ordinalize} place."
+            @terminal.info "#{oordeel} #{plaatsteller.ordinalize} place."
 
           end # case status
         end #ψ End while user not finished
@@ -322,7 +323,7 @@ module RoutineTracker
     # @myevent.summary.set(@myevent.summary.get + (eeiinnddttiidd/60).to_i.to_s)
     @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
     @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
-    @terminal.warn "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+    @terminal.info "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
       YAML.dump( @active, out )
     end # File.open

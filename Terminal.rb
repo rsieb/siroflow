@@ -36,7 +36,7 @@ module RoutineTracker
 
     def debug(msg)
       puts msg
-      #system("/usr/local/bin/growlnotify -p 'Very Low' -m \"#{msg}\" ")
+      system("/usr/local/bin/growlnotify -p 'Very Low' -m \"#{msg}\" ")
     end
 
     def info(msg)
@@ -68,12 +68,14 @@ module RoutineTracker
     end
 
     def self.chaseup(sayable)
-      @@instance.warn("A little bit of #{sayable}")
+      klok = Time.now()
+      @@instance.warn("#{sayable} already #{klok.strftime("%H:%M")}")
       sleep 2
-      system("open -a ScreenSaverEngine")
+#      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
       f = File.open("/tmp/routinetracker.log", "a")
       f.write("#{IDLEMARKER}")
       f.close
+      #system("pmset sleepnow")
     end
 
     def self.remind(sayable)

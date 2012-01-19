@@ -16,7 +16,7 @@ module RoutineTracker
       # begin
       #   Pomodoro.start("AUTO " + target)
       # rescue
-        Terminal.chaseup(target)      
+        Terminal.chaseup(actual)      
       # end
     else
       Terminal.remind(actual)

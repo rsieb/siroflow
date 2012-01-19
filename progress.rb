@@ -113,8 +113,10 @@ end
 
 # now start bugging me
 @starttime = Time.now()
-1000.times.each do |keer|
-  @delay = Time.now()-@starttime
-  say "#{@delay.to_f.to_human}"
+100.times.each do |keer|
+#  @delay = Time.now()-@starttime
+  klok = Time.now()
+  say "already #{klok.strftime("%H:%M")}"
+  sleep 5
 end
 
