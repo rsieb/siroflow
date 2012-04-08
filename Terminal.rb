@@ -61,17 +61,22 @@ module RoutineTracker
       system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
       @@instance.say(msg)
     end
-    
+
     def display(notification)
       # FIXED 201111210912 remodel these into DEBUG, INFO, WARN, ERROR and FATAL messages
       @@instance.info(notification)
     end
 
     def self.chaseup(sayable)
-      klok = Time.now()
-      @@instance.warn("#{sayable} already #{klok.strftime("%H:%M")}")
-      sleep 2
-#      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
+      #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
+      begin
+        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size
+      rescue
+        minutesidle = "some"
+      end
+      @@instance.warn("#{sayable}. #{minutesidle} minutes idle.")
+      sleep 1
+      #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
       f = File.open("/tmp/routinetracker.log", "a")
       f.write("#{IDLEMARKER}")
       f.close

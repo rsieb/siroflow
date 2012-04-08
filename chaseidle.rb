@@ -12,17 +12,17 @@ require '/Users/rs/rt/Pomodoro.rb'
 module RoutineTracker
 
   class Main < Activity
-    if idle?(actual) 
-      unless Terminal.instance.silent?
-        begin
-          Pomodoro.start("AUTO " + target)
-        rescue
-          Terminal.chaseup(target)      
-        end
+
+    unless Terminal.instance.silent?
+
+      if idle?(actual) 
+        Terminal.chaseup(target)      
+      else
+        Terminal.remind(actual)
       end
-    else
-      Terminal.remind(actual)
+
     end
+
   end
 
 end

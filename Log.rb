@@ -1,7 +1,7 @@
 module RoutineTracker
 
   ACTIVITYFILE = "/tmp/routinetracker.log"
-  IDLEMARKER = "•"
+  IDLEMARKER = "*"
 
   class Log
 

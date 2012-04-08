@@ -3,10 +3,10 @@ module RoutineTracker
 
     def self.target
       begin
-        return currentappt = system("tail -n 1 /tmp/starredtasks.txt")
+        return IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
       rescue
         return "Restar Final Version"
-      end          
+      end    
     end
 
     def self.idle?(summary)
