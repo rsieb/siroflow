@@ -5,8 +5,8 @@ module RoutineTracker
       begin
         return IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
       rescue
-        return "Next task"
-      end    
+        return "Next task?"
+      end
     end
 
     def self.idle?(summary)

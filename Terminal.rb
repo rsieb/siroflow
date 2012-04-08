@@ -4,10 +4,14 @@ module RoutineTracker
   class Terminal
 
     def initialize
-      # Store the state of the terminal
-      stty_save = `stty -g`.chomp
-      # Allow for user cancellations without generating an exception
-      @terminal = trap('INT') { system('stty', stty_save); exit }
+      begin
+        # Store the state of the terminal
+        stty_save = `stty -g`.chomp
+        # Allow for user cancellations without generating an exception
+        @terminal = trap('INT') { system('stty', stty_save); exit }
+      rescue
+        @terminal = "hello"
+      end
     end
 
     @@instance = Terminal.new
