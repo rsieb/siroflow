@@ -2,7 +2,7 @@
 # encoding: UTF-8
 
 require 'rubygems'
-require 'appscript'
+#require 'appscript'
 #require_relative '_routine_methods'
 require '/Users/rs/rt/Terminal.rb'
 require '/Users/rs/rt/Log.rb'
@@ -13,11 +13,13 @@ module RoutineTracker
 
   class Main < Activity
     if idle?(actual) 
-      # begin
-      #   Pomodoro.start("AUTO " + target)
-      # rescue
+      unless Terminal.instance.silent?
+        # begin
+        #   Pomodoro.start("AUTO " + target)
+        # rescue
         Terminal.chaseup(actual)      
-      # end
+        # end
+      end
     else
       Terminal.remind(actual)
     end

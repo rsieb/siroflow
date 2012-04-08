@@ -76,6 +76,7 @@ module RoutineTracker
       f.write("#{IDLEMARKER}")
       f.close
       #system("pmset sleepnow")
+      system('open -a "ScreenSaverEngine.app" ')
     end
 
     def self.remind(sayable)

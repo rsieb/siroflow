@@ -1,8 +1,8 @@
 module RoutineTracker
-  
+
   ACTIVITYFILE = "/tmp/routinetracker.log"
   IDLEMARKER = "•"
-  
+
   class Log
 
     attr_reader :contents

@@ -324,6 +324,8 @@ module RoutineTracker
     @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
     @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
     @terminal.info "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+    app("TextMate").open MacTypes::Alias.path(@laadbestand)
+    app('TextMate').activate
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
       YAML.dump( @active, out )
     end # File.open
@@ -333,8 +335,6 @@ module RoutineTracker
     rescue Exception => e
       @terminal.error " #{e.message}\n\n#{e.backtrace.inspect}"
     end
-    app("TextMate").open MacTypes::Alias.path(@laadbestand)
-    app('TextMate').activate
     #    app('iCal').activate
 
     @laadbestand = nil
