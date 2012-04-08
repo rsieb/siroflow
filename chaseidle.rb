@@ -14,11 +14,11 @@ module RoutineTracker
   class Main < Activity
     if idle?(actual) 
       unless Terminal.instance.silent?
-        # begin
-        #   Pomodoro.start("AUTO " + target)
-        # rescue
-        Terminal.chaseup(actual)      
-        # end
+        begin
+          Pomodoro.start("AUTO " + target)
+        rescue
+          Terminal.chaseup(target)      
+        end
       end
     else
       Terminal.remind(actual)
