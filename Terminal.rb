@@ -74,7 +74,7 @@ module RoutineTracker
       rescue
         minutesidle = "some"
       end
-      @@instance.warn("#{sayable}. #{minutesidle} minutes idle.")
+      @@instance.warn("#{minutesidle} minutes idle. #{sayable}?")
       sleep 1
       #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
       f = File.open("/tmp/routinetracker.log", "a")

@@ -5,7 +5,7 @@ module RoutineTracker
       begin
         return IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
       rescue
-        return "Restar Final Version"
+        return "Next task"
       end    
     end
 
