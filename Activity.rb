@@ -3,9 +3,11 @@ module RoutineTracker
 
     def self.target
       begin
-        return IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
+        nowtask = IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
+        system("echo '#{nowtask}\n' | pbcopy -Prefer txt")
+        return nowtask
       rescue
-        return "Next task?"
+        return "Next task"
       end
     end
 
@@ -19,3 +21,4 @@ module RoutineTracker
 
   end
 end
+
