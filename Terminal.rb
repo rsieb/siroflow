@@ -74,18 +74,24 @@ module RoutineTracker
     def self.chaseup(sayable)
       #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
-        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size
+        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size - 2
       rescue
         minutesidle = "some"
       end
-      @@instance.warn("#{minutesidle} minutes idle. #{sayable}?")
-      sleep 1
+      @@instance.info("#{minutesidle} minutes idle.")
+      system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
+      #sleep 1
       #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
       f = File.open("/tmp/routinetracker.log", "a")
       f.write("#{IDLEMARKER}")
       f.close
-      #system("pmset sleepnow")
-      system('open -a "ScreenSaverEngine.app" ')
+      #system('osascript /Users/rs/Dropbox/Library/Scripts/CloseUnused.scpt ')
+      system('osascript -e "tell app \"System Events\" to set the visible of every process to false" ')
+      system('open -a "ToodleDo.app" ')
+      system('open -a "Isolator.app" ')
+      #system('open -a "ScreenSaverEngine.app" ')
+      #system("pmset sleepnow") # avoid this, very hard to get going again
+      #system("/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend") # does not seem to work from ruby script
     end
 
     def self.remind(sayable)

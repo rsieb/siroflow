@@ -107,7 +107,7 @@ end
 say $taskname
 tijdserie.each do |wachten|
   sleep wachten[0]
-  #	say($taskname + " " + wachten[1])
+  #say($taskname + " " + wachten[1])
   say(wachten[1])
 end
 
@@ -116,7 +116,7 @@ end
 100.times.each do |keer|
 #  @delay = Time.now()-@starttime
   klok = Time.now()
-  say "already #{klok.strftime("%H:%M")}"
+  say "#{$taskname} #{@delay} delayed - already #{klok.strftime("%H:%M")}"
   sleep 5
 end
 
