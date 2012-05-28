@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module RoutineTracker
   class Activity
 
@@ -7,7 +9,7 @@ module RoutineTracker
         system("echo '#{nowtask}\n' | pbcopy -Prefer txt")
         return nowtask
       rescue
-        return "Next task"
+        return "Re-star ToodleDo ®restar _prod"
       end
     end
 

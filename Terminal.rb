@@ -78,7 +78,12 @@ module RoutineTracker
       rescue
         minutesidle = "some"
       end
-      @@instance.info("#{minutesidle} minutes idle.")
+      #minutesidle.to_i.times {|i| @@instance.warn("#{minutesidle} ") }
+      minutesidle.times { |i|
+        @@instance.warn("idle ")
+      }
+      #minutesidle.to_i.times {|i| printf "\a" ; sleep 0.2 }
+      system('osascript -e "tell app \"System Events\" to set the visible of every process to false" ')
       system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
       #sleep 1
       #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
@@ -86,9 +91,8 @@ module RoutineTracker
       f.write("#{IDLEMARKER}")
       f.close
       #system('osascript /Users/rs/Dropbox/Library/Scripts/CloseUnused.scpt ')
-      system('osascript -e "tell app \"System Events\" to set the visible of every process to false" ')
-      system('open -a "ToodleDo.app" ')
-      system('open -a "Isolator.app" ')
+      #system('open -a "ToodleDo.app" ')
+      #system('open -a "Isolator.app" ')
       #system('open -a "ScreenSaverEngine.app" ')
       #system("pmset sleepnow") # avoid this, very hard to get going again
       #system("/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend") # does not seem to work from ruby script
