@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Activity.rb</string>
+	<string>Terminal.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,37 +26,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>Log.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>17</integer>
-				<key>line</key>
-				<integer>3</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>Pomodoro.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>36</integer>
-				<key>line</key>
-				<integer>6</integer>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -68,30 +40,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>62</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>76</integer>
+				<integer>75</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>72</integer>
-			<key>selectFrom</key>
+			<integer>67</integer>
+		</dict>
+		<key>_old_routine.applescript</key>
+		<dict>
+			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>51</integer>
 				<key>line</key>
-				<integer>76</integer>
+				<integer>14</integer>
 			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>62</integer>
-				<key>line</key>
-				<integer>76</integer>
-			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>_routine_methods.rb</key>
 		<dict>
@@ -105,23 +75,9 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>60</integer>
 		</dict>
 		<key>annoyme.scpt</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>arrayx.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -142,21 +98,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>36</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>plannedpomodoro.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>26</integer>
+				<integer>7</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -204,20 +146,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>215</integer>
-		</dict>
-		<key>routrack/app/models/routine.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -460,16 +388,12 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>routrack/app/models/routine.rb</string>
-		<string>Activity.rb</string>
+		<string>annoyme.scpt</string>
+		<string>_old_routine.applescript</string>
 		<string>_routine_methods.rb</string>
 		<string>chaseidle.rb</string>
-		<string>Pomodoro.rb</string>
-		<string>plannedpomodoro.rb</string>
-		<string>Log.rb</string>
-		<string>arrayx.rb</string>
-		<string>annoyme.scpt</string>
 		<string>Terminal.rb</string>
+		<string>Activity.rb</string>
 		<string>routinetracker.rb</string>
 		<string>yamls/startwork.routine.yaml</string>
 		<string>silence_minuter.rb</string>
@@ -499,6 +423,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{125, 135}, {1224, 790}}</string>
+	<string>{{-0, -0}, {1230, 778}}</string>
 </dict>
 </plist>

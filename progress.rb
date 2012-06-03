@@ -40,21 +40,23 @@ system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/Termin
 if $inputtime > 60
   feedbackloop = {
     0.0 => "Starting",
-    0.1 => "10%",
-    0.2 => "20",
-    0.3 => "30",
-    0.4 => "40",
-    # 0.33 => "One third",
+    0.25 => "One quarter",
     0.5  => "Halfway",
     # 0.67 => "Two thirds",
-    0.54	 => "54",
-    0.58	 => "58",
-    0.62	 => "62",
-    0.66	 => "66",
-    0.7	 => "70",
-    0.73	 => "73",
-    0.77	 => "77",
-    0.80	 => "80"
+    0.67	 => "Two thirds",
+    0.80	 => "Four fifths",
+    0.90	 => "90%",
+    0.95	 => "95%",
+    1.00	 => "Time is up!",
+    1.10	 => "10% over",
+    1.20	 => "20% over",
+    1.30	 => "30% over",
+    1.40	 => "40% over",
+    1.50	 => "50% over",
+    1.60	 => "60% over",
+    1.70	 => "70% over",
+    1.80	 => "80% over",
+    1.90	 => "90% over"
   }
   5.times do |seconde|
     sleutel = (80.0 + (2 * seconde.to_f))/100
@@ -74,6 +76,10 @@ else
     0.97 => "In three",
     0.99 => "In one",
     1.0 => "Time is up!"
+    1.20	 => "20% over",
+    1.40	 => "40% over",
+    1.60	 => "60% over",
+    1.80	 => "80% over"
   }
 end
 

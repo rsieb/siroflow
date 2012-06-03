@@ -9,7 +9,7 @@ module RoutineTracker
         system("echo '#{nowtask}\n' | pbcopy -Prefer txt")
         return nowtask
       rescue
-        return "Re-star ToodleDo ®restar _prod"
+        return "Next task"
       end
     end
 
