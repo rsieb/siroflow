@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Terminal.rb</string>
+	<string>progress.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -29,6 +29,20 @@
 				<integer>25</integer>
 				<key>line</key>
 				<integer>11</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>Pomodoro.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -105,7 +119,7 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>progress.rb</key>
+		<key>plannedpomodoro.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -117,7 +131,21 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>80</integer>
+			<integer>0</integer>
+		</dict>
+		<key>progress.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>78</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>78</integer>
 		</dict>
 		<key>routine2/any_long_task.routine2.yaml</key>
 		<dict>
@@ -145,7 +173,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>215</integer>
+			<integer>281</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -369,7 +397,21 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
+			<integer>183</integer>
+		</dict>
+		<key>yamls/restar.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
 			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>41</integer>
 		</dict>
 		<key>yamls/startwork.routine.yaml</key>
 		<dict>
@@ -389,6 +431,8 @@
 	<key>openDocuments</key>
 	<array>
 		<string>annoyme.scpt</string>
+		<string>plannedpomodoro.rb</string>
+		<string>Pomodoro.rb</string>
 		<string>_old_routine.applescript</string>
 		<string>_routine_methods.rb</string>
 		<string>chaseidle.rb</string>
@@ -398,6 +442,7 @@
 		<string>yamls/startwork.routine.yaml</string>
 		<string>silence_minuter.rb</string>
 		<string>yamls/_bezig.yaml</string>
+		<string>yamls/restar.routine.yaml</string>
 		<string>progress.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>

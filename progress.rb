@@ -75,7 +75,7 @@ else
     0.8	 => "10% left",
     0.97 => "In three",
     0.99 => "In one",
-    1.0 => "Time is up!"
+    1.0 => "Time is up!",
     1.20	 => "20% over",
     1.40	 => "40% over",
     1.60	 => "60% over",
@@ -120,9 +120,9 @@ end
 # now start bugging me
 @starttime = Time.now()
 100.times.each do |keer|
-#  @delay = Time.now()-@starttime
+  #  @delay = Time.now()-@starttime
   klok = Time.now()
-  say "#{$taskname} #{@delay} delayed - already #{klok.strftime("%H:%M")}"
+  say "#{$taskname} #{@delay} over double - already #{klok.strftime("%H:%M")}"
   sleep 5
 end
 
