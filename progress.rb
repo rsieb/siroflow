@@ -58,14 +58,14 @@ if $inputtime > 60
     1.80	 => "80% over",
     1.90	 => "90% over"
   }
-  5.times do |seconde|
-    sleutel = (80.0 + (2 * seconde.to_f))/100
-    feedbackloop[sleutel] = "#{80+(2*seconde)}"
-  end
-  11.times do |seconde|
-    sleutel = (90.0 + seconde.to_f)/100
-    feedbackloop[sleutel] = "#{90+seconde}"
-  end
+  # 5.times do |seconde|
+  #   sleutel = (80.0 + (2 * seconde.to_f))/100
+  #   feedbackloop[sleutel] = "#{80+(2*seconde)}"
+  # end
+  # 11.times do |seconde|
+  #   sleutel = (90.0 + seconde.to_f)/100
+  #   feedbackloop[sleutel] = "#{90+seconde}"
+  # end
 else
   feedbackloop = {
     0.0 => "Starting",

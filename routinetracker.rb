@@ -54,10 +54,13 @@ module RoutineTracker
       # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}
       # this is an array of hashes, now we need to loop through the hash itself
       @tasks[nummer].each do |naam,waarden|
+        puts naam.inspect
+        puts waarden.inspect
         # TODO 2010-08-29_2057-0700 replace single values in YAML with hash structure containing dates and status and notes, use OmniOutliner to model first
         # seconds already done at the beginning of each task equals total seconds from previous loop
         @afgerond[nummer] = @totaalseconden
         # add the new number of seconds to generate a new total
+        # TODO 2012-06-04 catch cases where all values are zero, this causes an error because 0 is not valid
         @totaalseconden = @totaalseconden + waarden.valid_stats.median
       end
     end
@@ -260,6 +263,7 @@ module RoutineTracker
             waarden.sort!.each do |referentie|
               if @eindtijd > referentie
                 plaatsteller = plaatsteller + 1
+                referentie = referentie.to_i
               else
                 break
               end # if @eindtijd > referentie

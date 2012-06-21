@@ -5,7 +5,7 @@ module RoutineTracker
 
     def self.target
       begin
-        nowtask = IO.readlines("/tmp/starredtasks.txt").last.chop.to_s
+        nowtask = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s
         system("echo '#{nowtask}\n' | pbcopy -Prefer txt")
         return nowtask
       rescue
