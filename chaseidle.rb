@@ -5,7 +5,7 @@
 #unless FileTest.exists?("/Users/rs/Desktop/PREZMODE")
 unless IO.readlines("/tmp/routinetracker.log").first.match("PREZMODE").to_s.size > 0
 
-  system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Geektool/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+  system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Geektool/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
 #  system("/usr/bin/open /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
   require 'rubygems'
   #require 'appscript'

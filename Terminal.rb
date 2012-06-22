@@ -80,7 +80,8 @@ module RoutineTracker
       end
       #minutesidle.to_i.times {|i| @@instance.warn("#{minutesidle} ") }
       minutesidle.times { |i|
-        @@instance.warn("idle ")
+#        @@instance.warn("idle ")
+        @@instance.warn("#{i.to_s} ")
       }
       @@instance.warn("#{sayable} ")
       #minutesidle.to_i.times {|i| printf "\a" ; sleep 0.2 }
