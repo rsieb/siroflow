@@ -1,5 +1,7 @@
-#!/usr/bin/env ruby -wKU
+#!/usr/bin/env ruby
 # encoding: UTF-8
+
+#!/usr/bin/env ruby -wKU
 
 
 #unless FileTest.exists?("/Users/rs/Desktop/PREZMODE")
