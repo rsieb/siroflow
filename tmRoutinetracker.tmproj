@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>yamls/sports.routine.yaml</string>
+	<string>Activity.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -23,19 +23,33 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Activity.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>40</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Terminal.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>33</integer>
+				<integer>22</integer>
 				<key>line</key>
-				<integer>83</integer>
+				<integer>88</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>72</integer>
+			<integer>67</integer>
 		</dict>
 		<key>chaseidle.rb</key>
 		<dict>
@@ -280,6 +294,7 @@
 	<array>
 		<string>chaseidle.rb</string>
 		<string>Terminal.rb</string>
+		<string>Activity.rb</string>
 		<string>yamls/sports.routine.yaml</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
@@ -305,6 +320,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{524, 41}, {1230, 778}}</string>
+	<string>{{504, 34}, {1230, 778}}</string>
 </dict>
 </plist>

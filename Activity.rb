@@ -5,14 +5,9 @@ module RoutineTracker
 
     def self.target
       begin
-        icaltask = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
-        if ( !icaltask || rand() > 0.667)
-          nowtask = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s
-          #        system("echo '#{nowtask}\n' | pbcopy -Prefer txt")
-          return nowtask
-        else
-          nowtask = icaltask
-        end
+        nowtask1 = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
+        nowtask2 = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s
+        nowtask = nowtask1 + nowtask2
       rescue
         nowtask = "Next task"
       end
