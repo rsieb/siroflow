@@ -4,13 +4,9 @@ module RoutineTracker
   class Activity
 
     def self.target
-      begin
         nowtask1 = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
         nowtask2 = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s
-        nowtask = nowtask1 + "\n" + nowtask2
-      rescue
-        nowtask = "Next task"
-      end
+        nowtask = nowtask1 + "\n\n" + nowtask2
       return nowtask
     end
 
