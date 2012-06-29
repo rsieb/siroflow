@@ -67,6 +67,7 @@ module RoutineTracker
     
     puts "Planning #{@totaalseconden.to_human} until finish"
     if @totaalseconden > 30 * 60 then
+      # TODO 2012-06-29 change hard-coded exits to user-chosen course of action
       puts "ERROR: More than a Pomodoro's worth. Please reduce. Exiting..."
       app("TextMate").open MacTypes::Alias.path(@laadbestand)
       app('TextMate').activate
