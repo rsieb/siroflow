@@ -1,12 +1,14 @@
-# encoding: utf-8
-
 module RoutineTracker
   class Activity
 
     def self.target
-        nowtask1 = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
-        nowtask2 = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s
-        nowtask = nowtask1 + "\n\n" + nowtask2
+      tasks = Array.new()
+      nowtask = ""
+      tasks.push(%x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!)
+      tasks.push(IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s)
+      tasks.size.times do
+        nowtask = nowtask + tasks.delete_at(rand(tasks.size)) + "\n"
+      end
       return nowtask
     end
 

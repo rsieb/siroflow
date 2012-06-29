@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wKU
+#!/usr/bin/env ruby -U
 # encoding: UTF-8
 
 require 'rubygems'
@@ -54,8 +54,8 @@ module RoutineTracker
       # doc: taak.class = Hash ; taak.inspect ="Sit down"=>[5, 8, 3]}
       # this is an array of hashes, now we need to loop through the hash itself
       @tasks[nummer].each do |naam,waarden|
-        puts naam.inspect
-        puts waarden.inspect
+        # puts naam.inspect
+        # puts waarden.inspect
         # TODO 2010-08-29_2057-0700 replace single values in YAML with hash structure containing dates and status and notes, use OmniOutliner to model first
         # seconds already done at the beginning of each task equals total seconds from previous loop
         @afgerond[nummer] = @totaalseconden
@@ -63,6 +63,19 @@ module RoutineTracker
         # TODO 2012-06-04 catch cases where all values are zero, this causes an error because 0 is not valid
         @totaalseconden = @totaalseconden + waarden.valid_stats.median
       end
+    end
+    
+    puts "Planning #{@totaalseconden.to_human} until finish"
+    if @totaalseconden > 30 * 60 then
+      puts "ERROR: More than a Pomodoro's worth. Please reduce. Exiting..."
+      app("TextMate").open MacTypes::Alias.path(@laadbestand)
+      app('TextMate').activate
+      exit
+    elsif @totaalseconden < 20 * 60 then
+      puts "ERROR: Much less than a Pomodoro's worth. Please increase. Exiting..."
+      app("TextMate").open MacTypes::Alias.path(@laadbestand)
+      app('TextMate').activate
+      exit
     end
 
     mytask = @laadbestand.gsub(".routine.yaml","").gsub("yamls/","")
