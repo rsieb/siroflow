@@ -8,12 +8,12 @@ module RoutineTracker
         tasks.push(%x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!)
       rescue
         tasks.push("--No active event or ical error--")
-        tasks.push("Fuck yeah restar my tasklist ®restar +0pvy")
       end
       begin
         tasks.push(IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s)
       rescue
         tasks.push("--No starred tasks or Toodledo error--")
+        tasks.push("Fuck yeah restar my tasklist ®restar +0pvy")
       end
       tasks.size.times do
         addtask = tasks.delete_at(rand(tasks.size))
