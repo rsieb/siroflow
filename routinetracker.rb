@@ -66,14 +66,14 @@ module RoutineTracker
     end
     
     puts "Planning #{@totaalseconden.to_human} until finish"
-    if @totaalseconden > 30 * 60 then
+    if @totaalseconden > 25 * 60 then
       # TODO 2012-06-29 change hard-coded exits to user-chosen course of action
       puts "ERROR: More than a Pomodoro's worth. Please reduce. Exiting..."
       app("TextMate").open MacTypes::Alias.path(@laadbestand)
       app('TextMate').activate
       exit
-    elsif @totaalseconden < 20 * 60 then
-      puts "ERROR: Much less than a Pomodoro's worth. Please increase. Exiting..."
+    elsif @totaalseconden < 12.5 * 60 then
+      puts "ERROR: Less than half a Pomodoro's worth. Please increase. Exiting..."
       app("TextMate").open MacTypes::Alias.path(@laadbestand)
       app('TextMate').activate
       exit
@@ -157,7 +157,7 @@ module RoutineTracker
           mysession = myterminal.make(:new => :session, :with_properties => {:name => "progress session"})
           mysession.exec(:command => "/bin/bash")
           mysession.write(:text => "cd /Users/rs/Dropbox/Library/Scripts/Routinetracker/ ; /usr/bin/env ruby progress.rb '#{activiteit}' #{@doel}")
-          oldterminal.activate
+          #oldterminal.activate # disturbs when already moving to a different screen to complete the activity
 
           #         app("TimeBoxed").reset
           #         app("TimeBoxed").timer_duration.set(@doel)
@@ -342,6 +342,9 @@ module RoutineTracker
     @totaalbezig = @totaalbezig + eeiinnddttiidd + (3600 * 24)
     @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
     @terminal.info "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
+    File.open("/tmp/routinetracker.log", 'w+')  do |f|
+      f.write("IDLE")
+    end
     app("TextMate").open MacTypes::Alias.path(@laadbestand)
     app('TextMate').activate
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
@@ -356,6 +359,7 @@ module RoutineTracker
     #    app('iCal').activate
 
     @laadbestand = nil
+    
   end
 end
 

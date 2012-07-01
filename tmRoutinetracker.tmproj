@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Activity.rb</string>
+	<string>routinetracker.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -23,20 +23,6 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
-		<key>Activity.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>16</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>Terminal.rb</key>
 		<dict>
 			<key>caret</key>
@@ -98,14 +84,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>24</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>69</integer>
+				<integer>146</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>53</integer>
+			<integer>132</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -336,9 +322,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>42</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -406,7 +392,6 @@
 	<array>
 		<string>chaseidle.rb</string>
 		<string>Terminal.rb</string>
-		<string>Activity.rb</string>
 		<string>routinetracker.rb</string>
 		<string>yamls/finishcommute.routine.yaml</string>
 		<string>yamls/commute.routine.yaml</string>
