@@ -12,7 +12,9 @@ module RoutineTracker
         tasks.push("--No active event or ical error--")
       end
       begin
-        tasks.push(IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last.chop.to_s)
+        IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last(3).each do |taak|
+          tasks.push(taak.chop.to_s)
+        end
       rescue
         tasks.push("--No starred tasks or Toodledo error--")
         tasks.push("F yeah restar my tasklist ®restar +0pvy")
