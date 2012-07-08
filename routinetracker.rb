@@ -65,15 +65,15 @@ module RoutineTracker
       end
     end
     
-    puts "Planning #{@totaalseconden.to_human} until finish"
-    if @totaalseconden > 25 * 60 then
+    @terminal.info "Planning #{@totaalseconden.to_human} until finish"
+    if @totaalseconden > 27.5 * 60 then
       # TODO 2012-06-29 change hard-coded exits to user-chosen course of action
-      puts "ERROR: More than a Pomodoro's worth. Please reduce. Exiting..."
+      @terminal.error("ERROR: Too much for a Pomodoro. Please reduce.")
       app("TextMate").open MacTypes::Alias.path(@laadbestand)
       app('TextMate').activate
       exit
-    elsif @totaalseconden < 12.5 * 60 then
-      puts "ERROR: Less than half a Pomodoro's worth. Please increase. Exiting..."
+    elsif @totaalseconden < 22.5 * 60 then
+      @terminal.error("ERROR: Too little for a Pomodoro. Please increase.")
       app("TextMate").open MacTypes::Alias.path(@laadbestand)
       app('TextMate').activate
       exit

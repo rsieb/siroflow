@@ -49,19 +49,18 @@ module RoutineTracker
     end
 
     def warn(msg)
-      puts msg
+      puts "\a" + msg
       system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
-      @@instance.say(msg)
     end
 
     def error(msg)
-      puts msg
+      puts "\a\a\a" + msg
       system("/usr/local/bin/growlnotify -p 'High' -m \"#{msg}\" ")
       @@instance.say(msg)
     end
 
     def fatal(msg)
-      puts msg
+      puts "\a\a\a\a\a" + msg
       system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
       @@instance.say(msg)
     end
