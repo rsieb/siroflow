@@ -25,8 +25,10 @@ end
 if @confirm == "y"
   @number.times do |teller|
     # ttodo 2012-07-08 investigate why single asterisk is not working for starring a task. Code issue?
-    emailinput = "#{@task} #{@number - teller}/#{@number} * ^#{@goal} !High" 
+#    emailinput = "#{@task} #{@number - teller}/#{@number} * ^#{@goal} !High" 
+    emailinput = "#{@task} #{@number - teller}/#{@number} ^#{@goal} " 
     puts emailinput
+    # using system call to Toodledo not working very well. Replace with email? http://solutionstudio.rs/mac-os-x-postfix-gmail-relay
     system("#{TOODLEDO} add '#{emailinput} '")
   end
 else

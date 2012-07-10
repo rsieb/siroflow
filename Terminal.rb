@@ -51,6 +51,7 @@ module RoutineTracker
     def warn(msg)
       puts "\a" + msg
       system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
+      @@instance.say(msg)
     end
 
     def error(msg)
