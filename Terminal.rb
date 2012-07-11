@@ -85,7 +85,6 @@ module RoutineTracker
       }
       @@instance.warn("#{sayable} ")
       #minutesidle.to_i.times {|i| printf "\a" ; sleep 0.2 }
-      system('osascript -e "tell app \"System Events\" to set the visible of every process to false" ')
       system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
       #sleep 1
       #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
