@@ -7,17 +7,22 @@ module RoutineTracker
       tasks = Array.new()
       nowtask = ""
       # begin
-        evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
+      evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
+      unless !evenementen
         evenementen.each_line do |taak|
-          tasks.push("." + taak.chop.to_s)
+          tasks.push("  " + taak.chop.to_s)
         end
+      end
       # rescue
       #   tasks.push("--No active event or ical error--")
       # end
       # begin
-        IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last(3).each do |taak|
-          tasks.push(":" + taak.chop.to_s)
+      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+      unless !taken
+        taken.last(3).each do |taak|
+          tasks.push(taak.chop.to_s)
         end
+      end
       # rescue
       #   tasks.push("--No starred tasks or Toodledo error--")
       # end
