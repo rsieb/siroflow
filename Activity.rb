@@ -6,19 +6,21 @@ module RoutineTracker
     def self.target
       tasks = Array.new()
       nowtask = ""
-      begin
-        tasks.push(%x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!)
-      rescue
-        tasks.push("--No active event or ical error--")
-      end
-      begin
-        IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last(3).each do |taak|
-          tasks.push(taak.chop.to_s)
+      # begin
+        evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
+        evenementen.each_line do |taak|
+          tasks.push("." + taak.chop.to_s)
         end
-      rescue
-        tasks.push("--No starred tasks or Toodledo error--")
-        tasks.push("F yeah restar my tasklist ®restar +0pvy")
-      end
+      # rescue
+      #   tasks.push("--No active event or ical error--")
+      # end
+      # begin
+        IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt").last(3).each do |taak|
+          tasks.push(":" + taak.chop.to_s)
+        end
+      # rescue
+      #   tasks.push("--No starred tasks or Toodledo error--")
+      # end
       tasks.size.times do
         addtask = tasks.delete_at(rand(tasks.size))
         if addtask then

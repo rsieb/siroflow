@@ -73,10 +73,7 @@ module RoutineTracker
       app('TextMate').activate
       exit
     elsif @totaalseconden < 22.5 * 60 then
-      @terminal.error("ERROR: Too little for a Pomodoro. Please increase.")
-      app("TextMate").open MacTypes::Alias.path(@laadbestand)
-      app('TextMate').activate
-      exit
+      @terminal.warn("WARNING: Too little for a Pomodoro. Can increase.")
     end
 
     mytask = @laadbestand.gsub(".routine.yaml","").gsub("yamls/","")

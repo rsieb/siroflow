@@ -78,25 +78,15 @@ module RoutineTracker
       rescue
         minutesidle = "some"
       end
-      #minutesidle.to_i.times {|i| @@instance.warn("#{minutesidle} ") }
+      %x[osascript -e "set volume output volume ((output volume of (get volume settings)) + 1)"]
       minutesidle.times { |i|
-#        @@instance.warn("idle ")
         @@instance.warn("#{i.to_s} ")
       }
       @@instance.warn("#{sayable} ")
-      #minutesidle.to_i.times {|i| printf "\a" ; sleep 0.2 }
       system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
-      #sleep 1
-      #      system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/iCal/pull_unfinished_plans.scpt")
       f = File.open("/tmp/routinetracker.log", "a")
       f.write("#{IDLEMARKER}")
       f.close
-      #system('osascript /Users/rs/Dropbox/Library/Scripts/CloseUnused.scpt ')
-      #system('open -a "ToodleDo.app" ')
-      #system('open -a "Isolator.app" ')
-      #system('open -a "ScreenSaverEngine.app" ')
-      #system("pmset sleepnow") # avoid this, very hard to get going again
-      #system("/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend") # does not seem to work from ruby script
     end
 
     def self.remind(sayable)

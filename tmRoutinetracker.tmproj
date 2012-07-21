@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>add_multiple_pomodori.rb</string>
+	<string>Terminal.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,14 +21,44 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Activity.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>81</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+		</dict>
 		<key>Terminal.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>54</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -40,7 +70,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>132</integer>
+				<integer>19</integer>
 				<key>line</key>
 				<integer>29</integer>
 			</dict>
@@ -76,6 +106,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>routinetracker.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>16</integer>
+				<key>line</key>
+				<integer>184</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>162</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -292,6 +336,8 @@
 	<array>
 		<string>Terminal.rb</string>
 		<string>add_multiple_pomodori.rb</string>
+		<string>Activity.rb</string>
+		<string>routinetracker.rb</string>
 		<string>chaseidle.rb</string>
 		<string>tmRoutinetracker.tmproj</string>
 	</array>
@@ -310,6 +356,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{167, 280}, {1230, 778}}</string>
+	<string>{{427, 145}, {1230, 778}}</string>
 </dict>
 </plist>
