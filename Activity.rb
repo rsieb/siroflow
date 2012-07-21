@@ -10,7 +10,7 @@ module RoutineTracker
       evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
       unless !evenementen
         evenementen.each_line do |taak|
-          tasks.push("  " + taak.chop.to_s)
+          tasks.push(" " + taak.chop.to_s)
         end
       end
       # rescue
@@ -26,11 +26,17 @@ module RoutineTracker
       # rescue
       #   tasks.push("--No starred tasks or Toodledo error--")
       # end
-      tasks.size.times do
-        addtask = tasks.delete_at(rand(tasks.size))
-        if addtask then
+      #      tasks.size.times do
+      #        addtask = tasks.delete_at(rand(tasks.size))
+      #        if addtask then
+      #          nowtask = nowtask + addtask  + "\n"
+      #        end
+      if tasks
+        tasks.each do |addtask|
           nowtask = nowtask + addtask  + "\n"
         end
+      else
+        nowtask = "--no tasks found--"
       end
       return nowtask
     end
