@@ -28,18 +28,18 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>48</integer>
+				<integer>0</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>5</integer>
+			<integer>0</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>17</integer>
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
@@ -48,8 +48,78 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>48</integer>
+				<integer>0</integer>
 			</dict>
+		</dict>
+		<key>Terminal.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>94</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>_old_routine.applescript</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>51</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>annoyme.scpt</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>chaseidle.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>39</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>reset_idle.sh</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>routine2/any_long_task.routine2.yaml</key>
 		<dict>
@@ -261,6 +331,34 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>tmRoutinetracker.tmproj</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>translateroutines.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>yamls/clearup.routine.yaml</key>
 		<dict>
 			<key>caret</key>
@@ -280,20 +378,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>8</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>107</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>48</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>yamls/clearup.routine.yaml</string>
 		<string>Activity.rb</string>
+		<string>chaseidle.rb</string>
+		<string>Terminal.rb</string>
+		<string>tmRoutinetracker.tmproj</string>
+		<string>translateroutines.rb</string>
+		<string>reset_idle.sh</string>
+		<string>_old_routine.applescript</string>
+		<string>sandbox.rb</string>
+		<string>annoyme.scpt</string>
 		<string>yamls/evening.routine.yaml</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
@@ -319,6 +425,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{961, 2}, {956, 1053}}</string>
+	<string>{{260, 9}, {1472, 1040}}</string>
 </dict>
 </plist>

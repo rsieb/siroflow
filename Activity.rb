@@ -10,7 +10,7 @@ module RoutineTracker
       evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
       unless !evenementen
         evenementen.each_line do |taak|
-          tasks.push(" " + taak.chop.to_s)
+          tasks.push(" " + taak.to_s)
         end
       end
       # rescue
@@ -19,7 +19,7 @@ module RoutineTracker
       # begin
       taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
       unless !taken
-        taken.last(3).each do |taak|
+        taken.each do |taak|
           tasks.push(taak.chop.to_s)
         end
       end
@@ -33,7 +33,7 @@ module RoutineTracker
       #        end
       if tasks
         tasks.each do |addtask|
-          nowtask = nowtask + addtask  + "\n"
+          nowtask = addtask + "\n" + nowtask
         end
       else
         nowtask = "--no tasks found--"
@@ -46,7 +46,7 @@ module RoutineTracker
     end
 
     def self.actual
-      Log.instance.contents.split(' #')[0]
+      Log.instance.contents.split(' +')[0]
     end
 
   end

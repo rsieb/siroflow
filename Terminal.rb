@@ -82,6 +82,7 @@ module RoutineTracker
       minutesidle.times { |i|
         @@instance.warn("#{i.to_s} ")
       }
+#      @@instance.warn("#{sayable.split(/ \+/u)[0]} ")
       @@instance.warn("#{sayable} ")
       system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
       f = File.open("/tmp/routinetracker.log", "a")
@@ -91,7 +92,7 @@ module RoutineTracker
 
     def self.remind(sayable)
       @@instance.display(sayable)
-      #@@instance.say(sayable)
+      @@instance.say(sayable)
     end
 
     def welcome(software)
