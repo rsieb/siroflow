@@ -80,19 +80,22 @@ module RoutineTracker
       end
       %x[osascript -e "set volume output volume ((output volume of (get volume settings)) + 1)"]
       minutesidle.times { |i|
-        @@instance.warn("#{i.to_s} ")
+        if @@instance.idle?
+          @@instance.warn("#{i.to_s} ")
+        end
       }
-#      @@instance.warn("#{sayable.split(/ \+/u)[0]} ")
-      @@instance.warn("#{sayable} ")
-      system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
-      f = File.open("/tmp/routinetracker.log", "a")
-      f.write("#{IDLEMARKER}")
-      f.close
+      #      @@instance.warn("#{sayable.split(/ \+/u)[0]} ")
+      if @@instance.idle?
+        @@instance.warn("#{sayable} ")
+        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
+        f = File.open("/tmp/routinetracker.log", "a")
+        f.write("#{IDLEMARKER}")
+        f.close
+      end
     end
 
     def self.remind(sayable)
-      @@instance.display(sayable)
-      @@instance.say(sayable)
+      @@instance.info(sayable)
     end
 
     def welcome(software)
