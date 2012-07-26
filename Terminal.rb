@@ -72,6 +72,8 @@ module RoutineTracker
     end
 
     def self.chaseup(sayable)
+      
+      
       #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
         minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size - 2
@@ -80,12 +82,12 @@ module RoutineTracker
       end
       %x[osascript -e "set volume output volume ((output volume of (get volume settings)) + 1)"]
       minutesidle.times { |i|
-        if @@instance.idle?
+        if Log.instance.idle?
           @@instance.warn("#{i.to_s} ")
         end
       }
       #      @@instance.warn("#{sayable.split(/ \+/u)[0]} ")
-      if @@instance.idle?
+      if Log.instance.idle?
         @@instance.warn("#{sayable} ")
         system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
         f = File.open("/tmp/routinetracker.log", "a")

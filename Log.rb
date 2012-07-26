@@ -25,9 +25,17 @@ module RoutineTracker
     end
 
     def idle
+      # TODO change this to idle! method because it overwrites something
       @writer = File.open(ACTIVITYFILE, "a")
       @writer.write("#{IDLEMARKER}")
       @writer.close
+    end
+
+    def idle?
+      @reader = File.open(ACTIVITYFILE, "r")
+      @contents = @reader.gets
+      @reader.close
+      @contents.match("IDLE").to_s.size > 0
     end
 
   end

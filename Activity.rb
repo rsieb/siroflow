@@ -10,7 +10,7 @@ module RoutineTracker
       evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
       unless !evenementen
         evenementen.each_line do |taak|
-          tasks.push(" " + taak.to_s)
+          tasks.push(" " + taak.chop.to_s)
         end
       end
       # rescue
