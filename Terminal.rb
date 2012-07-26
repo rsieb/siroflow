@@ -71,9 +71,7 @@ module RoutineTracker
       @@instance.info(notification)
     end
 
-    def self.chaseup(sayable)
-      
-      
+    def self.chaseup(tasklist)
       #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
         minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size - 2
@@ -86,10 +84,11 @@ module RoutineTracker
           @@instance.warn("#{i.to_s} ")
         end
       }
-      #      @@instance.warn("#{sayable.split(/ \+/u)[0]} ")
+      #      @@instance.warn("#{tasklist.split(/ \+/u)[0]} ")
       if Log.instance.idle?
-        @@instance.warn("#{sayable} ")
-        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + sayable +'"')
+        @toptask = tasklist.gsub(/\n.*$/,"")
+        @@instance.warn("#{@toptask} ")
+        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + tasklist +'"')
         f = File.open("/tmp/routinetracker.log", "a")
         f.write("#{IDLEMARKER}")
         f.close

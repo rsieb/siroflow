@@ -17,10 +17,12 @@ module RoutineTracker
       #   tasks.push("--No active event or ical error--")
       # end
       # begin
+      # TODO IMPORTANT 2012-07-25 refactor this to read array from Taskmanager.rb in stead of from file system!
       taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
       unless !taken
         taken.each do |taak|
           tasks.push(taak.chop.to_s)
+#          tasks.unshift(taak.chop.to_s)
         end
       end
       # rescue
