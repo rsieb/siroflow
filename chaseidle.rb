@@ -1,6 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -wKu
 # encoding: UTF-8
-#!/usr/bin/env ruby -wKU
 
 
 
