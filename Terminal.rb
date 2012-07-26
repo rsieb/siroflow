@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby -wKu
+# encoding: UTF-8
 
 module RoutineTracker
 
