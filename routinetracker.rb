@@ -263,13 +263,13 @@ module RoutineTracker
               # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
             when 0
               # within one standard dev
-              @terminal.warn("On track, #{teken}")
+              @terminal.warn("#{teken} but within standard deviation")
             when 1
               # more than one standard dev
-              @terminal.warn( "A bit #{teken}")
+              @terminal.warn( "More than one standard deviation #{teken}")
             else
               # more than two standard devs
-              @terminal.warn("Too #{teken}") 
+              @terminal.warn("More than two standar deviations #{teken}") 
             end     
 
             # # TOP X Scoring
