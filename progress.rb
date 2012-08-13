@@ -34,7 +34,7 @@ def say(saying)
 end
 
 # Randomize terminal color, I want some color in my life!
-system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/Terminal/RandomColorTerminal.scpt")
+#system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/Terminal/RandomColorTerminal.scpt")
 
 #pseudo read input as number of seconds
 if $inputtime > 60

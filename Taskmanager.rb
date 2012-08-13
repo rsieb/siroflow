@@ -10,13 +10,6 @@ require 'chronic'
 module RoutineTracker
   class TaskManager
     def initialize
-      
-    end
-    
-    def hotlist
-      @uitput = ""
-      goals = Array.new()
-
       config = {
         "connection" => { 
           "url" => "http://www.toodledo.com/api.php",
@@ -24,7 +17,30 @@ module RoutineTracker
           "password" => "ueb0y?Qatar"
         }
       }
-      Toodledo.set_config(config)
+      t = Toodledo.new()
+      t.set_config(config)
+      return t
+    end
+    
+    @@instance = TaskManager.new
+
+    def self.instance
+      return @@instance
+    end
+    
+    
+    def alltasks
+      @@instance.begin do |session|
+        
+        criteria = { :notcomp => true  }
+        @tasks = session.get_tasks(criteria2)
+        return @tasks
+    end    
+    
+    def hotlist
+      @uitput = ""
+      goals = Array.new()
+
       Toodledo.begin do |session|
 
         goals = session.get_goals()

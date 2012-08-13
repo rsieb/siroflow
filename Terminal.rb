@@ -80,7 +80,7 @@ module RoutineTracker
       rescue
         minutesidle = "some"
       end
-      %x[osascript -e "set volume output volume ((output volume of (get volume settings)) + 1)"]
+      %x[osascript -e "if (get (output muted of (get volume settings))) is false then set volume output volume ((output volume of (get volume settings)) + 1)"]
       minutesidle.times { |i|
         if Log.instance.idle?
           @@instance.warn("#{i.to_s} ")
@@ -90,7 +90,9 @@ module RoutineTracker
       if Log.instance.idle?
         @toptask = tasklist.gsub(/\n.*$/,"")
         @@instance.warn("#{@toptask} ")
+        # TODO rs 2012-07-29 this is a major risk: sending an array full of random commands into system as text?
         system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + tasklist +'"')
+#        system("osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{tasklist} ")
         f = File.open("/tmp/routinetracker.log", "a")
         f.write("#{IDLEMARKER}")
         f.close

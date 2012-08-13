@@ -7,33 +7,19 @@ module RoutineTracker
     def self.target
       tasks = Array.new()
       nowtask = ""
-      # begin
+      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+      unless !taken
+        taken.each do |taak|
+          tasks.push(taak.chop.to_s)
+        end
+      end
+
       evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
       unless !evenementen
         evenementen.each_line do |taak|
           tasks.push(" " + taak.chop.to_s)
         end
       end
-      # rescue
-      #   tasks.push("--No active event or ical error--")
-      # end
-      # begin
-      # TODO IMPORTANT 2012-07-25 refactor this to read array from Taskmanager.rb in stead of from file system!
-      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
-      unless !taken
-        taken.each do |taak|
-          tasks.push(taak.chop.to_s)
-#          tasks.unshift(taak.chop.to_s)
-        end
-      end
-      # rescue
-      #   tasks.push("--No starred tasks or Toodledo error--")
-      # end
-      #      tasks.size.times do
-      #        addtask = tasks.delete_at(rand(tasks.size))
-      #        if addtask then
-      #          nowtask = nowtask + addtask  + "\n"
-      #        end
       if tasks
         tasks.each do |addtask|
           nowtask = addtask + "\n" + nowtask

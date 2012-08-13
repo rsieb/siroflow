@@ -17,9 +17,9 @@ require './_routine_methods'
 module RoutineTracker
 
   class Main
-    
+
     #@runroutine = Routine.run(ARGV[0])
-    
+
     # capture command line arguments: routine and task 
     if ARGV[0]
       @laadbestand = ARGV[0]
@@ -32,7 +32,7 @@ module RoutineTracker
       @overalltask = nil
     end
 
-    
+
     @terminal = RoutineTracker::Terminal.instance
     @terminal.welcome("RoutineTracker")
 
@@ -64,7 +64,7 @@ module RoutineTracker
         @totaalseconden = @totaalseconden + waarden.valid_stats.median
       end
     end
-    
+
     @terminal.info "Planning #{@totaalseconden.to_human} until finish"
     if @totaalseconden > 27.5 * 60 then
       # TODO 2012-06-29 change hard-coded exits to user-chosen course of action
@@ -244,76 +244,79 @@ module RoutineTracker
 
             # DONE 20100731_1916  20100726_0930 base score calculation on STDEVs, mins and maxs
             # TODO 2010-08-28_1202-0700 this is such a mess, move to logging all and then letting view decide what to display
-            # @verschil = @doel - @eindtijd
-            # if @verschil < 0  then
-            #   score = -(@verschil/@afwijking)
-            #   teken = "slow"
-            #   #            detailscore = ((10.0 *score).round)/10.0
-            #   # @terminal.warn "#{detailscore.to_s} #{teken}"
-            # else
-            #   score = (@verschil/@afwijking)
-            #   teken = "fast"
-            # end
-            # # if @verschil.to_i > 0 then
-            # #   # @terminal.warn "#{(100*@verschil/@doel).to_i} percent off"
-            # # end
-            # @bezig = @bezig + @eindtijd
-            # # end
-            # case score.to_i
-            #   # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
-            # when 0
-            #   @terminal.warn("On track, #{teken}")
-            # when 1
-            #   @terminal.warn( "A bit #{teken}")
-            # else
-            #   @terminal.warn("Too #{teken}") 
-            # end     
-
-            # TOP X Scoring
-            plaatsteller = 1
-            waarden.sort!.each do |referentie|
-              if @eindtijd > referentie
-                plaatsteller = plaatsteller + 1
-                referentie = referentie.to_i
-              else
-                break
-              end # if @eindtijd > referentie
-            end # waarden.each
-            case plaatsteller
-            when 1
-              oordeel = "Woohoo! You won "
-            when 2
-              oordeel = "Excellent, you got the"
-            when 3
-              oordeel = "Good, "
-            when 4..5
-              oordeel = "Not bad, "
+            @verschil = @doel - @eindtijd
+            # DOC now score based on reported deviation versus standard dev:
+            # DOC if within standard deviation then good, if not then either very good or very bad
+            if @verschil < 0  then
+              score = -(@verschil/@afwijking) 
+              teken = "slow"
             else
-              oordeel = "Concentrate! Only "
-            end # case plaatsteller
-            @terminal.warn "#{oordeel} #{plaatsteller.ordinalize} place."
+              score = (@verschil/@afwijking)
+              teken = "fast"
+            end
+            # if @verschil.to_i > 0 then
+            #   # @terminal.warn "#{(100*@verschil/@doel).to_i} percent off"
+            # end
+            @bezig = @bezig + @eindtijd
+            # end
+            case score.truncate #returns float truncated to an Integer
+              # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
+            when 0
+              # within one standard dev
+              @terminal.warn("On track, #{teken}")
+            when 1
+              # more than one standard dev
+              @terminal.warn( "A bit #{teken}")
+            else
+              # more than two standard devs
+              @terminal.warn("Too #{teken}") 
+            end     
+
+            # # TOP X Scoring
+            # plaatsteller = 1
+            # waarden.sort!.each do |referentie|
+            #   if @eindtijd > referentie
+            #     plaatsteller = plaatsteller + 1
+            #     referentie = referentie.to_i
+            #   else
+            #     break
+            #   end # if @eindtijd > referentie
+            # end # waarden.each
+            # case plaatsteller
+            # when 1
+            #   oordeel = "Woohoo! You won "
+            # when 2
+            #   oordeel = "Excellent, you got the"
+            # when 3
+            #   oordeel = "Good, "
+            # when 4..5
+            #   oordeel = "Not bad, "
+            # else
+            #   oordeel = "Concentrate! Only "
+            # end # case plaatsteller
+            # @terminal.warn "#{oordeel} #{plaatsteller.ordinalize} place."
 
           end # case status
         end #ψ End while user not finished
 
 
         #ψ ] Store real end time
-#        if @eindtijd != 0
-          waarden.unshift(@eindtijd).sort!
-          # leave time to build up some extra values, otherwise outliers are immediately chopped off
-          # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
-          wgrootte = waarden.size
-          mingrootte = 4
-          if wgrootte > (3 * mingrootte)
-            # # cut half of difference to the front
-            # waarden.shift((wgrootte-mingrootte)/2)
-            # # and cut half of difference to the back
-            # waarden.pop((wgrootte-mingrootte)/2)
-            # cut one outlier value to the front and one to the back
-            waarden.shift(1) ; waarden.pop(1)
+        #        if @eindtijd != 0
+        waarden.unshift(@eindtijd).sort!
+        # leave time to build up some extra values, otherwise outliers are immediately chopped off
+        # TODO 2010-08-29_2050-0700 check if it still makes sense to delete values, switching off for now
+        wgrootte = waarden.size
+        mingrootte = 4
+        if wgrootte > (3 * mingrootte)
+          # # cut half of difference to the front
+          # waarden.shift((wgrootte-mingrootte)/2)
+          # # and cut half of difference to the back
+          # waarden.pop((wgrootte-mingrootte)/2)
+          # cut one outlier value to the front and one to the back
+          waarden.shift(1) ; waarden.pop(1)
 
-          end # if wgrootte >
-#        end # if @eindtijd !=0
+        end # if wgrootte >
+        #        end # if @eindtijd !=0
         # DONE 20100725_0828 reproject end time 20100726_1229
         #ψ Store data for next time
         # DONE 20100802_1327 - save values on every loop
@@ -359,7 +362,7 @@ module RoutineTracker
     #    app('iCal').activate
 
     @laadbestand = nil
-    
+
   end
 end
 

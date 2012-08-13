@@ -1,10 +1,6 @@
 #!/usr/bin/env ruby -wKu
 # encoding: UTF-8
-
-
-
-#unless FileTest.exists?("/Users/rs/Desktop/PREZMODE")
-
+ 
 unless IO.readlines("/tmp/routinetracker.log").first.match("PREZMODE").to_s.size > 0
   require 'rubygems'
   require '/Users/rs/rt/Terminal.rb'
@@ -21,7 +17,7 @@ unless IO.readlines("/tmp/routinetracker.log").first.match("PREZMODE").to_s.size
   else
     puts "TODOLIST is empty"
   end 
-  #system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
+  system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
   module RoutineTracker
     class Main < Activity
       unless Terminal.instance.silent?
