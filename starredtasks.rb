@@ -40,7 +40,7 @@ Toodledo.begin do |session|
   end
 
   tasks.each do |taak| 
-    taak.title.gsub!(/[^A-Za-z0-9_+\/® ]/, '')
+    taak.title.gsub!(/[^A-Za-z0-9_#`+\/® ]/, '')
     if (taak.goal.name && taak.goal.name != "No goal")
       # TODO 2012-07-25 refactor this so that it is not a string but an array
       @uitput = @uitput + taak.title + " +" + taak.goal.name.to_s + "\n"

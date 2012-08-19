@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>starredtasks.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -19,14 +21,14 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
-		<key>_old_routine.applescript</key>
+		<key>Activity.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>51</integer>
+				<integer>100</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>9</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -257,6 +259,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>starredtasks.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>36</integer>
+				<key>line</key>
+				<integer>42</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>12</integer>
+		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
 			<key>caret</key>
@@ -285,21 +301,57 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>yamls/evening.routine.yaml</key>
+		<key>yamls/clearup.routine.yaml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>107</integer>
+				<integer>66</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>28</integer>
+		</dict>
+		<key>yamls/rejig.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>yamls/reprioritize.routine.yaml</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>12</integer>
+				<key>line</key>
+				<integer>89</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>12</integer>
+		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>Activity.rb</string>
+		<string>starredtasks.rb</string>
+		<string>yamls/clearup.routine.yaml</string>
+		<string>yamls/rejig.routine.yaml</string>
+		<string>yamls/reprioritize.routine.yaml</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>showFileHierarchyPanel</key>
@@ -323,6 +375,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{-0, -0}, {1920, 1058}}</string>
+	<string>{{89, 90}, {1280, 774}}</string>
 </dict>
 </plist>

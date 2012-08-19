@@ -10,7 +10,7 @@ module RoutineTracker
       taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
       unless !taken
         taken.each do |taak|
-          tasks.push(taak.chop.to_s)
+          tasks.push("█" + taak.chop.to_s)
         end
       end
 
