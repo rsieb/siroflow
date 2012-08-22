@@ -43,10 +43,13 @@ Toodledo.begin do |session|
     #taak.title.gsub!(/[^A-Za-z0-9_#\`\+\/® ]/, '')
     #taak.title.gsub!(/\&/, '')
     if (taak.goal.name && taak.goal.name != "No goal")
+      # TODO 2012-08-22 trying to mark proactive tasks (with goals) with block
       # TODO 2012-07-25 refactor this so that it is not a string but an array
-      @uitput = @uitput + taak.title + " +" + taak.goal.name.to_s + "\n"
+      @uitput = @uitput + "█" + taak.title + " +" + taak.goal.name.to_s + "\n"
     else
-      @uitput = @uitput + "\n" + taak.title.sub(" _", " +") + "\n"
+      ## no idea why this line had an extra "\n" in it
+#      @uitput = @uitput + "\n" + taak.title.sub(" _", " +") + "\n"
+      @uitput = @uitput + taak.title.sub(" _", " +") + "\n"
     end
     # puts taak.title + " @" + taak._id
   end
