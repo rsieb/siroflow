@@ -43,6 +43,10 @@ module RoutineTracker
     @tasks = YAML.load_file( @laadbestand )
     @aantal = @tasks.size
 
+    # add Drink task if non existent
+    if @tasks[0].keys != ["Have a drink"]
+      @tasks.unshift({"Have a drink"=>[60.0]})
+    end
 
     #ψ Calculate totals
     # initialize empty value for total number of seconds
@@ -259,18 +263,24 @@ module RoutineTracker
             # end
             @bezig = @bezig + @eindtijd
             # end
-            case score.truncate #returns float truncated to an Integer
-              # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
-            when 0
-              # within one standard dev
-              @terminal.warn("On target, excellent!")
-            when 1
-              # more than one standard dev
-              @terminal.warn( "A bit #{teken} but good!")
-            else
-              # more than two standard devs
-              @terminal.warn("Too #{teken} but you did it!") 
-            end     
+            File.open("/Users/rs/rt/routinesontime.log", 'a')  do |resultaat|
+
+              case score.truncate #returns float truncated to an Integer
+                # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
+              when 0
+                # within one standard dev
+                @terminal.warn("On target, excellent!")
+                resultaat.write("•")
+              when 1
+                # more than one standard dev
+                @terminal.warn( "A bit #{teken} but good!")
+                resultaat.write(teken[0].downcase)
+              else
+                # more than two standard devs
+                @terminal.warn("Too #{teken} but you did it!") 
+                resultaat.write(teken[0].upcase)
+              end     
+            end
 
             # # TOP X Scoring
             # plaatsteller = 1

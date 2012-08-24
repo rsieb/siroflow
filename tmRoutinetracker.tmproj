@@ -63,6 +63,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>routinetracker.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>39</integer>
+				<key>line</key>
+				<integer>276</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>244</integer>
+		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
 			<key>caret</key>
@@ -264,14 +278,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>78</integer>
+				<integer>51</integer>
 				<key>line</key>
-				<integer>45</integer>
+				<integer>57</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>24</integer>
 		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
@@ -348,6 +362,7 @@
 	<array>
 		<string>Activity.rb</string>
 		<string>starredtasks.rb</string>
+		<string>routinetracker.rb</string>
 		<string>yamls/clearup.routine.yaml</string>
 		<string>yamls/rejig.routine.yaml</string>
 		<string>yamls/reprioritize.routine.yaml</string>
@@ -367,6 +382,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{98, 60}, {1280, 670}}</string>
+	<string>{{240, 43}, {1280, 814}}</string>
 </dict>
 </plist>
