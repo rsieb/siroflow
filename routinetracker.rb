@@ -65,7 +65,19 @@ module RoutineTracker
         @afgerond[nummer] = @totaalseconden
         # add the new number of seconds to generate a new total
         # TODO 2012-06-04 catch cases where all values are zero, this causes an error because 0 is not valid
-        @totaalseconden = @totaalseconden + waarden.valid_stats.median
+        #@totaalseconden = @totaalseconden + waarden.valid_stats.median
+        @nieuweseconden = waarden.valid_stats.mean
+        if @nieuweseconden == -999 then
+          @parking = YAML.load_file( "yamls/parking.routine.yaml" )
+          @parking.unshift(Hash["#{@laadbestand.gsub(".routine.yaml","").gsub("yamls/","")}: #{naam}" => waarden])
+          File.open("yamls/parking.routine.yaml", 'w')  do |out|
+            YAML.dump( @parking, out )
+          end # File.open
+          
+          #@tasks.delete_at(nummer)
+        else
+          @totaalseconden = @totaalseconden + @nieuweseconden
+        end
       end
     end
 

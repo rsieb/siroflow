@@ -25,6 +25,8 @@ class Array
         geldige.push(tijd)
       end
     end
+    # add error code for arrays with mostly zero values - allows code to take this out
+    return [-999] if (geldige.size) * 2 < self.size
     return geldige
   end
 
