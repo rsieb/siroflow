@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>_routine_methods.rb</string>
+	<string>starredtasks.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -33,7 +33,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>15</integer>
+			<integer>0</integer>
 		</dict>
 		<key>annoyme.scpt</key>
 		<dict>
@@ -62,6 +62,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>routinetracker.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>90</integer>
+				<key>line</key>
+				<integer>71</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>46</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -259,6 +273,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>starredtasks.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>5</integer>
+				<key>line</key>
+				<integer>40</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>25</integer>
+		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
 			<key>caret</key>
@@ -274,6 +302,20 @@
 			<integer>0</integer>
 		</dict>
 		<key>translateroutines.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>yamls/fast_test.routine.yaml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -306,6 +348,9 @@
 	<array>
 		<string>yamls/reprioritize.routine.yaml</string>
 		<string>_routine_methods.rb</string>
+		<string>routinetracker.rb</string>
+		<string>yamls/fast_test.routine.yaml</string>
+		<string>starredtasks.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -330,6 +375,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{240, 50}, {1280, 814}}</string>
+	<string>{{75, 217}, {1280, 814}}</string>
 </dict>
 </plist>

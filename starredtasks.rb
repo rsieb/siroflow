@@ -44,8 +44,8 @@ Toodledo.begin do |session|
     #taak.title.gsub!(/[^A-Za-z0-9_#\`\+\/® ]/, '')
     #taak.title.gsub!(/\&/, '')
     begin
- #     if taak.tag.any? { |s| s.include?(markertest) } then
-        if taak.star == true
+     if taak.tag.any? { |s| s.include?("fv") } then
+#        if taak.star == true
         @mymarker = "█"
       else
         @mymarker = "•"
