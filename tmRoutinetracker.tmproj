@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>starredtasks.rb</string>
+	<string>yamls/clearup.routine.yaml</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,28 +21,28 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
-		<key>_routine_methods.rb</key>
+		<key>Activity.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>28</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>annoyme.scpt</key>
+		<key>_routine_methods.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>24</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -68,14 +68,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>90</integer>
+				<integer>52</integer>
 				<key>line</key>
-				<integer>71</integer>
+				<integer>68</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>46</integer>
+			<integer>38</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -278,14 +278,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>40</integer>
+				<integer>14</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>25</integer>
+			<integer>0</integer>
 		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
@@ -315,42 +315,28 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>yamls/fast_test.routine.yaml</key>
+		<key>yamls/clearup.routine.yaml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>37</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/reprioritize.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>89</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>16</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>yamls/reprioritize.routine.yaml</string>
 		<string>_routine_methods.rb</string>
 		<string>routinetracker.rb</string>
-		<string>yamls/fast_test.routine.yaml</string>
+		<string>yamls/clearup.routine.yaml</string>
 		<string>starredtasks.rb</string>
+		<string>Activity.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -375,6 +361,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{75, 217}, {1280, 814}}</string>
+	<string>{{177, 5}, {956, 1053}}</string>
 </dict>
 </plist>

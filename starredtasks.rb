@@ -41,14 +41,13 @@ Toodledo.begin do |session|
   end
 
   tasks.each do |taak| 
-    #taak.title.gsub!(/[^A-Za-z0-9_#\`\+\/® ]/, '')
-    #taak.title.gsub!(/\&/, '')
+    taak.title.gsub!(/[^A-Za-z0-9_#`\+\/® ]/, '')
     begin
      if taak.tag.any? { |s| s.include?("fv") } then
 #        if taak.star == true
-        @mymarker = "█"
+        @mymarker = ">"
       else
-        @mymarker = "•"
+        @mymarker = ""
       end
     rescue NoMethodError
       @mymarker = ""
