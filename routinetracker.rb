@@ -68,12 +68,13 @@ module RoutineTracker
         #@totaalseconden = @totaalseconden + waarden.valid_stats.median
         @nieuweseconden = waarden.valid_stats.mean
         if @nieuweseconden == 99999 then
+          @terminal.warn "Skipped #{naam} too often -- deleting"
           @parking = YAML.load_file( "yamls/parking.routine.yaml" )
           @parking.unshift(Hash["#{@laadbestand.gsub(".routine.yaml","").gsub("yamls/","")}: #{naam}" => waarden])
           File.open("yamls/parking.routine.yaml", 'w')  do |out|
             YAML.dump( @parking, out )
           end # File.open
-          
+
           @tasks.delete_at(nummer)
         else
           @totaalseconden = @totaalseconden + @nieuweseconden

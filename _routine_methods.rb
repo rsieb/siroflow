@@ -21,7 +21,7 @@ class Array
       end
     end
     # add error code for arrays with mostly zero values - allows code to take this out
-    return [99999] if (geldige.size) * 2 < self.size
+    return [99999] if (geldige.size) < (self.size / 3)
     return geldige
   end
 
