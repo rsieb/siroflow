@@ -25,32 +25,33 @@ Toodledo.begin do |session|
 
   goals = session.get_goals()
 
-  toodaaay = Chronic.parse("tomorrow").strftime("%Y-%m-%d") 
-  criteria2 = { :notcomp => true, :star => false, :before => toodaaay  }
-  tasks2 = session.get_tasks(criteria2)
+  # toodaaay = Chronic.parse("tomorrow").strftime("%Y-%m-%d") 
+  # criteria2 = { :notcomp => true, :star => false, :before => toodaaay  }
+  # tasks2 = session.get_tasks(criteria2)
 
   criteria1 = { :star => true, :notcomp => true }
-  tasks1 = session.get_tasks(criteria1)
-
-
-  tasks = tasks2 + tasks1
-  #puts tasks2.first.inspect
+  tasks = session.get_tasks(criteria1)
 
   if tasks.size == 0 then
     tasks.push("F yeah restar my tasklist ®restar +0pvy")
   end
+  
+  File.open("yamls/tasks.yaml", 'w+')  do |out|
+    YAML.dump( @tasks, out )
+  end # File.open
+  
 
   tasks.each do |taak| 
     taak.title.gsub!(/[^A-Za-z0-9_#`\+\/® ]/, '')
     begin
      if taak.tag.any? { |s| s.include?("fv") } then
 #        if taak.star == true
-        @mymarker = ">"
+        @mymarker = "- "
       else
-        @mymarker = ""
+        @mymarker = ": "
       end
     rescue NoMethodError
-      @mymarker = ""
+      @mymarker = " "
     end
     if (taak.goal.name && taak.goal.name != "No goal")
       # TODO 2012-08-22 trying to mark proactive tasks (with goals) with block
