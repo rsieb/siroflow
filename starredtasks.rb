@@ -37,7 +37,7 @@ Toodledo.begin do |session|
   end
   
   File.open("yamls/tasks.yaml", 'w+')  do |out|
-    YAML.dump( @tasks, out )
+    YAML.dump( tasks, out )
   end # File.open
   
 
