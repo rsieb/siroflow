@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>yamls/tasks.yaml</string>
+	<string>Activity.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -13,8 +13,6 @@
 			<string>Routinetracker</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>selected</key>
-			<true/>
 			<key>sourceDirectory</key>
 			<string></string>
 		</dict>
@@ -23,6 +21,20 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Activity.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Taskmanager.rb</key>
 		<dict>
 			<key>caret</key>
@@ -367,19 +379,33 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>silence_minuter.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>starredtasks.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>33</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>18</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
@@ -473,7 +499,9 @@
 		<string>routinetracker.rb</string>
 		<string>_routine_methods.rb</string>
 		<string>starredtasks.rb</string>
+		<string>Activity.rb</string>
 		<string>yamls/tasks.yaml</string>
+		<string>silence_minuter.rb</string>
 		<string>Taskmanager.rb</string>
 		<string>yamls/rejig.routine.yaml</string>
 		<string>yamls/reprioritize.routine.yaml</string>
@@ -491,15 +519,7 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict>
-				<key>yamls</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
+			<dict/>
 		</dict>
 	</dict>
 	<key>windowFrame</key>

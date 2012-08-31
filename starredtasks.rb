@@ -30,13 +30,16 @@ Toodledo.begin do |session|
   # tasks2 = session.get_tasks(criteria2)
 
   criteria1 = { :star => true, :notcomp => true }
-  tasks = session.get_tasks(criteria1)
-
+  tasks1 = session.get_tasks(criteria1)
+  
+#  tasks = tasks2 + tasks1
+  tasks = tasks1
+  
   if tasks.size == 0 then
     tasks.push("F yeah restar my tasklist ®restar +0pvy")
   end
   
-  File.open("yamls/tasks.yaml", 'w+')  do |out|
+  File.open("/Users/rs/rt/yamls/tasks.yaml", 'w+')  do |out|
     YAML.dump( tasks, out )
   end # File.open
   
