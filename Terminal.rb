@@ -82,7 +82,8 @@ module RoutineTracker
       rescue
         minutesidle = "some"
       end
-      %x[osascript -e "if (get (output muted of (get volume settings))) is false then set volume output volume ((output volume of (get volume settings)) + 1)"]
+#      system('osascript -e "if (get (output muted of (get volume settings))) is false then set volume output volume ((output volume of (get volume settings)) + 1)" ')
+      system('osascript -e "set volume without output muted output volume ((output volume of (get volume settings)) + 1)" ')
       minutesidle.times { |i|
         if Log.instance.idle?
           @@instance.warn("#{i.to_s} ")
