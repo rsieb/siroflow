@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wKu
+#!/usr/bin/env ruby -u
 # encoding: UTF-8
 
 LOGFILE = "/tmp/routinetracker.log"
@@ -27,15 +27,16 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
       end
     end
   end
-  # 2012-09-09 this is double with the system call below. why?  
-  TODOLIST = `/Users/rs/rt/starredtasks.rb`
-  unless TODOLIST.size < 3 # means no real output from process
-    puts "TODOLIST exists"
-    f = File.open("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt", "w")
-    f.write("#{TODOLIST}")
-    f.close
-  else
-    puts "TODOLIST is empty"
-  end 
-  #system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
 end
+
+# 2012-09-09 this is double with the system call below. why?  
+TODOLIST = `/Users/rs/rt/starredtasks.rb`
+unless TODOLIST.size < 3 # means no real output from process
+  puts "TODOLIST exists"
+  f = File.open("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt", "w")
+  f.write("#{TODOLIST}")
+  f.close
+else
+  puts "TODOLIST is empty"
+end 
+#system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
