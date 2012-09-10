@@ -7,12 +7,6 @@ module RoutineTracker
     def self.target
       tasks = Array.new()
       nowtask = ""
-      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
-      unless !taken
-        taken.each do |taak|
-          tasks.push(taak.chop.to_s)
-        end
-      end
 
       evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
       unless !evenementen
@@ -20,6 +14,14 @@ module RoutineTracker
           tasks.push(" " + taak.to_s)
         end
       end
+
+      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+      unless !taken
+        taken.each do |taak|
+          tasks.push(taak.chop.to_s)
+        end
+      end
+
       if tasks
         tasks.each do |addtask|
           nowtask = addtask + "\n" + nowtask
