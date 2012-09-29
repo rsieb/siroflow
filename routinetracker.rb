@@ -266,10 +266,10 @@ module RoutineTracker
             # DOC if within standard deviation then good, if not then either very good or very bad
             if @verschil < 0  then
               score = -(@verschil/@afwijking) 
-              teken = "slow"
+              teken = "sexy"
             else
               score = (@verschil/@afwijking)
-              teken = "fast"
+              teken = "wild"
             end
             # if @verschil.to_i > 0 then
             #   # @terminal.warn "#{(100*@verschil/@doel).to_i} percent off"
@@ -282,15 +282,15 @@ module RoutineTracker
                 # TODO 20100808_1100 change these evaluations to overall routine scores, not specific per task
               when 0
                 # within one standard dev
-                @terminal.warn("On target, excellent!")
+                @terminal.warn("On target, famously successful!")
                 resultaat.write("•")
               when 1
                 # more than one standard dev
-                @terminal.warn( "A bit #{teken} but good!")
+                @terminal.warn( "A bit #{teken}, successful!")
                 resultaat.write(teken[0].downcase)
               else
                 # more than two standard devs
-                @terminal.warn("Too #{teken} but you did it!") 
+                @terminal.warn("#{teken} but you are taking care!") 
                 resultaat.write(teken[0].upcase)
               end     
             end

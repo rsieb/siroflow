@@ -1,21 +1,15 @@
-#!/usr/bin/env ruby -u
+#!/usr/bin/env ruby -KU
 # encoding: UTF-8
 
+require 'rubygems'
+require '/Users/rs/rt/Terminal.rb'
+require '/Users/rs/rt/Log.rb'
+require '/Users/rs/rt/Activity.rb'
+require '/Users/rs/rt/Pomodoro.rb'
+
 LOGFILE = "/tmp/routinetracker.log"
-if ( Time.now() - File.mtime(LOGFILE) > 3600 )
-  # system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
-  f = File.open(LOGFILE, "w+")
-  f.write("IDLE")
-  f.close
-end  
 
 if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
-  require 'rubygems'
-  require '/Users/rs/rt/Terminal.rb'
-  require '/Users/rs/rt/Log.rb'
-  require '/Users/rs/rt/Activity.rb'
-  require '/Users/rs/rt/Pomodoro.rb'
-
   module RoutineTracker
     class Main < Activity
       unless Terminal.instance.silent?
@@ -27,6 +21,13 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
       end
     end
   end
+else
+  if ( Time.now() - File.mtime(LOGFILE) > 7200 )
+    # system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
+    f = File.open(LOGFILE, "w+")
+    f.write("IDLE")
+    f.close
+  end  
 end
 
 # 2012-09-09 this is double with the system call below. why?  
