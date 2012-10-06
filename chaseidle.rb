@@ -21,13 +21,13 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
       end
     end
   end
-else
-  if ( Time.now() - File.mtime(LOGFILE) > 7200 )
-    # system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
-    f = File.open(LOGFILE, "w+")
-    f.write("IDLE")
-    f.close
-  end  
+# else
+#   if ( Time.now() - File.mtime(LOGFILE) > 7200 )
+#     # system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
+#     f = File.open(LOGFILE, "w+")
+#     f.write("IDLE")
+#     f.close
+#   end  
 end
 
 # 2012-09-09 this is double with the system call below. why?  
