@@ -19,7 +19,7 @@ module RoutineTracker
       unless !evenementen
         evenementen.each_line do |taak|
           unless taak.match(/^»/) 
-            tasks.push(" " + taak.to_s)
+            tasks.push("Finish " + taak.to_s)
           end
         end
       end

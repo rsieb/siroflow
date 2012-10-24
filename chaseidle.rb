@@ -12,13 +12,13 @@ LOGFILE = "/tmp/routinetracker.log"
 if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
   module RoutineTracker
     class Main < Activity
-      unless Terminal.instance.silent?
         if idle?(actual) 
+          puts "Chaseup"
           Terminal.chaseup(target)      
         else
+          puts "Remind"
           Terminal.remind(actual)
         end
-      end
     end
   end
 # else

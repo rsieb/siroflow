@@ -43,9 +43,14 @@ module RoutineTracker
     @tasks = YAML.load_file( @laadbestand )
     @aantal = @tasks.size
 
-    # add Drink task if non existent
-    if @tasks[0].keys != ["Have a drink"]
-      @tasks.unshift({"Have a drink"=>[60.0]})
+    # # add Drink task if non existent
+    # if @tasks[0].keys != ["Have a drink"]
+    #   @tasks.unshift({"Have a drink"=>[60.0]})
+    # end
+
+    # remove Drink task at start of routine
+    if @tasks[0].keys == ["Have a drink"]
+      @tasks.shift
     end
 
     #ψ Calculate totals
