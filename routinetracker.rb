@@ -50,7 +50,7 @@ module RoutineTracker
 
     # remove Drink task at start of routine
     if @tasks[0].keys == ["Have a drink"]
-      @tasks.shift
+      @tasks.delete_at(0)
     end
 
     #ψ Calculate totals
