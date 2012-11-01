@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>chaseidle.rb</string>
+	<string>Terminal.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,28 +21,72 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
-		<key>+0pvy</key>
+		<key>Activity.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>88</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>10</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>88</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
+		</dict>
+		<key>Pomodoro.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>36</integer>
+				<key>line</key>
+				<integer>6</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>Activity.rb</key>
+		<key>Prioritize reddest task.applescript</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>16</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>Prioritize reddest task.scpt</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -54,14 +98,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>80</integer>
 				<key>line</key>
-				<integer>95</integer>
+				<integer>93</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>65</integer>
+			<integer>47</integer>
 		</dict>
 		<key>_routine_methods.rb</key>
 		<dict>
@@ -152,14 +196,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>52</integer>
+				<integer>380</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>345</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>378</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>380</integer>
+			</dict>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -459,8 +519,10 @@
 	<key>openDocuments</key>
 	<array>
 		<string>Terminal.rb</string>
-		<string>+0pvy</string>
 		<string>finalversiontasktest.rb</string>
+		<string>Pomodoro.rb</string>
+		<string>Prioritize reddest task.applescript</string>
+		<string>Prioritize reddest task.scpt</string>
 		<string>starredtasks.rb</string>
 		<string>Activity.rb</string>
 		<string>arrayx.rb</string>
@@ -496,6 +558,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{2, 0}, {956, 1058}}</string>
+	<string>{{2, 28}, {1249, 1030}}</string>
 </dict>
 </plist>

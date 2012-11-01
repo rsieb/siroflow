@@ -91,6 +91,7 @@ module RoutineTracker
             @@instance.warn("#{i.to_s} ")
           end
         }
+        system("open /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
         @toptask = tasklist.gsub(/\n.*$/,"")
         #        @@instance.warn("#{minutesidle.to_s} ")        
         @@instance.warn("#{@toptask} ")
@@ -117,6 +118,7 @@ module RoutineTracker
     protected
 
     def say(saying)
+      saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01 
       unless @@instance.silent?
         system("say #{saying}")
       end      
