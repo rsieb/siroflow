@@ -21,6 +21,20 @@
 	<integer>238</integer>
 	<key>metaData</key>
 	<dict>
+		<key>+0pvy</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>Activity.rb</key>
 		<dict>
 			<key>caret</key>
@@ -40,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>95</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>60</integer>
+			<integer>65</integer>
 		</dict>
 		<key>_routine_methods.rb</key>
 		<dict>
@@ -138,30 +152,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>374</integer>
+				<integer>52</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>349</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>374</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>375</integer>
-			</dict>
+			<integer>0</integer>
 		</dict>
 		<key>routrack/app/models/task.rb</key>
 		<dict>
@@ -364,14 +362,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>27</integer>
+				<integer>28</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>29</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>3</integer>
+			<integer>0</integer>
 		</dict>
 		<key>translateroutines.rb</key>
 		<dict>
@@ -400,20 +398,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>65</integer>
-		</dict>
-		<key>yamls/finishcommute.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>13</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>yamls/packing.routine.yaml</key>
 		<dict>
@@ -475,6 +459,7 @@
 	<key>openDocuments</key>
 	<array>
 		<string>Terminal.rb</string>
+		<string>+0pvy</string>
 		<string>finalversiontasktest.rb</string>
 		<string>starredtasks.rb</string>
 		<string>Activity.rb</string>
@@ -482,7 +467,6 @@
 		<string>add_multiple_pomodori.rb</string>
 		<string>routinetracker.rb</string>
 		<string>yamls/quickrejig.routine.yaml</string>
-		<string>yamls/finishcommute.routine.yaml</string>
 		<string>yamls/restar.routine.yaml</string>
 		<string>yamls/packing.routine.yaml</string>
 		<string>yamls/showerdress.routine.yaml</string>
@@ -512,6 +496,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{2, 50}, {956, 1128}}</string>
+	<string>{{2, 0}, {956, 1058}}</string>
 </dict>
 </plist>

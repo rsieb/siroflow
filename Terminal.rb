@@ -87,7 +87,9 @@ module RoutineTracker
       #      @@instance.warn("#{tasklist.split(/ \+/u)[0]} ")
       if Log.instance.idle?
         minutesidle.times { |i|
-          @@instance.warn("#{i.to_s} ")
+          if i > (minutesidle - 11)
+            @@instance.warn("#{i.to_s} ")
+          end
         }
         @toptask = tasklist.gsub(/\n.*$/,"")
         #        @@instance.warn("#{minutesidle.to_s} ")        
