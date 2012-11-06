@@ -78,7 +78,7 @@ module RoutineTracker
     def self.chaseup(tasklist)
       #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
-        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size - 2
+        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size + 2
       rescue
         minutesidle = "5"
       end
@@ -87,11 +87,11 @@ module RoutineTracker
       #      @@instance.warn("#{tasklist.split(/ \+/u)[0]} ")
       if Log.instance.idle?
         minutesidle.times { |i|
-          if i > (minutesidle - 11)
+          if i > (minutesidle - 10)
             @@instance.warn("#{i.to_s} ")
           end
         }
-        system("open /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+        system("open -a 'NVAlt' /Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
         @toptask = tasklist.gsub(/\n.*$/,"")
         #        @@instance.warn("#{minutesidle.to_s} ")        
         @@instance.warn("#{@toptask} ")
@@ -101,6 +101,7 @@ module RoutineTracker
         f = File.open("/tmp/routinetracker.log", "a")
         f.write("#{IDLEMARKER}")
         f.close
+        @@instance.warn("#{Time.now.strftime('%H %M')} ")
       end
     end
 

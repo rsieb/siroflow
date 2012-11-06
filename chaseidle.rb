@@ -33,8 +33,8 @@ end
 # 2012-09-09 this is double with the system call below. why?  
 TODOLIST = `/Users/rs/rt/starredtasks.rb`
 unless TODOLIST.size < 3 # means no real output from process
-  puts "TODOLIST exists"
-  f = File.open("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt", "w")
+#  puts "TODOLIST exists"
+  f = File.open("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt", "w")
   f.write("#{TODOLIST}")
   f.close
 else

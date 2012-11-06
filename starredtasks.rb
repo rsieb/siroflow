@@ -68,5 +68,14 @@ Toodledo.begin do |session|
     # puts taak.title + " @" + taak._id
   end
 end
+evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
+unless !evenementen
+  evenementen.each_line do |taak|
+    unless taak.match(/^»/) 
+      @uitput = @uitput + "Finish " + taak.to_s + "\n"
+    end
+  end
+end
+
 puts @uitput
 

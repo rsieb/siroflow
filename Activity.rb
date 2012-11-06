@@ -8,19 +8,10 @@ module RoutineTracker
       tasks = Array.new()
       nowtask = ""
 
-      taken = IO.readlines("/Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt")
+      taken = IO.readlines("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
       unless !taken
         taken.each do |taak|
           tasks.push(taak.chop.to_s)
-        end
-      end
-
-      evenementen = %x[/Users/rs/Dropbox/Library/Scripts/geektool/currentevents.sh].chomp!
-      unless !evenementen
-        evenementen.each_line do |taak|
-          unless taak.match(/^»/) 
-            tasks.push("Finish " + taak.to_s)
-          end
         end
       end
 
