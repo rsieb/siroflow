@@ -60,10 +60,11 @@ Toodledo.begin do |session|
       # TODO 2012-08-22 trying to mark proactive tasks (with goals) with block
       # TODO 2012-07-25 refactor this so that it is not a string but an array
       @uitput = @uitput + @mymarker + "Work on " + taak.title + " +" + taak.goal.name.to_s + "\n"
+#      @uitput = @mymarker + "Work on " + taak.title + " +" + taak.goal.name.to_s + "\n" + @uitput
     else
       ## no idea why this line had an extra "\n" in it
       #      @uitput = @uitput + "\n" + taak.title.sub(" _", " +") + "\n"
-      @uitput = @uitput  + @mymarker + taak.title.sub(" _", " +") + "\n"
+#      @uitput = @uitput  + @mymarker + taak.title.sub(" _", " +") + "\n"
     end
     # puts taak.title + " @" + taak._id
   end
