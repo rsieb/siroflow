@@ -5,10 +5,12 @@ module RoutineTracker
   class Activity
 
     def self.target
+      TODOYFILE = "/Users/rs/Library/Application Support/Notational Data/todoy.txt"
       tasks = Array.new()
       nowtask = ""
 
-      taken = IO.readlines("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
+      #taken = IO.readlines("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
+      taken = IO.readlines(TODOYFILE)
       unless !taken
         taken.each do |taak|
           tasks.push(taak.chop.to_s)
@@ -16,12 +18,13 @@ module RoutineTracker
       end
 
       if tasks
-        tasks.each do |addtask|
-          nowtask = addtask + "\n" + nowtask
+        tasks[1..-1].each do |addtask|
+          nowtask = nowtask + addtask  + "\n"
         end
-      else
-        nowtask = "--no tasks found--"
+        nowtask = nowtask + "." + tasks[0]
       end
+      
+      File.open(TODOYFILE, 'w') {|f| f.write(nowtask) }
       return nowtask
     end
 

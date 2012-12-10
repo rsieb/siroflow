@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Terminal.rb</string>
+	<string>routinetracker.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -28,49 +28,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>16</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>Pomodoro.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>36</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>Prioritize reddest task.applescript</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>16</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>Prioritize reddest task.scpt</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
+				<integer>23</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -89,21 +47,21 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>11</integer>
+			<integer>20</integer>
 		</dict>
 		<key>Terminal.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>103</integer>
+				<integer>111</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>72</integer>
+			<integer>65</integer>
 		</dict>
 		<key>_routine_methods.rb</key>
 		<dict>
@@ -152,9 +110,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>136</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>21</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -165,31 +123,17 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>94</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>10</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>136</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>21</integer>
 			</dict>
-		</dict>
-		<key>finalversiontasktest.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>22</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>routine2/any_long_task.routine2.yaml</key>
 		<dict>
@@ -219,7 +163,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>345</integer>
+			<integer>338</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
@@ -436,14 +380,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>24</integer>
+			<integer>20</integer>
 		</dict>
 		<key>tmRoutinetracker.tmproj</key>
 		<dict>
@@ -467,48 +411,6 @@
 				<integer>0</integer>
 				<key>line</key>
 				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/backontrack.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>33</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>65</integer>
-		</dict>
-		<key>yamls/breakfast.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>50</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>yamls/packing.routine.yaml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>5</integer>
-				<key>line</key>
-				<integer>2</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -560,25 +462,18 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>Terminal.rb</string>
-		<string>yamls/breakfast.routine.yaml</string>
-		<string>finalversiontasktest.rb</string>
-		<string>Pomodoro.rb</string>
-		<string>Prioritize reddest task.applescript</string>
-		<string>Prioritize reddest task.scpt</string>
-		<string>starredtasks.rb</string>
-		<string>Taskmanager.rb</string>
 		<string>tmRoutinetracker.tmproj</string>
+		<string>starredtasks.rb</string>
 		<string>Activity.rb</string>
 		<string>arrayx.rb</string>
 		<string>add_multiple_pomodori.rb</string>
 		<string>routinetracker.rb</string>
 		<string>yamls/quickrejig.routine.yaml</string>
 		<string>yamls/restar.routine.yaml</string>
-		<string>yamls/packing.routine.yaml</string>
 		<string>yamls/showerdress.routine.yaml</string>
-		<string>yamls/backontrack.routine.yaml</string>
 		<string>chaseidle.rb</string>
+		<string>Terminal.rb</string>
+		<string>_routine_methods.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -603,6 +498,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{100, 108}, {1249, 1008}}</string>
+	<string>{{249, 48}, {1406, 1127}}</string>
 </dict>
 </plist>

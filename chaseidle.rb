@@ -7,6 +7,21 @@ require '/Users/rs/rt/Log.rb'
 require '/Users/rs/rt/Activity.rb'
 require '/Users/rs/rt/Pomodoro.rb'
 
+# 2012-09-09 this is double with the system call below. why?  
+TODOLIST = `/Users/rs/rt/starredtasks.rb`
+unless TODOLIST.size < 3 # means no real output from process
+#  puts "TODOLIST exists"
+puts TODOLIST
+  f = File.open('/Users/rs/Library/Application Support/Notational Data/starredtasks.txt', "w")
+  f.write("#{TODOLIST}")
+  puts "Written to starredtasks.txt"
+  f.close
+else
+  puts "TODOLIST is empty"
+end 
+#system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
+
+
 LOGFILE = "/tmp/routinetracker.log"
 
 if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
@@ -30,14 +45,3 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
 #   end  
 end
 
-# 2012-09-09 this is double with the system call below. why?  
-TODOLIST = `/Users/rs/rt/starredtasks.rb`
-unless TODOLIST.size < 3 # means no real output from process
-#  puts "TODOLIST exists"
-  f = File.open("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt", "w")
-  f.write("#{TODOLIST}")
-  f.close
-else
-  puts "TODOLIST is empty"
-end 
-#system("/usr/bin/env ruby /Users/rs/Dropbox/Library/Scripts/Routinetracker/starredtasks.rb > /Users/rs/Dropbox/Library/Scripts/geektool/starredtasks.txt ")
