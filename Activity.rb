@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby -wKu
 # encoding: UTF-8
 
+TODOYFILE="/Users/rs/Library/Application Support/Notational Data/Todoy.txt"
+#TODOYFILE="/Users/rs/Dropbox/Todoy.txt"
+
 module RoutineTracker
   class Activity
 
     def self.target
-      TODOYFILE = "/Users/rs/Library/Application Support/Notational Data/todoy.txt"
       tasks = Array.new()
       nowtask = ""
 
@@ -13,18 +15,18 @@ module RoutineTracker
       taken = IO.readlines(TODOYFILE)
       unless !taken
         taken.each do |taak|
-          tasks.push(taak.chop.to_s)
+          tasks.push(taak.chop)
         end
       end
 
       if tasks
-        tasks[1..-1].each do |addtask|
+        tasks.each do |addtask|
           nowtask = nowtask + addtask  + "\n"
         end
-        nowtask = nowtask + "." + tasks[0]
+        # nowtask = nowtask + "." + tasks[0]
       end
-      
-      File.open(TODOYFILE, 'w') {|f| f.write(nowtask) }
+      # 
+      # File.open(TODOYFILE, 'w') {|f| f.write(nowtask) }
       return nowtask
     end
 
