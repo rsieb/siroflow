@@ -78,9 +78,10 @@ module RoutineTracker
     def self.chaseup(tasklist)
       #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
-        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size + 2
+        #minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size + 2
+        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.scan('*').size
       rescue
-        minutesidle = "5"
+        minutesidle = 1
       end
       #      system('osascript -e "if (get (output muted of (get volume settings))) is false then set volume output volume ((output volume of (get volume settings)) + 1)" ')
       #     system('osascript -e "set volume without output muted output volume ((output volume of (get volume settings)) + 1)" ')

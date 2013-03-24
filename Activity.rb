@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby -wKu
 # encoding: UTF-8
 
-TODOYFILE="/Users/rs/Library/Application Support/Notational Data/Todoy.txt"
-#TODOYFILE="/Users/rs/Dropbox/Todoy.txt"
+#TODOYFILE="/Users/rs/Library/Application Support/Notational Data/Todoy.txt"
+TODOYFILE="/Users/rs/Dropbox/Elements/Todoy.txt"
 
 module RoutineTracker
   class Activity

@@ -91,8 +91,8 @@ module RoutineTracker
     if @totaalseconden > 27.5 * 60 then
       # TODO 2012-06-29 change hard-coded exits to user-chosen course of action
       @terminal.error("ERROR: Too much for a Pomodoro. Please reduce.")
-      app("TextMate").open MacTypes::Alias.path(@laadbestand)
-      app('TextMate').activate
+      app("Sublime Text 2").open MacTypes::Alias.path(@laadbestand)
+      app('Sublime Text 2').activate
       exit
     elsif @totaalseconden < 22.5 * 60 then
       @terminal.warn("WARNING: Too little for a Pomodoro. Can increase.")
@@ -374,10 +374,10 @@ module RoutineTracker
     @active[Time.now.strftime("%Y-%m-%d")] = @totaalbezig
     @terminal.info "Already tracked #{(@totaalbezig).to_human} today. Congratulations!"
     File.open("/tmp/routinetracker.log", 'w+')  do |f|
-      f.write("IDLE")
+      f.write("#BREAK#")
     end
-    app("TextMate").open MacTypes::Alias.path(@laadbestand)
-    app('TextMate').activate
+    app("Sublime Text 2").open MacTypes::Alias.path(@laadbestand)
+    app('Sublime Text 2').activate
     File.open("yamls/_bezig.yaml", 'w+')  do |out|
       YAML.dump( @active, out )
     end # File.open
