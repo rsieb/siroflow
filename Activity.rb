@@ -3,6 +3,7 @@
 
 #TODOYFILE="/Users/rs/Library/Application Support/Notational Data/Todoy.txt"
 TODOYFILE="/Users/rs/Dropbox/Elements/Todoy.txt"
+PIVOTALFILE="/Users/rs/Dropbox/Elements/Pivotal.txt"
 
 module RoutineTracker
   class Activity
@@ -12,7 +13,7 @@ module RoutineTracker
       nowtask = ""
 
       #taken = IO.readlines("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
-      taken = IO.readlines(TODOYFILE)
+      taken = IO.readlines(TODOYFILE) + IO.readlines(PIVOTALFILE)
       unless !taken
         taken.each do |taak|
           tasks.push(taak.chop)
