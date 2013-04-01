@@ -39,10 +39,10 @@ cp /dev/null  "${HOMEDIR}/Todorrow.txt"
 /bin/rm "${HOMEDIR}/Todosterday.txt"
 /bin/mv "/tmp/todosterday.txt" "${HOMEDIR}/Todosterday.txt"
 
-# from Pivotal tracker
-echo "" >> "/tmp/todoy.txt"
-echo -e "\n# From Pivotal... #\n" >> "/tmp/todoy.txt"
-/usr/bin/env ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb >>  "/tmp/todoy.txt" 2>&1
+# # from Pivotal tracker
+# echo "" >> "/tmp/todoy.txt"
+# echo -e "\n# From Pivotal... #\n" >> "/tmp/todoy.txt"
+# /usr/bin/env ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb >>  "/tmp/todoy.txt" 2>&1
 
 # and add meetings from icalendarbuddy and mark as today
 . /Users/rs/rt/pullmeetingstotodoy.sh >>  "/tmp/todoy.txt" 2>&1
