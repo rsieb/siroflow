@@ -3,7 +3,6 @@
 
 #TODOYFILE="/Users/rs/Library/Application Support/Notational Data/Todoy.txt"
 TODOYFILE="/Users/rs/Dropbox/Elements/Todoy.txt"
-PIVOTALFILE="/Users/rs/Dropbox/Elements/Pivotal.txt"
 
 module RoutineTracker
   class Activity
@@ -12,8 +11,7 @@ module RoutineTracker
       tasks = Array.new()
       nowtask = ""
 
-      #taken = IO.readlines("/Users/rs/Library/Application Support/Notational Data/starredtasks.txt")
-      taken = IO.readlines(TODOYFILE) + IO.readlines(PIVOTALFILE)
+      taken = IO.readlines(TODOYFILE)
       unless !taken
         taken.each do |taak|
           tasks.push(taak.chop)
@@ -26,15 +24,13 @@ module RoutineTracker
         end
         # nowtask = nowtask + "." + tasks[0]
       end
-      # 
-      # File.open(TODOYFILE, 'w') {|f| f.write(nowtask) }
       return nowtask
     end
 
     def self.idle?(summary)
       if ( summary.match("#Break#").to_s.size > 0 && Time.now() - File.mtime(LOGFILE) > 1800 )
         f = File.open(LOGFILE, "w+")
-          f.write("IDLE!")
+        f.write("IDLE!")
         f.close
       end
       summary.match("IDLE").to_s.size > 0
@@ -46,4 +42,3 @@ module RoutineTracker
 
   end
 end
-
