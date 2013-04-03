@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # set up RVM
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
   # First try to load from a user install
