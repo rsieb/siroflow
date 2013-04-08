@@ -23,17 +23,17 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
 end
 
 @mystories.each do |verhaaltje|
-  begin
-    mijntaak = "!NoTask"
-    verhaaltje.tasks.all.each do |taakje|
-      if !taakje.complete and mijntaak == "!NoTask"
-        mijntaak = taakje.description
-      end
+  mijntaak = "!NoTask"
+  verhaaltje.tasks.all(:complete => false).each do |taakje|
+    #puts ">>" + verhaaltje.name + " " + taakje.description
+    if !taakje.complete and mijntaak == "!NoTask"
+      mijntaak = taakje.description
     end
-  rescue
-    mijntaak = "!NoTask"
+    #puts verhaaltje.name + " " + mijntaak
   end
-  if mijntaak == "!NoTask" then
+  #pp mijntaak
+  if (mijntaak == "!NoTask" || !verhaaltje.labels)
+    #p "****** Launching URL... *****"
     system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
 end

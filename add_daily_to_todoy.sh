@@ -22,10 +22,16 @@ if [ "$LASTLINE" == `date '+%Y-%m-%d'` ]; then
 	exit 0
 fi
 
+# archive the old today file to the front of the yesterday file
+/bin/cat "${HOMEDIR}/Todoy.txt" > "/tmp/todosterday.txt"
+/bin/cat "${HOMEDIR}/Todosterday.txt" >> "/tmp/todosterday.txt"
+/bin/rm "${HOMEDIR}/Todosterday.txt"
+/bin/mv "/tmp/todosterday.txt" "${HOMEDIR}/Todosterday.txt"
+
 # add daily to front of todoy
 /bin/cat "${HOMEDIR}/tododaily.txt" > "/tmp/todoy.txt"
-echo "" >> "/tmp/todoy.txt"
-/bin/cat "${HOMEDIR}/Todoy.txt" >> "/tmp/todoy.txt"
+### don't keep yesterday's Todoy tasks in place
+#/bin/cat "${HOMEDIR}/Todoy.txt" >> "/tmp/todoy.txt"
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> "/tmp/todoy.txt"
@@ -33,16 +39,14 @@ echo -e "\n# Added Yesterday... #\n" >> "/tmp/todoy.txt"
 /bin/cat "${HOMEDIR}/Todorrow.txt" >> "/tmp/todoy.txt"
 cp /dev/null  "${HOMEDIR}/Todorrow.txt"
 
-# archive the old today file to the front of the yesterday file
-#/bin/cat "${HOMEDIR}/Todoy.txt" > "/tmp/todosterday.txt"
-/bin/cat "${HOMEDIR}/Todosterday.txt" >> "/tmp/todosterday.txt"
-/bin/rm "${HOMEDIR}/Todosterday.txt"
-/bin/mv "/tmp/todosterday.txt" "${HOMEDIR}/Todosterday.txt"
 
 # from Pivotal tracker
 echo "" >> "/tmp/todoy.txt"
 echo -e "\n# From Pivotal... #\n" >> "/tmp/todoy.txt"
 /usr/bin/env ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb >>  "/tmp/todoy.txt" 2>&1
+
+# also update Pivotal tasks without tasks
+/usr/bin/env ruby -KT /Users/rs/rt/pivotal_stories_wo_tasks.rb
 
 # and add meetings from icalendarbuddy and mark as today
 . /Users/rs/rt/pullmeetingstotodoy.sh >>  "/tmp/todoy.txt" 2>&1
