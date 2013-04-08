@@ -32,27 +32,34 @@ end
   begin
     mijnnaam   = verhaaltje.name
   rescue
-    mijnnaam   = "!NoStory"
+    mijnnaam   = "NO STORY"
+  end
+  if mijnnaam == nil then
+    mijnnaam = "NO STORY"
   end
   begin
     eigenaar   = verhaaltje.owned_by
   rescue
-    eigenaar   = "!NoOwner"
+    eigenaar   = "NO OWNER"
   end
+  if eigenaar == nil then
+    eigenaar = "NO OWNER"
+  end
+  #pp eigenaar
   begin
-    mijntaak = "!NoTask"
+    mijntaak = "NO TASK"
     verhaaltje.tasks.all.each do |taakje|
-      if !taakje.complete and mijntaak == "!NoTask"
+      if !taakje.complete and mijntaak == "NO TASK"
         mijntaak = taakje.description
       end
     end
   rescue
-    mijntaak   = "!NoTask"
+    mijntaak   = "NO TASK"
   end
   begin
     mijnetiket = verhaaltje.labels
   rescue
-    mijnetiket = "!NoLabel"
+    mijnetiket = "NO LABEL"
   end
   if eigenaar=="Roland Siebelink" then 
   	puts "#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
