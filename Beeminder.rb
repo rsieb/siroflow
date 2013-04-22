@@ -25,4 +25,4 @@ mygoals.each do |doel|
   #puts scripttekst
   system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
 end
-system("/usr/bin/osascript 'tell application \"Safari\" to activate' ")
+system("/usr/bin/osascript -e 'tell application \"Safari\" to activate' ")
