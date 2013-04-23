@@ -6,8 +6,6 @@ require 'pp'
 require 'yaml'
 require 'logger'
 
-log = Logger.new( '/Users/rs/Library/Logs/com.rolandsiebelink.beeminder-rb', 'monthly' )
-log.level = Logger::DEBUG
 
 LAADBESTAND="/tmp/beemindergoals.yaml"
 SECRETCODE="UUTnFgjX2FyEyC3GX2zW"
@@ -15,9 +13,13 @@ SECRETCODE="UUTnFgjX2FyEyC3GX2zW"
 module RoutineTracker
   class Minder
 
+    # set up logging
+    @@log = Logger.new( '/Users/rs/Library/Logs/com.rolandsiebelink.beeminder-rb', 'monthly' )
+    @@log.level = Logger::DEBUG
+
     def initialize(secret)
       @@bee = Beeminder::User.new(secret)
-      log Time.now.strftime("%F %T") + @@bee.inspect
+      @@log.debug(Time.now.strftime("%F %T") + @@bee.inspect)
       return @@bee
     end
 
@@ -40,10 +42,7 @@ module RoutineTracker
     def update
       mygoals = self.goals(true)
       mygoals.each do |doel|
-        scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
-        #scripttekst = "beep"
-        #puts scripttekst
-        system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
+        self.safari(doel)
       end
     end
 
@@ -61,7 +60,7 @@ module RoutineTracker
     def safari(doel)
       scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
       system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
-      log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
+      @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
       return true
     end
   end
