@@ -42,14 +42,25 @@ module RoutineTracker
       end
     end
 
+    def endangered
+      mygoals = self.goals(false)
+      mygoals.each do |doel|
+        if doel.yaw >0 then
+          mygoals.delete(doel)
+        end
+      end
+      return mygoals
+    end
+
   end
 end
 
 
 # TESTCODE
 b = RoutineTracker::Minder.new(SECRETCODE)
-pp b.goals(true)
-b.update
+b.endangered.each do |doel|
+  puts doel.slug
+end
 
 # mygoals.each do |doel|
 #   scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
