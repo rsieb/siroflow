@@ -4,6 +4,10 @@ require 'rubygems'
 require 'beeminder'
 require 'pp'
 require 'yaml'
+require 'logger'
+
+log = Logger.new( '/Users/rs/Library/Logs/com.rolandsiebelink.beeminder-rb', 'monthly' )
+log.level = Logger::DEBUG
 
 LAADBESTAND="/tmp/beemindergoals.yaml"
 SECRETCODE="UUTnFgjX2FyEyC3GX2zW"
@@ -13,6 +17,7 @@ module RoutineTracker
 
     def initialize(secret)
       @@bee = Beeminder::User.new(secret)
+      log Time.now.strftime("%F %T") + @@bee.inspect
       return @@bee
     end
 
@@ -38,11 +43,12 @@ module RoutineTracker
         scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
         #scripttekst = "beep"
         #puts scripttekst
-        system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
+        system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
       end
     end
 
     def endangered
+      # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
       mygoals = self.goals(false)
       mygoals.each do |doel|
         if doel.yaw >0 then
@@ -52,20 +58,19 @@ module RoutineTracker
       return mygoals
     end
 
+    def safari(doel)
+      scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+      system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
+      log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
+      return true
+    end
   end
 end
 
 
 # TESTCODE
 b = RoutineTracker::Minder.new(SECRETCODE)
-b.endangered.each do |doel|
-  puts doel.slug
-end
-
-# mygoals.each do |doel|
-#   scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
-#   #scripttekst = "beep"
-#   #puts scripttekst
-#   system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
+# b.endangered.each do |doel|
+#   safari(doel)
 # end
-# system("/usr/bin/osascript -e 'tell application \"Safari\" to activate' ")
+b.update
