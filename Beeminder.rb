@@ -6,23 +6,55 @@ require 'pp'
 require 'yaml'
 
 LAADBESTAND="/tmp/beemindergoals.yaml"
-RESPECTCACHE=true
+SECRETCODE="UUTnFgjX2FyEyC3GX2zW"
 
-## LOAD GOALS ## 
-if ( File.exist?(LAADBESTAND) && RESPECTCACHE==true)
-  mygoals = YAML.load_file(LAADBESTAND)
-else
-  bee = Beeminder::User.new "UUTnFgjX2FyEyC3GX2zW"
-  mygoals = bee.goals(:frontburner)
-  File.open(LAADBESTAND,'w') do |uit|
-    YAML.dump(mygoals,uit)
+module RoutineTracker
+  class Minder
+
+    def initialize(secret)
+      @@bee = Beeminder::User.new(secret)
+      return @@bee
+    end
+
+    def self.instance
+      return @@instance
+    end
+
+    def goals(refresh)
+      if (refresh && File.exist?(LAADBESTAND)) then
+        mygoals = YAML.load_file(LAADBESTAND)
+      else
+        mygoals = @@bee.goals(:frontburner)
+        File.open(LAADBESTAND,'w') do |uit|
+          YAML.dump(mygoals,uit)
+        end
+      end
+      return mygoals
+    end
+
+    def update
+      mygoals = self.goals(true)
+      mygoals.each do |doel|
+        scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+        #scripttekst = "beep"
+        #puts scripttekst
+        system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
+      end
+    end
+
   end
 end
 
-mygoals.each do |doel|
-  scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
-  #scripttekst = "beep"
-  #puts scripttekst
-  system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
-end
-system("/usr/bin/osascript -e 'tell application \"Safari\" to activate' ")
+
+# TESTCODE
+b = RoutineTracker::Minder.new(SECRETCODE)
+pp b.goals(true)
+b.update
+
+# mygoals.each do |doel|
+#   scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+#   #scripttekst = "beep"
+#   #puts scripttekst
+#   system ("/usr/bin/osascript" + " -e '" + scripttekst + "'")
+# end
+# system("/usr/bin/osascript -e 'tell application \"Safari\" to activate' ")
