@@ -46,9 +46,26 @@ module RoutineTracker
       end
     end
 
-    def endangered
+    # 2013-04-25 DONE create method to get color for any certain goal
+    # 2013-04-25 TODO move this into its own class and find out how to call it properly
+    # 2013-04-25 TODO this logic does not quite work, there is never a zero
+    # 2013-04-25 TODO normalize the status calculation into its own goal method, take it out of endangered() too
+    def color(doel)
+      case (doel.lane.to_f / doel.yaw.to_f).round
+      when 1
+        return "GREEN"
+      when 0
+        return "BLUE"
+      when -1
+        return "ORANGE"
+      else
+        return "RED?"
+      end
+    end
+
+    def endangered(dangerlevel) # dangerlevel can be -1 for red, 0 for orange-red, 1 for blue-orange-red
       # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
-      # 2013-04-25 TODO can clean this up in constructing an array only of yaw=false arguments
+      # 2013-04-25 DONE can clean this up in constructing an array only of yaw=false arguments
       mygoals = self.goals(false)
       dangergoals = Array.new()
       mygoals.each do |doel|
@@ -56,7 +73,7 @@ module RoutineTracker
         # lane: @return [integer]: Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).
         # so if lane / yaw is negative then you are on the endangered side of the road
         # so if lane / yaw is less than 1 then you are on the endangered side of the road or on the road (less than green)
-        if (doel.lane.to_f/doel.yaw.to_f) <= 1 then
+        if (doel.lane.to_f/doel.yaw.to_f) <= dangerlevel then
           dangergoals.push(doel)
         end
       end
