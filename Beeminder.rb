@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby -wKU
-
+# making changes to gem: subl /Users/rs/.rvm/gems/ruby-1.9.3-p194/gems/beeminder-0.2.5/lib/goals.rb
 require 'rubygems'
 require 'beeminder'
 require 'pp'
@@ -48,13 +48,19 @@ module RoutineTracker
 
     def endangered
       # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
+      # 2013-04-25 TODO can clean this up in constructing an array only of yaw=false arguments
       mygoals = self.goals(false)
+      dangergoals = Array.new()
       mygoals.each do |doel|
-        if doel.yaw >0 then
-          mygoals.delete(doel)
+        # yaw: @return (number): [what is the] Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say “yay”.
+        # lane: @return [integer]: Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).
+        # so if lane / yaw is negative then you are on the endangered side of the road
+        # so if lane / yaw is less than 1 then you are on the endangered side of the road or on the road (less than green)
+        if (doel.lane.to_f/doel.yaw.to_f) <= 1 then
+          dangergoals.push(doel)
         end
       end
-      return mygoals
+      return dangergoals
     end
 
     def safari(doel)
@@ -65,11 +71,3 @@ module RoutineTracker
     end
   end
 end
-
-
-# TESTCODE
-b = RoutineTracker::Minder.new(SECRETCODE)
-# b.endangered.each do |doel|
-#   safari(doel)
-# end
-b.update
