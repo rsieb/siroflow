@@ -27,20 +27,16 @@ module RoutineTracker
       return @@instance
     end
 
-    def goals(refresh)
-      if (refresh && File.exist?(LAADBESTAND)) then
-        mygoals = YAML.load_file(LAADBESTAND)
-      else
-        mygoals = @@bee.goals(:frontburner)
-        File.open(LAADBESTAND,'w') do |uit|
-          YAML.dump(mygoals,uit)
-        end
-      end
-      return mygoals
+    def goals
+      @@bee.goals(:frontburner)
+    end
+
+    def backgoals
+      @@bee.goals(:backburner)
     end
 
     def update
-      mygoals = self.goals(true)
+      mygoals = self.goals
       mygoals.each do |doel|
         self.safari(doel)
       end
@@ -52,14 +48,14 @@ module RoutineTracker
     # 2013-04-25 TODO normalize the status calculation into its own goal method, take it out of endangered() too
     def color(doel)
       case (doel.lane.to_f / doel.yaw.to_f).round
-      when 1
+      when 2
         return "GREEN"
-      when 0
+      when 1
         return "BLUE"
       when -1
         return "ORANGE"
       else
-        return "RED?"
+        return "RED"
       end
     end
 
