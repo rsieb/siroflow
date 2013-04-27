@@ -19,7 +19,7 @@ end
 @mystories = Array.new()
 
 ## Cycle through projects
-@myprojects = [780227,781813,786005,787023] # ,479975
+@myprojects = [780227,781813,786005] #,787023] # ,479975
 @myprojects.each do |projectnummer|
 	###puts projectnummer
 
@@ -46,7 +46,7 @@ if @mystories.size > 0 then
 else
 	pp "Did not find one"
 	## -- set the default project
-	@defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
+	@defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
 	## ---- create a new story in the default project
 	@mynewstory = @defaultproject.stories.create(:name => @pomodoro_name, :story_type => 'bug')
 	pp @mynewstory

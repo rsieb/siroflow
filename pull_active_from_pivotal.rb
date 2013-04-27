@@ -11,9 +11,9 @@ def initials(stringetje)
 end
 
 if ARGV[0] == "--all" then
-  @mystate = ["started","finished","rejected","unestimated","unstarted"]
+  @mystate = ["started","delivered","finished","rejected","unestimated","unstarted"]
 else
-  @mystate = ["started","rejected","unestimated"]
+  @mystate = ["started","rejected","unstarted"]
 end
 
 
@@ -21,14 +21,18 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
 
 @mystories = Array.new()
 
-@myprojects = [780227,781813,786005] # ,479975
+@myprojects = [780227,781813,786005] # take out FUEL ,479975
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
   @mystories = @mystories + @a_project.stories.all(:state => @mystate)
 end
 
 @mystories.each do |verhaaltje|
-  #pp verhaaltje
+  begin
+    mijnstatus = verhaaltje.current_state
+  rescue
+    mijnstatus = "NO STATUS"
+  end
   begin
     mijnnaam   = verhaaltje.name
   rescue
@@ -37,33 +41,30 @@ end
   if mijnnaam == nil then
     mijnnaam = "NO STORY"
   end
-  begin
-    eigenaar   = verhaaltje.owned_by
-  rescue
-    eigenaar   = "NO OWNER"
-  end
+  eigenaar = verhaaltje.owned_by
   if eigenaar == nil then
-    eigenaar = "NO OWNER"
+    verhaaltje.owned_by = "Roland Siebelink"
+    eigenaar = "Roland Siebelink"
   end
-  #pp eigenaar
-  begin
-    mijntaak = "NO TASK"
-    verhaaltje.tasks.all.each do |taakje|
-      if !taakje.complete and mijntaak == "NO TASK"
-        mijntaak = taakje.description
-      end
-    end
-  rescue
-    mijntaak   = "NO TASK"
-  end
+  # begin
+  #   mijntaak = "NO TASK"
+  #   verhaaltje.tasks.all.each do |taakje|
+  #     if !taakje.complete and mijntaak == "NO TASK"
+  #       mijntaak = taakje.description
+  #     end
+  #   end
+  # rescue
+  #   mijntaak   = "NO TASK"
+  # end
   begin
     mijnetiket = verhaaltje.labels
   rescue
     mijnetiket = "NO LABEL"
   end
-  if eigenaar=="Roland Siebelink" then 
-  	puts "#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
+  if eigenaar=="Roland Siebelink" then
+    #    puts "#{mijnstatus[0].upcase}/#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
+    puts "#{mijnstatus[0].upcase} #{mijnnaam} +#{mijnetiket}"
   else
-    puts "•#{initials(eigenaar)} #{mijnnaam} +#{mijnetiket}"
+    puts "#{mijnstatus[0].upcase} #{mijnnaam} +#{mijnetiket} (#{initials(eigenaar)})"
   end
 end

@@ -7,25 +7,29 @@ TODOYFILE="/Users/rs/Dropbox/Elements/Todoy.txt"
 module RoutineTracker
   class Activity
 
-    def self.target
-      tasks = Array.new()
-      nowtask = ""
-
-      taken = IO.readlines(TODOYFILE)
-      unless !taken
-        taken.each do |taak|
-          tasks.push(taak.chop)
-        end
-      end
-
-      if tasks
-        tasks.each do |addtask|
-          nowtask = nowtask + addtask  + "\n"
-        end
-        # nowtask = nowtask + "." + tasks[0]
-      end
-      return nowtask
+    def self.targetfile
+      return TODOYFILE
     end
+
+    # def self.target
+    #   tasks = Array.new()
+    #   nowtask = ""
+
+    #   taken = IO.readlines(TODOYFILE)
+    #   unless !taken
+    #     taken.each do |taak|
+    #       tasks.push(taak.chop)
+    #     end
+    #   end
+
+    #   if tasks
+    #     tasks.each do |addtask|
+    #       nowtask = nowtask + addtask  + "\n"
+    #     end
+    #     # nowtask = nowtask + "." + tasks[0]
+    #   end
+    #   return nowtask
+    # end
 
     def self.idle?(summary)
       if ( summary.match("#Break#").to_s.size > 0 && Time.now() - File.mtime(LOGFILE) > 1800 )

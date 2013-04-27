@@ -62,7 +62,7 @@ module RoutineTracker
     def endangered(dangerlevel) # dangerlevel can be -1 for red, 0 for orange-red, 1 for blue-orange-red
       # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
       # 2013-04-25 DONE can clean this up in constructing an array only of yaw=false arguments
-      mygoals = self.goals(false)
+      mygoals = self.goals
       dangergoals = Array.new()
       mygoals.each do |doel|
         # yaw: @return (number): [what is the] Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say “yay”.

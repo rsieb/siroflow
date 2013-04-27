@@ -29,7 +29,7 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
     class Main < Activity
         if idle?(actual) 
           puts "Chaseup"
-          Terminal.chaseup(target)      
+          Terminal.chaseup(targetfile)      
         else
           puts "Remind"
           Terminal.remind(actual)

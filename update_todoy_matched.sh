@@ -1,4 +1,4 @@
-#!/bin/bash
+o#!/bin/bash
 
 OLDROOT="/Users/rs/Library/Application Support/Notational Data"
 ROOT="/Users/rs/Dropbox/Elements"

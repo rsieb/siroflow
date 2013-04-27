@@ -11,6 +11,10 @@ else
   printf "ERROR: An RVM installation was not found.\n"
 fi
 
+# start updating Beeminder
+#. /Users/rs/rt/beeminder-update.sh
+
+
 #HOMEDIR="/Users/rs/Library/Application Support/Notational Data"
 HOMEDIR="/Users/rs/Dropbox/Elements"
 # ## move first line of todo to todone
@@ -49,15 +53,20 @@ echo -e "\n# From Pivotal... #\n" >> "/tmp/todoy.txt"
 /usr/bin/env ruby -KT /Users/rs/rt/pivotal_stories_wo_tasks.rb
 
 # and add meetings from icalendarbuddy and mark as today
+echo "" >> "/tmp/todoy.txt"
+echo -e "\n# From Calendar... #\n" >> "/tmp/todoy.txt"
 . /Users/rs/rt/pullmeetingstotodoy.sh >>  "/tmp/todoy.txt" 2>&1
-echo -e "\n`date '+%Y-%m-%d'`" >> "/tmp/todoy.txt" 2>&1
 /usr/bin/say "Calendar added"
 
 # from Beeminder
 echo "" >> "/tmp/todoy.txt"
 echo -e "\n# From Beeminder... #\n" >> "/tmp/todoy.txt"
-. /Users/rs/rt/beeminder.sh >>  "/tmp/todoy.txt" 2>&1
+. /Users/rs/rt/beeminder-pull-endangered.sh >>  "/tmp/todoy.txt" 2>&1
 /usr/bin/say "Beeminder added"
+
+# Mark as today
+echo "" >> "/tmp/todoy.txt"
+echo -e "\n`date '+%Y-%m-%d'`" >> "/tmp/todoy.txt" 2>&1
 
 
 # now copy the new file into place

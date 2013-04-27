@@ -101,8 +101,8 @@ module RoutineTracker
         #system("open -a 'NVAlt' '/Users/rs/Library/Application Support/Notational Data/starredtasks.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # TODO rs 2012-07-29 this is a major risk: sending an array full of random commands into system as text?
-        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + tasklist +'"')
-        #        system("osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{tasklist} ")
+        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt')
+        #system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + tasklist +'"')
       end
     end
 
