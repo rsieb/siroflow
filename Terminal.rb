@@ -100,9 +100,9 @@ module RoutineTracker
         f.close
         #system("open -a 'NVAlt' '/Users/rs/Library/Application Support/Notational Data/starredtasks.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
-        # TODO rs 2012-07-29 this is a major risk: sending an array full of random commands into system as text?
+        # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
         system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt')
-        #system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt "' + tasklist +'"')
+        system("/bin/bash /Users/rs/rt/auto_update_todyn.sh")
       end
     end
 
@@ -122,7 +122,8 @@ module RoutineTracker
     def say(saying)
       saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01 
       unless @@instance.silent?
-        system("say #{saying}")
+        @voice = %w(Alex Vicki Kathy Victoria Alex Bruce Fred).sample
+        system("say -v #{@voice} #{saying}")
       end      
     end
 

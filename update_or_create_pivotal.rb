@@ -16,7 +16,17 @@ if @pomodoro_name.include?("+rout") then
 	abort
 end
 
-@mystories = Array.new()
+if @pomodoro_name.include?("+beem") then
+	myslug = @pomodoro_name.split[1] # second word from array
+	puts "Beeminder task. Opening URL with slug `#{myslug}'"
+	myurl = "http://beeminder.com/cyberroland/goals/#{myslug}"
+	system("/usr/bin/osascript -e 'open location  \"#{myurl}\" ' ") 
+	abort
+end
+
+# TODO 2013-04-30 Catch Beeminder routines to open corresponding goal in Beeminder for updating
+
+@mystories = Array.new
 
 ## Cycle through projects
 @myprojects = [780227,781813,786005] #,787023] # ,479975
@@ -46,7 +56,8 @@ if @mystories.size > 0 then
 else
 	pp "Did not find one"
 	## -- set the default project
-	@defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
+#	@defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
+	@defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
 	## ---- create a new story in the default project
 	@mynewstory = @defaultproject.stories.create(:name => @pomodoro_name, :story_type => 'bug')
 	pp @mynewstory

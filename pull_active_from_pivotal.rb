@@ -5,16 +5,39 @@ require 'active_resource'
 require 'pp'
 require 'pivotal-tracker'
 
-def initials(stringetje)
-  lengte = (stringetje.size - 2)
-  return stringetje[0]+lengte.to_s+stringetje[-1]
+def initials(naam)
+  initialen = ""
+  naam.split.each {|woord|
+    initialen = initialen + woord[0]
+  }
+  initialen
 end
 
-if ARGV[0] == "--all" then
-  @mystate = ["started","delivered","finished","rejected","unestimated","unstarted"]
-else
-  @mystate = ["started","rejected","unstarted"]
-end
+# class Name
+#   def initialize(name)
+#     @fname, @mname, @sname = name.split
+#   end
+#   attr_reader :fname, :mname, :sname
+#   def initials
+#     "#{fname[0].chr}.#{mname[0].chr}.#{sname[0].chr}"
+#   end
+# end
+
+# a = Name.new("Lee John Jarvis")
+# p a.fname #=> 'Lee'
+# p a.mname #=> 'John'
+# p a.sname #=> 'Jarvis'
+# p a.initials #=> 'L.J.J'
+
+# The state can be: unscheduled, unstarted, started, finished, delivered, accepted, or rejected.
+
+# if ARGV[0] == "--all" then
+#   @mystate = ["started","delivered","finished","rejected","unestimated","unstarted"]
+# else
+# DONE 2013-05-15 note that Pivotal Tracker is inconsistent between unstarted and unscheduled.
+# To resolve, ask for unscheduled stories too and then filter them out of the output.
+@mystate = ["started","rejected","unstarted","unscheduled"]
+# end
 
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
@@ -46,25 +69,31 @@ end
     verhaaltje.owned_by = "Roland Siebelink"
     eigenaar = "Roland Siebelink"
   end
-  # begin
-  #   mijntaak = "NO TASK"
-  #   verhaaltje.tasks.all.each do |taakje|
-  #     if !taakje.complete and mijntaak == "NO TASK"
-  #       mijntaak = taakje.description
-  #     end
-  #   end
-  # rescue
-  #   mijntaak   = "NO TASK"
-  # end
+  begin
+    mijntaak = "NO TASK"
+    verhaaltje.tasks.all.each do |taakje|
+      if !taakje.complete and mijntaak == "NO TASK"
+        mijntaak = taakje.description
+      end
+    end
+  rescue
+    mijntaak   = "NO TASK"
+  end
   begin
     mijnetiket = verhaaltje.labels
   rescue
     mijnetiket = "NO LABEL"
   end
-  if eigenaar=="Roland Siebelink" then
-    #    puts "#{mijnstatus[0].upcase}/#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
-    puts "#{mijnstatus[0].upcase} #{mijnnaam} +#{mijnetiket}"
-  else
-    puts "#{mijnstatus[0].upcase} #{mijnnaam} +#{mijnetiket} (#{initials(eigenaar)})"
+  # solving bug where previously started and now unscheduled stories still come out when querying "unstarted"
+  unless mijnstatus == "unscheduled"
+    if mijntaak == "NO TASK"
+      system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    end
+    if eigenaar=="Roland Siebelink" then
+      #puts "#{mijnstatus[0].upcase}/#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
+      puts "#{mijnnaam}>>#{mijntaak} +#{mijnetiket} #{mijnstatus[0].upcase}"
+    else
+      puts "#{initials(eigenaar)}: #{mijnnaam} +#{mijnetiket} #{mijnstatus[0].upcase}"
+    end
   end
 end

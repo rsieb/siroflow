@@ -12,19 +12,20 @@ else
 fi
 
 # start updating Beeminder
-#. /Users/rs/rt/beeminder-update.sh
+/bin/bash /Users/rs/rt/beeminder-update.sh
 
+# update written and diary goals from computer
+/Users/rs/.rvm/gems/ruby-1.9.3-p194/bin/beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added `date`"
+/Users/rs/.rvm/gems/ruby-1.9.3-p194/bin/beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added `date`"
 
-#HOMEDIR="/Users/rs/Library/Application Support/Notational Data"
 HOMEDIR="/Users/rs/Dropbox/Elements"
-# ## move first line of todo to todone
-# echo `date +'%a %Y-%m-%d %H:%M'` `head -n +1 "${HOMEDIR}/Todoy.txt"` > /tmp/todone.txt && cat "${HOMEDIR}/Todone.txt" >> /tmp/todone.txt && mv /tmp/todone.txt "${HOMEDIR}/Todone.txt" && say "todone updated"
 
-# check if this script has run already today
-LASTLINE=`/usr/bin/tail -1 "/Users/rs/Dropbox/Elements/Todoy.txt"`
-if [ "$LASTLINE" == `date '+%Y-%m-%d'` ]; then
-	exit 0
-fi
+# remove the old todont file
+/bin/cat "${HOMEDIR}/Todont.txt" > "/tmp/todonterday.txt"
+/bin/cat "${HOMEDIR}/Todonterday.txt" >> "/tmp/todonterday.txt"
+/bin/rm "${HOMEDIR}/Todonterday.txt"
+cp /dev/null  "${HOMEDIR}/Todont.txt"
+/bin/mv "/tmp/todonterday.txt" "${HOMEDIR}/Todonterday.txt"
 
 # archive the old today file to the front of the yesterday file
 /bin/cat "${HOMEDIR}/Todoy.txt" > "/tmp/todosterday.txt"
@@ -34,40 +35,16 @@ fi
 
 # add daily to front of todoy
 /bin/cat "${HOMEDIR}/tododaily.txt" > "/tmp/todoy.txt"
-### don't keep yesterday's Todoy tasks in place
-#/bin/cat "${HOMEDIR}/Todoy.txt" >> "/tmp/todoy.txt"
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> "/tmp/todoy.txt"
-echo -e "\n# Added Yesterday... #\n" >> "/tmp/todoy.txt"
+echo -e "\n# Added Yesterday... #" >> "/tmp/todoy.txt"
 /bin/cat "${HOMEDIR}/Todorrow.txt" >> "/tmp/todoy.txt"
 cp /dev/null  "${HOMEDIR}/Todorrow.txt"
-
-# from Pivotal tracker
-echo "" >> "/tmp/todoy.txt"
-echo -e "\n# From Pivotal... #\n" >> "/tmp/todoy.txt"
-/usr/bin/env ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb >>  "/tmp/todoy.txt" 2>&1
-/usr/bin/say "Pivotal added"
-
-# also update Pivotal tasks without tasks
-/usr/bin/env ruby -KT /Users/rs/rt/pivotal_stories_wo_tasks.rb
-
-# and add meetings from icalendarbuddy and mark as today
-echo "" >> "/tmp/todoy.txt"
-echo -e "\n# From Calendar... #\n" >> "/tmp/todoy.txt"
-. /Users/rs/rt/pullmeetingstotodoy.sh >>  "/tmp/todoy.txt" 2>&1
-/usr/bin/say "Calendar added"
-
-# from Beeminder
-echo "" >> "/tmp/todoy.txt"
-echo -e "\n# From Beeminder... #\n" >> "/tmp/todoy.txt"
-. /Users/rs/rt/beeminder-pull-endangered.sh >>  "/tmp/todoy.txt" 2>&1
-/usr/bin/say "Beeminder added"
 
 # Mark as today
 echo "" >> "/tmp/todoy.txt"
 echo -e "\n`date '+%Y-%m-%d'`" >> "/tmp/todoy.txt" 2>&1
-
 
 # now copy the new file into place
 /bin/rm "${HOMEDIR}/Todoy.txt"

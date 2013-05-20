@@ -21,6 +21,9 @@ echo `date +'%a %Y-%m-%d %H:%M'` $MYMATCH > /tmp/todone.txt && cat "$ROOT/Todone
 ## cut matching line of todo
 /usr/bin/grep -v "${MYMATCH}" $ROOT/Todoy.txt > /tmp/todoy.txt && mv /tmp/todoy.txt $ROOT/Todoy.txt && say "todo updated 1"
 
+## or try to cut it a different way if the above did not work
 export MYMATCHCHOPPED=`echo $MYMATCH | sed s/.$//`
 /usr/bin/grep -v "${MYMATCHCHOPPED}" $ROOT/Todoy.txt > /tmp/todoy.txt && mv /tmp/todoy.txt $ROOT/Todoy.txt && say "todo updated 2"
+
+## and add it back at
 echo "√${MYMATCH}" >> $ROOT/Todoy.txt && say "todo updated 3"

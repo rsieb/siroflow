@@ -23,6 +23,10 @@ module RoutineTracker
       return @@bee
     end
 
+    def minded
+      self.goals.count
+    end
+
     def self.instance
       return @@instance
     end
@@ -38,8 +42,12 @@ module RoutineTracker
     def update
       mygoals = self.goals
       mygoals.each do |doel|
-        self.safari(doel)
+        # TODO 2013-05-19 filter out automatic goals, those with å at the beginning
+        if doel.title.chars.first != "@" then
+          self.safari(doel)
+        end
       end
+      @@bee.send "minded", self.minded.to_s
     end
 
     # 2013-04-25 DONE create method to get color for any certain goal
@@ -47,40 +55,44 @@ module RoutineTracker
     # 2013-04-25 TODO this logic does not quite work, there is never a zero
     # 2013-04-25 TODO normalize the status calculation into its own goal method, take it out of endangered() too
     def color(doel)
-      case (doel.lane.to_f / doel.yaw.to_f).round
+      status = doel.lane / doel.yaw
+      #case (doel.lane.to_f / doel.yaw.to_f).round
+      case status
       when 2
         return "GREEN"
       when 1
         return "BLUE"
       when -1
         return "ORANGE"
-      else
+      when -2
         return "RED"
+      else
+        return "UNKNOWN"
       end
-    end
+      end
 
-    def endangered(dangerlevel) # dangerlevel can be -1 for red, 0 for orange-red, 1 for blue-orange-red
-      # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
-      # 2013-04-25 DONE can clean this up in constructing an array only of yaw=false arguments
-      mygoals = self.goals
-      dangergoals = Array.new()
-      mygoals.each do |doel|
-        # yaw: @return (number): [what is the] Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say “yay”.
-        # lane: @return [integer]: Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).
-        # so if lane / yaw is negative then you are on the endangered side of the road
-        # so if lane / yaw is less than 1 then you are on the endangered side of the road or on the road (less than green)
-        if (doel.lane.to_f/doel.yaw.to_f) <= dangerlevel then
-          dangergoals.push(doel)
+      def endangered(dangerlevel) # dangerlevel can be -1 for red, 0 for orange-red, 1 for blue-orange-red
+        # 2013-04-23 TODO test this in reality, only seems to find some kinds of goals?
+        # 2013-04-25 DONE can clean this up in constructing an array only of yaw=false arguments
+        mygoals = self.goals
+        dangergoals = Array.new()
+        mygoals.each do |doel|
+          # yaw: @return (number): [what is the] Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say “yay”.
+          # lane: @return [integer]: Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).
+          # so if lane / yaw is negative then you are on the endangered side of the road
+          # so if lane / yaw is less than 1 then you are on the endangered side of the road or on the road (less than green)
+          if (doel.lane.to_f/doel.yaw.to_f) <= dangerlevel then
+            dangergoals.push(doel)
+          end
         end
+        return dangergoals
       end
-      return dangergoals
-    end
 
-    def safari(doel)
-      scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
-      system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
-      @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
-      return true
+      def safari(doel)
+        scripttekst = 'tell application "Safari" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+        system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
+        @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
+        return true
+      end
     end
   end
-end

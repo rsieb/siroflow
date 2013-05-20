@@ -11,4 +11,4 @@ else
   printf "ERROR: An RVM installation was not found.\n"
 fi
 
-/usr/bin/env ruby /Users/rs/rt/pull_active_from_pivotal.rb | /usr/bin/sort -r > /Users/rs/Dropbox/Elements/Pivotal.txt 2>&1
+/Users/rs/.rvm/gems/ruby-1.9.3-p194/bin/beemind -t UUTnFgjX2FyEyC3GX2zW lifthabits `/usr/bin/env ruby /Users/rs/rt/Lift.rb` "Auto-added from Launchdaemon `date`"
