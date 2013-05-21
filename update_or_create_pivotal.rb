@@ -29,15 +29,16 @@ end
 @mystories = Array.new
 
 ## Cycle through projects
-@myprojects = [780227,781813,786005] #,787023] # ,479975
+@myprojects = [781813] # ,780227,,786005] #,787023] # ,479975
 @myprojects.each do |projectnummer|
+	@nametocheck = @pomodoro_name[0]+@pomodoro_name[2..-1]
 	###puts projectnummer
 
 	@a_project = PivotalTracker::Project.find(projectnummer) 
 	## -- find the story with this title
 	@allstories = @a_project.stories.all()
 	@allstories.each do |verhaaltje|
-		if verhaaltje.name.include?(@pomodoro_name) || @pomodoro_name.include?(verhaaltje.name) then
+		if verhaaltje.name.include?(@nametocheck) || @nametocheck.include?(verhaaltje.name) then
 			@mystories.push(verhaaltje)
 			###puts "Adding #{verhaaltje.id} to @mystories"
 		end # if include
@@ -59,7 +60,7 @@ else
 #	@defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
 	@defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
 	## ---- create a new story in the default project
-	@mynewstory = @defaultproject.stories.create(:name => @pomodoro_name, :story_type => 'bug')
+	@mynewstory = @defaultproject.stories.create(:name => @nametocheck, :story_type => 'bug')
 	pp @mynewstory
 	## Just open the found story in the UI
 		system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")
