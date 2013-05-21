@@ -27,6 +27,11 @@ HOMEDIR="/Users/rs/Dropbox/Elements"
 cp /dev/null  "${HOMEDIR}/Todont.txt"
 /bin/mv "/tmp/todonterday.txt" "${HOMEDIR}/Todonterday.txt"
 
+# clear the old todonetoday file
+cp /dev/null  "${HOMEDIR}/Todonetoday.txt"
+echo "" > "${HOMEDIR}/Todonetoday.txt"
+echo -e "\n# Done Today... #" >> "${HOMEDIR}/Todonetoday.txt"
+
 # archive the old today file to the front of the yesterday file
 /bin/cat "${HOMEDIR}/Todoy.txt" > "/tmp/todosterday.txt"
 /bin/cat "${HOMEDIR}/Todosterday.txt" >> "/tmp/todosterday.txt"

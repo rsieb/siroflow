@@ -36,7 +36,7 @@ end
 # else
 # DONE 2013-05-15 note that Pivotal Tracker is inconsistent between unstarted and unscheduled.
 # To resolve, ask for unscheduled stories too and then filter them out of the output.
-@mystate = ["started","rejected","unstarted","unscheduled"]
+@mystate = ["started","rejected","unstarted","unscheduled","finished"]
 # end
 
 
@@ -89,11 +89,6 @@ end
     if mijntaak == "NO TASK"
       system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
     end
-    if eigenaar=="Roland Siebelink" then
-      #puts "#{mijnstatus[0].upcase}/#{mijnnaam}>>#{mijntaak} +#{mijnetiket}"
-      puts "#{mijnnaam}>>#{mijntaak} +#{mijnetiket} #{mijnstatus[0].upcase}"
-    else
-      puts "#{initials(eigenaar)}: #{mijnnaam} +#{mijnetiket} #{mijnstatus[0].upcase}"
-    end
+    puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1,-1]}>>#{mijntaak} +#{mijnetiket} "
   end
 end

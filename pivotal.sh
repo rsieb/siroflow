@@ -11,4 +11,4 @@ else
   printf "ERROR: An RVM installation was not found.\n"
 fi
 
-/usr/bin/env ruby /Users/rs/rt/pull_active_from_pivotal.rb | /usr/bin/sort -r > /Users/rs/Dropbox/Elements/Pivotal.txt 2>&1
+/usr/bin/env ruby /Users/rs/rt/pull_active_from_pivotal.rb | /usr/bin/sort > /Users/rs/Dropbox/Elements/Pivotal.txt 2>&1
