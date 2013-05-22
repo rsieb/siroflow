@@ -31,14 +31,15 @@ end
 ## Cycle through projects
 @myprojects = [781813] # ,780227,,786005] #,787023] # ,479975
 @myprojects.each do |projectnummer|
-	@nametocheck = @pomodoro_name[0]+@pomodoro_name[2..-1]
+	@basepomname = @pomodoro_name.sub("√","")
+	@nametocheck = @basepomname[0]+@basepomname[2..-1]
 	###puts projectnummer
 
 	@a_project = PivotalTracker::Project.find(projectnummer) 
 	## -- find the story with this title
 	@allstories = @a_project.stories.all()
 	@allstories.each do |verhaaltje|
-		if verhaaltje.name.include?(@nametocheck) || @nametocheck.include?(verhaaltje.name) then
+		if verhaaltje.name.include?(@basepomname) || @basepomname.include?(verhaaltje.name) then
 			@mystories.push(verhaaltje)
 			###puts "Adding #{verhaaltje.id} to @mystories"
 		end # if include
