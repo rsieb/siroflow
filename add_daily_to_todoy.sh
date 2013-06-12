@@ -12,15 +12,18 @@ else
 fi
 
 # start updating Beeminder
+/usr/bin/say "Updating Beeminder..."
 /bin/bash /Users/rs/rt/beeminder-update.sh
 
 # update written and diary goals from computer
+/usr/bin/say "Updating Automated goals..."
 /Users/rs/.rvm/gems/ruby-1.9.3-p194/bin/beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added `date`"
 /Users/rs/.rvm/gems/ruby-1.9.3-p194/bin/beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added `date`"
 
 HOMEDIR="/Users/rs/Dropbox/Elements"
 
 # remove the old todont file
+/usr/bin/say "Removing old TODONT file..."
 /bin/cat "${HOMEDIR}/Todont.txt" > "/tmp/todonterday.txt"
 /bin/cat "${HOMEDIR}/Todonterday.txt" >> "/tmp/todonterday.txt"
 /bin/rm "${HOMEDIR}/Todonterday.txt"
@@ -33,6 +36,7 @@ echo "" > "${HOMEDIR}/Todonetoday.txt"
 echo -e "\n# Done Today... #" >> "${HOMEDIR}/Todonetoday.txt"
 
 # archive the old today file to the front of the yesterday file
+/usr/bin/say "Archiving old TODAY file..."
 /bin/cat "${HOMEDIR}/Todoy.txt" > "/tmp/todosterday.txt"
 /bin/cat "${HOMEDIR}/Todosterday.txt" >> "/tmp/todosterday.txt"
 /bin/rm "${HOMEDIR}/Todosterday.txt"
@@ -52,11 +56,18 @@ echo "" >> "/tmp/todoy.txt"
 echo -e "\n`date '+%Y-%m-%d'`" >> "/tmp/todoy.txt" 2>&1
 
 # now copy the new file into place
+/usr/bin/say "Creating new TODOY file..."
 /bin/rm "${HOMEDIR}/Todoy.txt"
 /bin/mv "/tmp/todoy.txt" "${HOMEDIR}/Todoy.txt"
 #/usr/bin/touch "/tmp/${TODAYDATE}.log"
 /usr/bin/say "Todoy updated"
+/bin/rm /tmp/Todyn.txt # necessary or it calls the 5 minute exception
+. /Users/rs/rt/auto_update_todyn.sh
+/usr/bin/say "Todyn updated"
 
-
+# And create a default TODONT file
+/usr/bin/say "Creating new TODONT file..."
+cat "${HOMEDIR}/Pivotal.txt" "${HOMEDIR}/Calendar.txt" "${HOMEDIR}/Beeminder.txt" "${HOMEDIR}/Todoy.txt" "${HOMEDIR}/Todonetoday.txt" > "${HOMEDIR}/Todont.txt"
+open "${HOMEDIR}/Todont.txt"
 
 
