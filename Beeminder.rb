@@ -47,7 +47,7 @@ module RoutineTracker
           self.safari(doel)
         end
       end
-      @@bee.send "minded", self.minded.to_s
+      @@bee.send("minded", self.minded.to_s, comment = "Automatically added from beeminder-update.sh and Beeminder.rb")
     end
 
     # 2013-04-25 DONE create method to get color for any certain goal

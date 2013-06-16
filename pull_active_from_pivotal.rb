@@ -53,6 +53,9 @@ end
 @mystories.each do |verhaaltje|
   begin
     mijnstatus = verhaaltje.current_state
+    if mijnstatus == "started"
+      mijnstatus = "ztarted" # come on top in reverse sort
+    end
   rescue
     mijnstatus = "NO STATUS"
   end
@@ -89,6 +92,6 @@ end
     if mijntaak == "NO TASK"
       system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
     end
-    puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1,-1]}>>#{mijntaak} +#{mijnetiket} "
+    puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1..-1]}>>#{mijntaak} +#{mijnetiket} "
   end
 end

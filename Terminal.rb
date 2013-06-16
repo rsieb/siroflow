@@ -98,7 +98,7 @@ module RoutineTracker
         f = File.open("/tmp/routinetracker.log", "a")
         f.write("#{IDLEMARKER}")
         f.close
-        #system("open -a 'NVAlt' '/Users/rs/Library/Application Support/Notational Data/starredtasks.txt'")
+        #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
         system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt')
