@@ -36,7 +36,7 @@ end
 # else
 # DONE 2013-05-15 note that Pivotal Tracker is inconsistent between unstarted and unscheduled.
 # To resolve, ask for unscheduled stories too and then filter them out of the output.
-@mystate = ["started","rejected","unstarted","unscheduled","finished"]
+@mystate = ["started","rejected","finished"]
 # end
 
 
