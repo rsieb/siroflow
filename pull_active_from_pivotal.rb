@@ -12,33 +12,7 @@ def initials(naam)
   }
   initialen
 end
-
-# class Name
-#   def initialize(name)
-#     @fname, @mname, @sname = name.split
-#   end
-#   attr_reader :fname, :mname, :sname
-#   def initials
-#     "#{fname[0].chr}.#{mname[0].chr}.#{sname[0].chr}"
-#   end
-# end
-
-# a = Name.new("Lee John Jarvis")
-# p a.fname #=> 'Lee'
-# p a.mname #=> 'John'
-# p a.sname #=> 'Jarvis'
-# p a.initials #=> 'L.J.J'
-
-# The state can be: unscheduled, unstarted, started, finished, delivered, accepted, or rejected.
-
-# if ARGV[0] == "--all" then
-#   @mystate = ["started","delivered","finished","rejected","unestimated","unstarted"]
-# else
-# DONE 2013-05-15 note that Pivotal Tracker is inconsistent between unstarted and unscheduled.
-# To resolve, ask for unscheduled stories too and then filter them out of the output.
-@mystate = ["started","rejected","finished"]
-# end
-
+@mystate = ["started","rejected"]
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
