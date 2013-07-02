@@ -55,10 +55,6 @@ if @mystories.size > 0 then
   ## I don't really want to create automated comments!
   @mystories.each do |verhaaltje|
     ## Just open the found story in the UI
-    #if verhaaltje.current_state == "Unstarted"
-    #then verhaaltje.current_state = "Started"
-    verhaaltje.current_state = "Finished"
-    #end
     system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
   ## -- if not found then
