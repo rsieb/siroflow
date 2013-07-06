@@ -15,33 +15,50 @@ HOMEDIR="/Users/rs/Dropbox/Elements"
 TODYNFILE="$HOMEDIR/Todyn.txt"
 TMPFILE="/tmp/Todyn.txt"
 TODONTFILE="$HOMEDIR/Todont.txt"
+TODOYFILE="$HOMEDIR/Todoy.txt"
+DAYBREAK="$HOMEDIR/Todobreak.txt"
+touch -t `date '+%m%d0400'` $DAYBREAK
 
 if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +5` ]];
 	then
-	if [[ `ping -o www.google.com` ]];
-		then
 		touch $TMPFILE # update time stamp so that the script cannot run twice in parallel
+		if [[ `ping -o www.google.com` ]];
+			then
+		
+		# Do we need to update the daily goals first? Is Todoy older than 4am today?
+		if [[ ! -f $TODOYFILE || `find $DAYBREAK -newer $TODOYFILE` ]];
+		then
+			. /Users/rs/rt/add_daily_to_todoy.sh
+		fi
+
 		# update written and diary goals from computer
 		MYFILE="$HOMEDIR/Beeminder.txt"
-		echo -e "\n# From Beeminder... #" > "$MYFILE"
-		. /Users/rs/rt/beeminder-pull-endangered.sh | sort -r | head -4 >> "$MYFILE" 
+		#echo -e "\n# From Beeminder... #" > "$MYFILE"
+		echo -e "\n" > "$MYFILE"
+		. /Users/rs/rt/beeminder-pull-endangered.sh | sort -r | head -3 >> "$MYFILE" 
 		#say "Beeminder updated"
 
 		# from Pivotal tracker
 		MYFILE="$HOMEDIR/Pivotal.txt"
-		echo -e "# From Pivotal... #" > "$MYFILE"
-		ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb | head -4 >> "$MYFILE" 
+		#echo -e "# From Pivotal... #" > "$MYFILE"
+		echo -e "\n" > "$MYFILE"
+		if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
+			then
+			ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb | head -3 >> "$MYFILE" 
+		fi
 		#say "Pivotal updated"
 
 		# and add meetings from icalendarbuddy and mark as today
 		MYFILE="$HOMEDIR/Calendar.txt"
-		echo -e "\n# From Calendar... #" > "$MYFILE"
+		#echo -e "\n# From Calendar... #" > "$MYFILE"
+		echo -e "\n" > "$MYFILE"
 		. /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" 
 		#say "Calendar updated"
 
 		# and add subjects from Mailbox/todo
 		MYFILE="$HOMEDIR/Mailboxtodo.txt"
-		echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
+		#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
+		echo -e "\n" > "$MYFILE"
 		ruby -KT /Users/rs/rt/gmailtodo.rb >> "$MYFILE" 
 		#say "Mailbox-to-do updated"
 
