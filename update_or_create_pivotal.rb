@@ -56,7 +56,7 @@ if @mystories.size > 0 then
   ## I don't really want to create automated comments!
   @mystories.each do |verhaaltje|
 
-    # TODO 2013-07-05 automatically finish current task in pivotal
+    # DONE 2013-07-05 automatically finish current task in pivotal
     counter = 0
     verhaaltje.tasks.all().select{|t| t.complete == false}.each do |taak|
       pp taak
@@ -100,7 +100,8 @@ if @mystories.size > 0 then
     #puts conte.name + " " + conte.current_state
 
     ## Just open the found story in the UI
-    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    # DONE 2013-07-14 this may not be needed anymore?
+    #system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
   ## -- if not found then
   #else
