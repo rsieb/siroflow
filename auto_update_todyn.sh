@@ -17,7 +17,7 @@ TMPFILE="/tmp/Todyn.txt"
 TODONTFILE="$HOMEDIR/Todont.txt"
 TODOYFILE="$HOMEDIR/Todoy.txt"
 DAYBREAK="$HOMEDIR/Todobreak.txt"
-touch -t `date '+%m%d0400'` $DAYBREAK
+touch -t `date '+%m%d0001'` $DAYBREAK
 
 if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +5` ]];
 	then
@@ -25,7 +25,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +5` ]];
 		if [[ `ping -o www.google.com` ]];
 			then
 		
-		# Do we need to update the daily goals first? Is Todoy older than 4am today?
+		# Do we need to update the daily goals first? Is Todoy older than 00:01 today?
 		if [[ ! -f $TODOYFILE || `find $DAYBREAK -newer $TODOYFILE` ]];
 		then
 			. /Users/rs/rt/add_daily_to_todoy.sh
@@ -35,17 +35,22 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +5` ]];
 		MYFILE="$HOMEDIR/Beeminder.txt"
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		. /Users/rs/rt/beeminder-pull-endangered.sh | sort -r | head -3 >> "$MYFILE" 
+		# if [[ $(date +%u) -ne 6 ]] # only 3 on non Saturdays
+		# then
+			. /Users/rs/rt/beeminder-pull-endangered.sh | sort -r | head -3 >> "$MYFILE" 
+		# else
+		# 	. /Users/rs/rt/beeminder-pull-endangered.sh | sort -r | head -6 >> "$MYFILE" 
+		# fi
 		#say "Beeminder updated"
 
 		# from Pivotal tracker
 		MYFILE="$HOMEDIR/Pivotal.txt"
 		#echo -e "# From Pivotal... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
-			then
+		# if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
+		# then
 			ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb | head -3 >> "$MYFILE" 
-		fi
+		# fi
 		#say "Pivotal updated"
 
 		# and add meetings from icalendarbuddy and mark as today
@@ -64,7 +69,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +5` ]];
 
 		# Pull together Todyn (dynamic todo)
 		cd $HOMEDIR
-		cat Todoy.txt Calendar.txt Pivotal.txt Beeminder.txt Mailboxtodo.txt > $TMPFILE
+		cat Calendar.txt Beeminder.txt Pivotal.txt Mailboxtodo.txt Todoy.txt > $TMPFILE
 		# Mark as today
 		echo "" >> $TMPFILE
 		echo -e "\n`date '+%Y-%m-%d %H:%M'`" >> $TMPFILE 
