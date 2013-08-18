@@ -53,7 +53,7 @@ end # projects cycle
 
 ## -- found? yes then
 if @mystories.size > 0 then
-  #pp "Found one"
+  pp "Found one"
   ## I don't really want to create automated comments!
   @mystories.first do |verhaaltje|
 
