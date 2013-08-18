@@ -55,7 +55,7 @@ end # projects cycle
 if @mystories.size > 0 then
   #pp "Found one"
   ## I don't really want to create automated comments!
-  @mystories.each do |verhaaltje|
+  @mystories.first do |verhaaltje|
 
     # DONE 2013-07-05 automatically finish current task in pivotal
     counter = 0
