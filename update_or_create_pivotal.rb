@@ -10,8 +10,8 @@ require 'pivotal-tracker'
 
 ## get the name of the Pomodoro
 @pomodoro_name = ARGV[0]
-## skip for routines
-if @pomodoro_name.include?("+rout") then
+## skip for routines 2013-08-18 also skip for short improvised pomodori
+if ( @pomodoro_name.include?("+rout") || !@pomodoro_name.include?("+")) then
   puts "Routine task. Aborted."
   abort
 end
@@ -41,7 +41,8 @@ end
 
   @a_project = PivotalTracker::Project.find(projectnummer)
   ## -- find the story with this title
-  @allstories = @a_project.stories.all()
+  @mystate = ["started","rejected"]
+  @allstories = @a_project.stories.all(:state => @mystate, :includedone => :false)
   @allstories.each do |verhaaltje|
     if verhaaltje.name.include?($nametocheck) || $nametocheck.include?(verhaaltje.name) then
       @mystories.push(verhaaltje)
@@ -70,32 +71,42 @@ if @mystories.size > 0 then
           -d "<task><complete>true</complete></task>" \
           http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks/#{taak.id}
         ENDOFCURL3
+        puts "\n\n#{systemstring}\n"
         system(systemstring)
       end
-
-      # switch active Pivotal story to finished (or "started?" check in practice)
-      if counter > 0 # that means there are still open tasks
-        storystatus = "started"
-      else
-        storystatus = "finished"
-      end
-
-      systemstring = <<-ENDOFCURL
-      curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
-        -d "<story><current_state>#{storystatus}</current_state></story>" \
-        http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
-      ENDOFCURL
-      system(systemstring)
-
-      # then add a note with a time and date stamp when I actually worked on this
-      systemstring = <<-ENDOFCURL2
-      curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
-        -d "<note><text>#{Time.now.strftime("%Y-%m-%d %H:%M")}</text></note>" \
-        http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/notes
-      ENDOFCURL2
-      system(systemstring)
-
     end
+
+    ### 2013-08-01 Roland temporary override: always finish to keep working on a larger number of smaller projects
+    # # switch active Pivotal story to finished (or "started?" check in practice)
+    if counter > 0 # that means there are still open tasks
+      storystatus = "started"
+      @laststoryid=@a_project.stories.all(:current_state => "started").last().id
+      systemstring = <<-ENDOFCURL4
+      curl -H "X-TrackerToken: #{@mytoken}" -X POST \
+        "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
+      ENDOFCURL4
+      puts "\n\n#{systemstring}\n"
+      system(systemstring)
+    else
+      storystatus = "finished"
+    end
+
+    systemstring = <<-ENDOFCURL
+    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+      -d "<story><current_state>#{storystatus}</current_state><owned_by>Roland Siebelink</owned_by></story>" \
+      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
+    ENDOFCURL
+    puts "\n\n#{systemstring}\n"
+    system(systemstring)
+
+    # then add a note with a time and date stamp when I actually worked on this
+    systemstring = <<-ENDOFCURL2
+    curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
+      -d "<note><text>#{Time.now.strftime("%Y-%m-%d %H:%M")}</text></note>" \
+      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/notes
+    ENDOFCURL2
+    puts "\n\n#{systemstring}\n"
+    system(systemstring)
 
     #puts conte.name + " " + conte.current_state
 
