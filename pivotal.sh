@@ -11,4 +11,18 @@ else
   printf "ERROR: An RVM installation was not found.\n"
 fi
 
-/usr/bin/env ruby /Users/rs/rt/pull_active_from_pivotal.rb | /usr/bin/sort > /Users/rs/Dropbox/Elements/Pivotal.txt 2>&1
+while getopts ":d:a" opt; do
+  case $opt in
+    d)
+		/usr/bin/env ruby /Users/rs/rt/pivotal_accepted.rb 2>&1
+		echo "-d was triggered!" >&2
+		;;
+    a)
+		/usr/bin/env ruby /Users/rs/rt/pivotal_pull_active.rb 2>&1
+		;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+

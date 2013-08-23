@@ -11,7 +11,8 @@
 	--excludeEventProps "url,notes,location,attendees"  \
 	--noCalendarNames									\
 	--propertyOrder "datetime,title"					\
-	--excludeAllDayEvents								\
-	--includeCals "roland@rocketfuelinc.com,Roland Siebelink (TripIt),Big,Routines"			\
+	--includeCals "roland@rocketfuelinc.com,Tripit,Big,Routines,Facebook Events,Insightly" \
 	--includeOnlyEventsFromNowOn						\
 	eventsToday | grep -v "»" | grep -v "√"
+
+#--excludeAllDayEvents								\

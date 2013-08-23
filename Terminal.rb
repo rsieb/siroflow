@@ -30,7 +30,7 @@ module RoutineTracker
     end
 
     def notify(printable)
-      @@instance.info(printable)  
+      @@instance.info(printable)
     end
 
     def shout(saying)
@@ -93,7 +93,7 @@ module RoutineTracker
           end
         }
         # @toptask = tasklist.gsub(/\n.*$/,"")
-        # #        @@instance.warn("#{minutesidle.to_s} ")        
+        # #        @@instance.warn("#{minutesidle.to_s} ")
         # @@instance.warn("#{@toptask} ")
         f = File.open("/tmp/routinetracker.log", "a")
         f.write("#{IDLEMARKER}")
@@ -101,13 +101,13 @@ module RoutineTracker
         #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
-        system('osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt')
-        system("/bin/bash /Users/rs/rt/auto_update_todyn.sh")
+        %x[osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt]
+        #system("/bin/bash /Users/rs/rt/auto_update_todyn.sh")
       end
     end
 
     def self.remind(sayable)
-      @@instance.info(sayable)
+      @@instance.info "#{sayable}"
     end
 
     def welcome(software)
@@ -120,11 +120,11 @@ module RoutineTracker
     protected
 
     def say(saying)
-      saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01 
+      saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01
       unless @@instance.silent?
         @voice = %w(Alex Vicki Kathy Victoria Alex Bruce Fred).sample
         system("say -v #{@voice} #{saying}")
-      end      
+      end
     end
 
     private_class_method :new

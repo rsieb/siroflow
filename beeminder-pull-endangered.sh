@@ -15,10 +15,10 @@ fi
 
 require '/Users/rs/rt/Beeminder.rb'
 b = RoutineTracker::Minder.new(SECRETCODE)
-dangerlevel = 0 #-1 for red, 0 for orange-red, 1 for blue-orange-red -- to be tested
+dangerlevel = 1 #-1 for red, 0 for orange-red, 1 for blue-orange-red -- to be tested
 b.endangered(dangerlevel).each do |doel|
-  puts "#{b.color(doel)} #{doel.slug} +beem #{doel.limsum} or lose #{doel.pledge.to_i}.-"
-#  b.safari(doel)
+  puts "#{b.color(doel)} USD#{sprintf('%03d',doel.pledge.to_i)} #{doel.slug} +beem #{doel.limsum}"
+#  b.browser(doel)
 end
 
 

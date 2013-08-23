@@ -51,7 +51,7 @@ then
 		echo -e "\n" > "$MYFILE"
 		# if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
 		# then
-			ruby -KT /Users/rs/rt/pull_active_from_pivotal.rb | head -7 >> "$MYFILE" 
+			ruby -KT /Users/rs/rt/pivotal_pull_active.rb | head -7 >> "$MYFILE" 
 		# fi
 		#say "Pivotal updated"
 

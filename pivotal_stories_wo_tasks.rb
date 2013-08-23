@@ -45,7 +45,7 @@ end
     #p "****** Launching URL... *****"
   systemstring = <<-ENDOFCURL
      curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
-    -d "<task><description>Workflowy</description></task>" \
+    -d "<task><description>Brainstorm about tasks</description></task>" \
     http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks
   ENDOFCURL
   system(systemstring)

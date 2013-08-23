@@ -4,22 +4,21 @@ require 'rubygems'
 require 'active_resource'
 require 'pp'
 require 'pivotal-tracker'
+require 'chronic'
 
-@mystate = ["unstarted","unscheduled","started","rejected"]
+@mystate = ["started,unstarted,finished"]
 
-PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
-
+@mytoken = PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 @mystories = Array.new()
 
-@myprojects = [780227,781813,786005] # take out FUEL ,479975
+@myprojects = [781813] # take out FUEL 780227,786005,479975
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
   @mystories = @mystories + @a_project.stories.all(:current_state => @mystate)
+  #@mystories = @mystories + @a_project.stories.all()
 end
 
-@mynewstories = @mystories.sort_by {|i| i.name}
-@mynewstories.each do |verhaaltje|
-  if (verhaaltje.current_state != "unscheduled")
-    puts "#{verhaaltje.name} #{verhaaltje.current_state}"
-  end
-end
+#puts @mystories.inspect
+@mystories.each{|conte|
+  puts "#{conte.name} #{conte.labels}"
+}
