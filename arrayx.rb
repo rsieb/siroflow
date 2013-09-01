@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'set'
-
 class Array
 
 # Performs delete_if and returns the elements deleted instead (delete_if will return the array with elements removed).
