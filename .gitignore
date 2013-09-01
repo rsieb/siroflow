@@ -1,3 +1,8 @@
+*.scpt
+*.json
+*.sublime*
+doc/*
+*.app
 *.routine.yaml
 *.yaml
 *.tmproj

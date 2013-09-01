@@ -65,13 +65,17 @@ module RoutineTracker
     def update
       # TODO 2013-07-08 test if this logic works, I think it does need the self?
       mygoals = self.goals.sort_by{|doel1| self.color(doel1)}
+      forclipboard=""
       mygoals.each do |doel|
         # TODO 2013-05-19 filter out automatic goals, those with å at the beginning
         if doel.title.chars.first != "@" then
           self.browser(doel)
+          forclipboard = forclipboard + "\n" + doel.slug
         end
       end
       self.sendoff("minded",self.minded.to_s, "Automatically added from beeminder-update.sh and Beeminder.rb")
+      IO.popen('pbcopy', 'w') { |f| f << forclipboard }
+      system("/usr/bin/say 'slugs copied to clipboard' ")
     end
 
     # 2013-04-25 DONE create method to get color for any certain goal

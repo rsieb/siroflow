@@ -16,6 +16,7 @@ HOMEDIR="/Users/rs/Dropbox/Elements"
 cd $HOMEDIR
 
 # start updating Beeminder
+require_relative 'jiradaily.rb'
 say "Updating Beeminder..."
 bash /Users/rs/rt/beeminder-update.sh
 

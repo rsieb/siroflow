@@ -77,17 +77,17 @@ if @mystories.size > 0 then
       end
     end
 
-    ### 2013-08-01 Roland temporary override: always finish to keep working on a larger number of smaller projects
-    # # switch active Pivotal story to finished (or "started?" check in practice)
     if counter > 0 # that means there are still open tasks
-      storystatus = "started"
-      @laststoryid=@a_project.stories.all(:current_state => "started").last().id
-      systemstring = <<-ENDOFCURL4
-      curl -H "X-TrackerToken: #{@mytoken}" -X POST \
-        "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
-      ENDOFCURL4
-      puts "\n\n#{systemstring}\n"
-      system(systemstring)
+      unless verhaaltje.labels.include? "π4"
+        storystatus = "started"
+        @laststoryid=@a_project.stories.all(:current_state => "started").last().id
+        systemstring = <<-ENDOFCURL4
+        curl -H "X-TrackerToken: #{@mytoken}" -X POST \
+          "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
+        ENDOFCURL4
+        puts "\n\n#{systemstring}\n"
+        system(systemstring)
+      end
     else
       storystatus = "finished"
     end

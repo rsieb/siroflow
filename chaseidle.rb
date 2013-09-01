@@ -27,14 +27,17 @@ LOGFILE = "/tmp/routinetracker.log"
 if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
   module RoutineTracker
     class Main < Activity
-      # #["Sparrow","Mailplane 3","Messages","Calendar","Mail"].each do |programma|
-      # %w[Sparrow Messages Mail].each do |programma|
-      #   unless(actual.include?("#Break#") || actual.include?(programma) )
-      #     unless File.exist?("/Users/rs/Desktop/#{programma}#{Time.now.strftime('%H')}")
-      #       `osascript -e 'tell app "#{programma}" to quit'`
-      #     end
-      #   end
-      # end
+      if actual.include? "+rout"
+        # #["Sparrow","Mailplane 3","Messages","Calendar","Mail"].each do |programma|
+        %w[Sparrow Messages Mail].each do |programma|
+          #        unless(actual.include?("#Break#") || actual.include?(programma) )
+          #          unless File.exist?("/Users/rs/Desktop/#{programma}#{Time.now.strftime('%H')}")
+          `osascript -e 'tell app "#{programma}" to quit'`
+          system("/usr/bin/say \"No no no \"#{programma}\" ")
+          #          end
+          #       end
+        end
+      end
       # TODO 2013-08-13 replace with Pomodoro internal interrupt when Sparrow is frontmost
 
       if idle?(actual)
