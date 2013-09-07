@@ -1,7 +1,10 @@
+# encoding: utf-8
+
 #!/usr/bin/env ruby -KU
 
 require 'rubygems'
-require 'active_resource'
+require 'bundler/setup'
+#require 'active_resource'
 require 'pp'
 require 'pivotal-tracker'
 
@@ -60,7 +63,7 @@ end
   begin
     mijnetiket = Array(verhaaltje.labels.split(","))
   rescue
-    mijnetiket = "NO LABEL"
+    mijnetiket = Array("NO LABEL")
   end
   #puts "Mijnetiket = #{mijnetiket}"
   mijnprioriteit=""
