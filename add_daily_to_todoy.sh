@@ -1,4 +1,5 @@
 #!/bin/bash
+source '/Users/rs/.bash_include_rs'
 
 # set base directory from which to work
 HOMEDIR="/Users/rs/Dropbox/Elements"

@@ -1,7 +1,8 @@
+# encoding: utf-8
 #!/usr/bin/env ruby -KU
 
 require 'rubygems'
-require 'active_resource'
+require 'bundler/setup'
 require 'pp'
 require 'pivotal-tracker'
 

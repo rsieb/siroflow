@@ -1,4 +1,5 @@
 #!/bin/bash
+source '/Users/rs/.bash_include_rs'
 
 /usr/local/bin/icalBuddy                                \
 	--noPropertyNames                                   \

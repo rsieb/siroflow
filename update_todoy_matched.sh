@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source '/Users/rs/.bash_include_rs'
 OLDROOT="/Users/rs/Library/Application Support/Notational Data"
 ROOT="/Users/rs/Dropbox/Elements"
 

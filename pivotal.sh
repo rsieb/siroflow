@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source '/Users/rs/.bash_include_rs'
 while getopts ":d:a" opt; do
   case $opt in
     d)

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source '/Users/rs/.bash_include_rs'
 
 #HOMEDIR="/Users/rs/Library/Application Support/Notational Data"
 HOMEDIR="/Users/rs/Dropbox/Elements"

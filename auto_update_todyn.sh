@@ -1,4 +1,5 @@
 #!/bin/bash 
+source '/Users/rs/.bash_include_rs'
 
 HOMEDIR="/Users/rs/Dropbox/Elements"
 TODYNFILE="$HOMEDIR/Todyn.txt"
