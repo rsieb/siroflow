@@ -51,6 +51,6 @@ end
   system(systemstring)
 
   
-    #system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
 end

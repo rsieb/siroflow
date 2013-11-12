@@ -6,7 +6,7 @@ HOMEDIR="/Users/rs/Dropbox/Elements"
 cd $HOMEDIR
 
 # start updating Beeminder
-require_relative 'jiradaily.rb'
+#require './jiradaily.rb'
 say "Updating Beeminder..."
 bash /Users/rs/rt/beeminder-update.sh
 
@@ -14,13 +14,13 @@ bash /Users/rs/rt/beeminder-update.sh
 # [this allows for temporary ignoring stories, i.e. "finished" needs to be delivered to be really finished]
 # TODO 2013-08-11 can integrate those two scripts
 ruby /Users/rs/rt/pivotal_finished_reset.rb
-ruby /Users/rs/rt/pivotal_accepted.rb # updating Beeminder is built into this script
+# ruby /Users/rs/rt/pivotal_accepted.rb # updating Beeminder is built into this script
 
 # update written and diary goals from computer
-say "Updating Automated goals..."
-beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added from add_daily_to_todoy.sh `date`"
+# say "Updating Automated goals..."
+# beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added from add_daily_to_todoy.sh `date`"
 beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
-beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
+# beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 
 # remove the old todont file
 say "Removing old TODONT file..."

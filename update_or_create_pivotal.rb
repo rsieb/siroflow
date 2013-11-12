@@ -8,7 +8,6 @@ require 'pivotal-tracker'
 
 @mytoken = PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
-
 ## get the name of the Pomodoro
 @pomodoro_name = ARGV[0]
 ## skip for routines 2013-08-18 also skip for short improvised pomodori
@@ -27,6 +26,7 @@ if @pomodoro_name.include?("+beem") then
   abort
 end
 
+
 @mystories = Array.new
 
 ## Cycle through projects
@@ -36,19 +36,31 @@ end
   # TODO 2013-05-22 why don't we make the mess below into a proper regex :)
   @basepomname = @pomodoro_name.sub("√","").sub(/>>.*/,"")
   #@nametocheck = @basepomname[0]+@basepomname[2..-1]
-  $nametocheck = @basepomname[2..-1] # does not need to capture the priority level, is immaterial
+  #$nametocheck = @basepomname[2..-1] # does not need to capture the priority level, is immaterial
+  $nametocheck = @basepomname # deleting the above while I am testing doing without status and priority
   $taskdescrtocheck = @pomodoro_name.sub(/.*>>/,"").sub(/ \+/,"")
   ###puts projectnummer
 
   @a_project = PivotalTracker::Project.find(projectnummer)
   ## -- find the story with this title
-  @mystate = ["started","rejected"]
-  @allstories = @a_project.stories.all(:state => @mystate, :includedone => :false)
+  @mystate = %w( started finished rejected unstarted )
+  @allstories = @a_project.stories.all(:state => @mystate, :includedone => :true)
   @allstories.each do |verhaaltje|
+    puts "Found: #{verhaaltje.name}"
     if verhaaltje.name.include?($nametocheck) || $nametocheck.include?(verhaaltje.name) then
       @mystories.push(verhaaltje)
-      ###puts "Adding #{verhaaltje.id} to @mystories"
+      puts "Adding #{verhaaltje.id} to @mystories"
     end # if include
+# also set number of points to number of (sub)tasks, but use 1 when no subtasks
+  mypoints = [verhaaltje.tasks.all.size,1].max
+  puts "Story should be #{mypoints} points"
+        systemstring = <<-ENDOFCURLPOINTS
+    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+      -d "<story><estimate>#{mypoints}</estimate></story>" \
+      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
+        ENDOFCURLPOINTS
+        puts "\n\n#{systemstring}\n"
+        system(systemstring)
   end # stories cycle
 end # projects cycle
 
@@ -79,9 +91,12 @@ if @mystories.size > 0 then
     end
 
     if counter > 0 # that means there are still open tasks
-      unless verhaaltje.labels.include? "π4"
+      unless verhaaltje.labels.include? ">burst"
         storystatus = "started"
         @laststoryid=@a_project.stories.all(:current_state => "started").last().id
+        if !@laststoryid then 
+          @laststoryid=@a_project.stories.all(:current_state => "delivered").last().id
+        end
         systemstring = <<-ENDOFCURL4
         curl -H "X-TrackerToken: #{@mytoken}" -X POST \
           "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
@@ -93,6 +108,7 @@ if @mystories.size > 0 then
       storystatus = "finished"
     end
 
+    # Always switch owner to Roland
     systemstring = <<-ENDOFCURL
     curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
       -d "<story><current_state>#{storystatus}</current_state><owned_by>Roland Siebelink</owned_by></story>" \
@@ -117,15 +133,16 @@ if @mystories.size > 0 then
     #system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
   ## -- if not found then
-  #else
-  #   pp "Did not find one"
-  #   ## -- set the default project
-  # # @defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
-  #   @defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
-  #   ## ---- create a new story in the default project
-  #   @mynewstory = @defaultproject.stories.create(:name => @nametocheck, :story_type => 'bug')
-  #   pp @mynewstory
-  #   ## Just open the found story in the UI
-  #     system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")
-  #   ## -- end
+else
+  puts "Did not find a matching story for [#$nametocheck]"
+
+#   ## -- set the default project
+# # @defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
+#   @defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
+#   ## ---- create a new story in the default project
+#   @mynewstory = @defaultproject.stories.create(:name => @nametocheck, :story_type => 'bug')
+#   pp @mynewstory
+#   ## Just open the found story in the UI
+#     system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")
+#   ## -- end
 end

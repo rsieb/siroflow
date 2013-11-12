@@ -31,7 +31,7 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
         puts "Chaseup"
         Terminal.chaseup(targetfile)
       else
-        system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/distracting_apps.scpt")
+        #system("/usr/bin/osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/distracting_apps.scpt")
         puts "Remind"
         Terminal.remind(actual)
       end

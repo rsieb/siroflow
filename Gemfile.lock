@@ -1,9 +1,6 @@
-GEM
-  remote: https://rubygems.org/
+PATH
+  remote: /Users/rs/Dropbox/projects/beeminder-gem
   specs:
-    activesupport (3.2.14)
-      i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
     beeminder (0.2.7)
       activesupport (~> 3.2)
       chronic (~> 0.7)
@@ -11,8 +8,20 @@ GEM
       json
       trollop (~> 2)
       tzinfo
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (0.6.1)
+      actionpack (>= 0.9.5)
+    actionpack (1.4.0)
+    activerecord (1.6.0)
+    activesupport (3.2.14)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
+    atomic (1.1.14)
     builder (3.2.2)
-    chronic (0.10.1)
+    chronic (0.10.2)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     gmail (0.4.0)
@@ -33,7 +42,7 @@ GEM
     mime (0.1)
     mime-types (1.25)
     mini_portile (0.5.1)
-    multi_json (1.7.9)
+    multi_json (1.8.1)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri-happymapper (0.5.7)
@@ -48,19 +57,29 @@ GEM
       nokogiri-happymapper (>= 0.5.4)
       rest-client (~> 1.6.0)
     polyglot (0.3.3)
+    rails (0.9.5)
+      actionmailer (>= 0.6.1)
+      actionpack (>= 1.4.0)
+      activerecord (>= 1.6.0)
+      rake (>= 0.4.15)
+    rake (10.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     safe_yaml (0.9.5)
+    thread_safe (0.1.3)
+      atomic
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     trollop (2.0)
-    tzinfo (1.0.1)
+    tzinfo (1.1.0)
+      thread_safe (~> 0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  beeminder
+  beeminder!
   gmail
   pivotal-tracker
+  rails

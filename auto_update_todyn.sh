@@ -27,7 +27,7 @@ then
 		MYFILE1="$HOMEDIR/Beeminder-redplus.txt"
 		MYFILE2="$HOMEDIR/Beeminder-orange.txt"
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
-			. /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt 
+			. /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt 2>&1
 		echo -e "\n" > "$MYFILE1"
 			cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1" 
 			cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1" 
@@ -49,21 +49,22 @@ then
 		MYFILE="$HOMEDIR/Calendar.txt"
 		#echo -e "\n# From Calendar... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		. /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" 
+		. /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" 2>&1
 		#say "Calendar updated"
 
 		# and add subjects from Mailbox/todo
 		MYFILE="$HOMEDIR/Mailboxtodo.txt"
 		#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" 
+		ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" 2>&1
 		#say "Mailbox-to-do updated"
 
 		# Pull together Todyn (dynamic todo)
 		cd $HOMEDIR
-		cat Calendar.txt Beeminder-redplus.txt Beeminder-orange.txt Pivotal.txt Mailboxtodo.txt Todoy.txt > $TMPFILE
+		cat Calendar.txt Beeminder-redplus.txt Pivotal.txt Todoy.txt Mailboxtodo.txt Beeminder-orange.txt > $TMPFILE 2>&1
 		# Mark as today
 		echo "" >> $TMPFILE
+		#echo $PATH >> $TMPFILE
 		echo -e "\n`date '+%Y-%m-%d %H:%M'`" >> $TMPFILE 
 	fi
 	# Take out ignored lines
@@ -71,10 +72,10 @@ then
 	# NB file with negative lines should come first :)
 	if [[ -s $TODONTFILE ]] ; then
 		# first ensure there are no white lines in Todont
-		grep -v '^$' $TODONTFILE > /tmp/Todont.txt
+		grep -v '^$' $TODONTFILE > /tmp/Todont.txt 2>&1
 		cp /tmp/Todont.txt $TODONTFILE
 		# now take all the ignorable lines out of the temporary Todyn by matching against Todont
-		grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE 
+		grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE  2>&1
 	else
 		cat -s $TMPFILE > $TODYNFILE
 	fi

@@ -15,7 +15,7 @@ def initials(naam)
   }
   initialen
 end
-@mystate = ["started","rejected","unstarted"]
+@mystate = %w( started rejected unstarted )
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
@@ -76,7 +76,7 @@ end
         mijnetiket.delete[etiketje]
         return
       else
-        mijnprioriteit = "ø"
+        mijnprioriteit = " "
       end
     end
   rescue
@@ -84,10 +84,13 @@ end
 
   # # solving bug where previously started and now unscheduled stories still come out when querying "unstarted"
   # unless mijnstatus == "unscheduled"
-  #   if mijntaak == "NO TASK"
-  #     system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
-  #   end
-  #   #puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1..-1]}>>#{mijntaak} +#{mijnetiket} "
-  puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam}>>#{mijntaak} +#{mijnetiket.first}"
-  # end
+  if mijntaak == "NO TASK"
+    #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam} +#{mijnetiket.first}"
+    puts "#{mijnnaam} \##{verhaaltje.id} +#{mijnetiket.first}"
+    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+  else
+    #   #puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1..-1]}>>#{mijntaak} +#{mijnetiket} "
+    #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam}>>#{mijntaak} +#{mijnetiket.first}"
+    puts "#{mijnnaam} \##{verhaaltje.id}>>#{mijntaak}  +#{mijnetiket.first}"
+  end
 end
