@@ -12,15 +12,17 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (0.6.1)
-      actionpack (>= 0.9.5)
-    actionpack (1.4.0)
-    activerecord (1.6.0)
-    activesupport (3.2.14)
+    activemodel (3.2.15)
+      activesupport (= 3.2.15)
+      builder (~> 3.0.0)
+    activeresource (3.2.15)
+      activemodel (= 3.2.15)
+      activesupport (= 3.2.15)
+    activesupport (3.2.15)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     atomic (1.1.14)
-    builder (3.2.2)
+    builder (3.0.4)
     chronic (0.10.2)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -30,25 +32,27 @@ GEM
       mime (>= 0.1)
     gmail_xoauth (0.4.1)
       oauth (>= 0.3.6)
-    happymapper (0.4.0)
+    happymapper (0.4.1)
       libxml-ruby (~> 2.0)
-    highline (1.6.19)
+    highline (1.6.20)
     i18n (0.6.5)
-    json (1.8.0)
+    json (1.8.1)
     libxml-ruby (2.7.0)
-    mail (2.5.4)
-      mime-types (~> 1.16)
-      treetop (~> 1.4.8)
+    mail (2.2.7)
+      activesupport (>= 2.3.6)
+      mime-types
+      treetop (>= 1.4.5)
     mime (0.1)
-    mime-types (1.25)
-    mini_portile (0.5.1)
-    multi_json (1.8.1)
+    mime-types (2.0)
+    mini_portile (0.5.2)
+    multi_json (1.8.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    nokogiri-happymapper (0.5.7)
+    nokogiri-happymapper (0.5.8)
       nokogiri (~> 1.5)
     oauth (0.4.7)
     pivotal-tracker (0.5.12)
+      builder
       builder
       crack
       happymapper (>= 0.3.2)
@@ -56,16 +60,11 @@ GEM
       nokogiri (>= 1.5.5)
       nokogiri-happymapper (>= 0.5.4)
       rest-client (~> 1.6.0)
+      rest-client (~> 1.6.0)
     polyglot (0.3.3)
-    rails (0.9.5)
-      actionmailer (>= 0.6.1)
-      actionpack (>= 1.4.0)
-      activerecord (>= 1.6.0)
-      rake (>= 0.4.15)
-    rake (10.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    safe_yaml (0.9.5)
+    safe_yaml (0.9.7)
     thread_safe (0.1.3)
       atomic
     treetop (1.4.15)
@@ -79,7 +78,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeresource
+  activesupport
   beeminder!
   gmail
   pivotal-tracker
-  rails
