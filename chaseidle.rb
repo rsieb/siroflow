@@ -37,11 +37,11 @@ if ( IO.readlines(LOGFILE).first.match("PREZMODE").to_s.size == 0 )
       end
     end
   end
-  # else
-  #   if ( Time.now() - File.mtime(LOGFILE) > 7200 )
-  #     # system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
-  #     f = File.open(LOGFILE, "w+")
-  #     f.write("IDLE")
-  #     f.close
-  #   end
+  else
+    if ( Time.now() - File.mtime(LOGFILE) > 4000 )
+      f = File.open(LOGFILE, "w+")
+      f.write("IDLE")
+      f.close
+      system("/usr/bin/osascript -f '/Users/rs/Dropbox/Library/Scripts/Mode work.scpt' ")
+    end
 end

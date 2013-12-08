@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -wKU
 # making changes to gem: subl /Users/rs/.rvm/gems/ruby-1.9.3-p194/gems/beeminder-0.2.5/lib/goals.rb
 require 'rubygems'
+require 'bundler/setup'
 require 'beeminder'
 require 'pp'
 require 'yaml'

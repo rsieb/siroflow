@@ -15,7 +15,7 @@ def initials(naam)
   }
   initialen
 end
-@mystate = %w( started rejected unstarted )
+@mystate = %w( started rejected )
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #!/usr/local/bin/macruby -wKU
 framework 'calendarstore'
 # CalCalendarStore.defaultCalendarStore.calendars.each do |calendar|
