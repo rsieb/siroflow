@@ -6,7 +6,7 @@ require 'bundler/setup'
 require 'pp'
 require 'pivotal-tracker'
 
-@mystate = %w( started rejected unstarted delivered finished )
+  
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
@@ -15,7 +15,7 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
 @myprojects = [781813] # take out FUEL 780227,786005,479975
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
-  @mystories = @mystories + @a_project.stories.all(:state => @mystate)
+  @mystories = @mystories + @a_project.stories.all()
   #pp @mystories
 end
 
