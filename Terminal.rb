@@ -1,12 +1,11 @@
 # encoding: utf-8
+require 'LOGGER'
 
-#!/usr/bin/env ruby
-# encoding: UTF-8
-
-#!/usr/bin/env ruby -wKu
-
+# RoutineTracker is the overall module for this project.
 module RoutineTracker
 
+
+  # temporary class for addressing the user terminal
   class Terminal
 
     def initialize
@@ -18,6 +17,7 @@ module RoutineTracker
       rescue
         @terminal = "hello"
       end
+      @terminal
     end
 
     @@instance = Terminal.new
@@ -73,34 +73,37 @@ module RoutineTracker
     end
 
     def display(notification)
-      # FIXED 201111210912 remodel these into DEBUG, INFO, WARN, ERROR and FATAL messages
+      # FIXED 201111210912 remodel these into DEBUG, INFO,
+      # WARN, ERROR and FATAL messages
       @@instance.info(notification)
     end
 
     def self.chaseup(tasklist)
-      #TODO 2012-04-08 normalize ugly code at self.chaseup in proper objects
+      # TODO: 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
-        #minutesidle =  IO.readlines("/tmp/routinetracker.log").last.chop.to_s.size + 2
-        minutesidle =  IO.readlines("/tmp/routinetracker.log").last.scan('*').size
+        minutesidle = IO.readlines("/tmp/routinetracker.log").last.scan('*').size
       rescue
         minutesidle = 1
       end
-      #      system('osascript -e "if (get (output muted of (get volume settings))) is false then set volume output volume ((output volume of (get volume settings)) + 1)" ')
-      #     system('osascript -e "set volume without output muted output volume ((output volume of (get volume settings)) + 1)" ')
-      #      @@instance.warn("#{tasklist.split(/ \+/u)[0]} ")
+      LOGGER.debug "minutesidle = #{minutesidle}"
       if Log.instance.idle?
+        LOGGER.debug "Instance is idle"
         minutesidle.times { |i|
           if i > (minutesidle - 10)
             @@instance.warn("#{i.to_s} ")
+            LOGGER.debug "Warning time #{i}"
           end
         }
         # @toptask = tasklist.gsub(/\n.*$/,"")
         # #        @@instance.warn("#{minutesidle.to_s} ")
         # @@instance.warn("#{@toptask} ")
         f = File.open("/tmp/routinetracker.log", "a")
+        LOGGER.debug "File is opened #{f.class}"
         f.write("#{IDLEMARKER}")
         f.close
-        %x[osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{minutesidle}]
+        LOGGER.debug "Ready to open PromptForPomodoro #{minutesidle}"
+        output = system "osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{minutesidle}"
+        LOGGER.info "Output is #{output.inspect}"
         #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?

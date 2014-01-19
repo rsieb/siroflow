@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #!/usr/bin/env ruby -KU
 
 require 'rubygems'
@@ -5,38 +7,49 @@ require 'active_resource'
 require 'pp'
 require 'pivotal-tracker'
 
-@mytoken = PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
+@mytoken = PivotalTracker::Client.token(
+  'roland@rocketfuelinc.com',
+  'qub0y?Qatar')
 @myprojects = [781813]
 
-@mystate = ["finished"]
-@mystories = Array.new()
+# find all stories that are marked as started or unstarted
+@mystate = %w( started unstarted )
+@mystories = Array[]
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
-  #@mystories = @mystories + @a_project.stories.all(:state => @mystate, :owned_by => "Roland Siebelink")
-  @mystories = @mystories + @a_project.stories.all(:state => @mystate)
+  @mystories = @mystories + @a_project.stories.all(state: @mystate, owner: nil)
 end
 
-@mystories.each do |verhaaltje|
-  pp verhaaltje
-  systemstring = <<-ENDOFCURL
-  curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
-    -d "<story><current_state>started</current_state></story>" \
-    http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
-  ENDOFCURL
-  system(systemstring)
+# put all open stories under my ownership
+target_started_stories = 0
+unless @mystories.size <= target_started_stories
+  @mystories[target_started_stories..-1].each do |verhaaltje|
+    puts "@mystories = #{@mystories.inspect}"
+    puts "@verhaaltje = #{@verhaaltje.inspect}"
+    systemstring = <<-ENDOFCURL
+    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+      -d "<story><owned_by>Roland Siebelink</owned_by></story>" \
+      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
+    ENDOFCURL
+    system(systemstring)
+  end
 end
 
-@mystate2 = ["started"]
-@mystories2 = Array.new()
+
+# find all stories that are marked as started
+@mystate2 = %w( started )
+@mystories2 = Array[]
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
-  #@mystories = @mystories + @a_project.stories.all(:state => @mystate, :owned_by => "Roland Siebelink")
-  @mystories2 = @mystories2 + @a_project.stories.all(:state => @mystate2)
+  @mystories2 = @mystories2 + @a_project.stories.all(state: @mystate2)
 end
 
-unless @mystories2.size <= 5
-  @mystories2[5..-1].each do |verhaaltje2|
-    #puts "#{verhaaltje2.current_state} #{verhaaltje2.name}"
+# limit the number of stories marked as started to X
+target_started_stories = 0
+unless @mystories2.size <= target_started_stories
+  @mystories2[target_started_stories..-1].each do |verhaaltje2|
+    puts "@mystories2 = #{@mystories2.inspect}"
+    puts "@verhaaltje2 = #{@verhaaltje2.inspect}"
     systemstring = <<-ENDOFCURL
     curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
       -d "<story><current_state>unstarted</current_state></story>" \
@@ -45,3 +58,4 @@ unless @mystories2.size <= 5
     system(systemstring)
   end
 end
+

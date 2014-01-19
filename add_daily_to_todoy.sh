@@ -3,7 +3,7 @@ source '/Users/rs/.bash_include_rs'
 
 # set base directory from which to work
 HOMEDIR="/Users/rs/Dropbox/Elements"
-cd $HOMEDIR
+#  cd $HOMEDIR # i think this is causing errors
 
 # start updating Beeminder
 #require './jiradaily.rb'
@@ -24,26 +24,26 @@ beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Jo
 
 # remove the old todont file
 say "Removing old TODONT file..."
-cat Todont.txt Todonterday.txt > /tmp/todonterday.txt
-rm Todonterday.txt
-cp /dev/null Todont.txt
-mv /tmp/todonterday.txt Todonterday.txt
+cat $HOMEDIR/Todont.txt $HOMEDIR/Todonterday.txt > /tmp/todonterday.txt
+rm $HOMEDIR/Todonterday.txt
+cp /dev/null $HOMEDIR/Todont.txt
+mv /tmp/todonterday.txt $HOMEDIR/Todonterday.txt
 
 # clear the old todonetoday file
-cp /dev/null Todonetoday.txt
-echo "" > Todonetoday.txt
-echo -e "\n# Done Today... #" >> Todonetoday.txt
+cp /dev/null $HOMEDIR/Todonetoday.txt
+echo "" > $HOMEDIR/Todonetoday.txt
+echo -e "\n# Done Today... #" >> $HOMEDIR/Todonetoday.txt
 
 # archive the old today file to the front of the yesterday file
 say "Archiving old TODAY file..."
-cat Todoy.txt Todosterday.txt > /tmp/todosterday.txt
-rm Todosterday.txt
-mv /tmp/todosterday.txt Todosterday.txt
+cat $HOMEDIR/Todoy.txt $HOMEDIR/Todosterday.txt > /tmp/todosterday.txt
+rm $HOMEDIR/Todosterday.txt
+mv /tmp/todosterday.txt $HOMEDIR/Todosterday.txt
 
 
 # add daily to front of todoy
 #echo "Todoy>>start" > /tmp/todoy.txt
-cat tododaily.txt > /tmp/todoy.txt
+cat $HOMEDIR/tododaily.txt > /tmp/todoy.txt
 if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
 	./add_weekly_to_todoy.sh
 fi
@@ -51,8 +51,8 @@ fi
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> /tmp/todoy.txt
 #echo -e "\n# Added Yesterday... (for Workflowy?) #" >> /tmp/todoy.txt
-cat Todorrow.txt >> /tmp/todoy.txt
-cp /dev/null Todorrow.txt
+cat $HOMEDIR/Todorrow.txt >> /tmp/todoy.txt
+cp /dev/null $HOMEDIR/Todorrow.txt
 
 # Mark as today
 #echo "" >> /tmp/todoy.txt
@@ -60,9 +60,9 @@ cp /dev/null Todorrow.txt
 
 # now copy the new file into place
 say "Creating new TODOY file..."
-rm Todoy.txt
+rm $HOMEDIR/Todoy.txt
 #echo "Todoy>>end" >> /tmp/todoy.txt
-mv /tmp/todoy.txt Todoy.txt
+mv /tmp/todoy.txt $HOMEDIR/Todoy.txt
 #touch /tmp/${TODAYDATE}.log"
 say "Todoy updated"
 
@@ -73,7 +73,7 @@ say "Todoy updated"
 
 # And create a default TODONT file
 say "Creating new TODONT file..."
-cat Todonetoday.txt > Todont.txt
+cat $HOMEDIR/Todonetoday.txt > $HOMEDIR/Todont.txt
 #open Todont.txt
 
 

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #!/usr/bin/env ruby -KU
 
 require 'rubygems'
@@ -6,7 +8,7 @@ require 'bundler/setup'
 require 'pp'
 require 'pivotal-tracker'
 
-  
+
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 

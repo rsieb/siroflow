@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 #!/usr/bin/env ruby -KU
 
 require 'rubygems'
@@ -50,7 +52,7 @@ end
   ENDOFCURL
   system(systemstring)
 
-  
+
     system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
 end

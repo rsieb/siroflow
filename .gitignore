@@ -102,3 +102,5 @@ Backup[ ]of[ ]*.numbers/
 .DS_Store
 
 .rvmrc
+bin/**
+.bundle/**

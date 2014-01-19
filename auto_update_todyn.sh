@@ -1,5 +1,6 @@
 #!/bin/bash
 source '/Users/rs/.bash_include_rs'
+export PATH="./bin:/Users/rs/bin:/Users/rs/.rbenv/bin:/Users/rs/.rbenv/shims:/Users/rs/perl5/perlbrew/bin:/Users/rs/perl5/perlbrew/perls/perl-5.16.0/bin::/Users/rs/bin:/usr/local/bin:/usr/local/sbin:/Users/rs/Dropbox/Library/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/texbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/sbin"
 
 HOMEDIR="/Users/rs/Dropbox/Elements"
 TODYNFILE="$HOMEDIR/Todyn.txt"
@@ -66,8 +67,9 @@ then
 		cat Calendar.txt Beeminder-redplusorange.txt Pivotal.txt Todoy.txt Mailboxtodo.txt Beeminder-blue.txt > $TMPFILE 2>&1
 		# Mark as today
 		echo "" >> $TMPFILE
+		export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
 		#echo $PATH >> $TMPFILE
-		echo -e "\n`date '+%Y-%m-%d %H:%M'`" >> $TMPFILE
+		echo -e "\n`date '+%Y-%m-%d %H:%M'` ${PARENTPROCESS}" >> $TMPFILE
 	fi
 	# Take out ignored lines
 	# subtracting two files from each other as per <http://aijazansari.com/2011/11/23/how-to-subtract-one-file-from-another/>
