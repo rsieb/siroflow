@@ -1,12 +1,4 @@
-*.scpt
-*.json
-*.sublime*
-doc/*
-*.app
-*.routine.yaml
-*.yaml
-*.tmproj
-
+  
 # Compiled source #
 ###################
 *.com
