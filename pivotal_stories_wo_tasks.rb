@@ -8,7 +8,7 @@ require 'pp'
 require 'pivotal-tracker'
 
 # if ARGV[0] == "--all" then
-  @mystate = ["started","finished","rejected","unestimated","unstarted","unscheduled"]
+@mystate = ["started","finished","rejected","unestimated","unstarted","unscheduled"]
 # else
 #   @mystate = ["started","rejected","unestimated"]
 # end
@@ -32,6 +32,13 @@ end
   #   http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
   # ENDOFCURL
   # system(systemstring)
+  
+  systemstring = <<-ENDOFCURL
+  curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+    -d "<story><owned_by>Roland Siebelink</owned_by></story>" \
+    http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
+  ENDOFCURL
+  system(systemstring)
 
 
   mijntaak = "!NoTask"
@@ -45,12 +52,12 @@ end
   #pp mijntaak
   if (mijntaak == "!NoTask")
     #p "****** Launching URL... *****"
-  systemstring = <<-ENDOFCURL
-     curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
-    -d "<task><description>Brainstorm about tasks</description></task>" \
-    http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks
-  ENDOFCURL
-  system(systemstring)
+    systemstring = <<-ENDOFCURL
+    curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
+      -d "<task><description>Brainstorm about tasks</description></task>" \
+      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks
+    ENDOFCURL
+    system(systemstring)
 
 
     system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")

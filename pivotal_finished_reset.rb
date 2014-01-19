@@ -11,29 +11,7 @@ require 'pivotal-tracker'
   'roland@rocketfuelinc.com',
   'qub0y?Qatar')
 @myprojects = [781813]
-
-# find all stories that are marked as started or unstarted
-@mystate = %w( started unstarted )
-@mystories = Array[]
-@myprojects.each do |projectnummer|
-  @a_project = PivotalTracker::Project.find(projectnummer)
-  @mystories = @mystories + @a_project.stories.all(state: @mystate, owner: nil)
-end
-
-# put all open stories under my ownership
-target_started_stories = 0
-unless @mystories.size <= target_started_stories
-  @mystories[target_started_stories..-1].each do |verhaaltje|
-    puts "@mystories = #{@mystories.inspect}"
-    puts "@verhaaltje = #{@verhaaltje.inspect}"
-    systemstring = <<-ENDOFCURL
-    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
-      -d "<story><owned_by>Roland Siebelink</owned_by></story>" \
-      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
-    ENDOFCURL
-    system(systemstring)
-  end
-end
+  
 
 
 # find all stories that are marked as started
