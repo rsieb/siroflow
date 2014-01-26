@@ -1,18 +1,19 @@
-#!/usr/bin/env ruby -wKU
+#!/usr/bin/env ruby -KU
+# encoding: UTF-8
 
 require 'rubygems'
 require 'gmail'
 require 'pp'
 
-Gmail.new("roland@rocketfuelinc.com", "bhwacmjjnbggsfzk") do |gmail|
+Gmail.new('roland@rocketfuelinc.com', 'bhwacmjjnbggsfzk') do |gmail|
   # send commands
-  todobox = gmail.mailbox("[Mailbox]/To Do")
+  todobox = gmail.mailbox('[Mailbox]/To Do')
   mymails = todobox.emails
-  mymails.each do |mailtje|
-  mijntaak = mailtje.subject
-  	unless ( mijntaak =~ /Re:/i ||  mijntaak =~ /AW:/i )
-  		puts "#{mijntaak} +gmail"
-  	end
+  mymails.each do |msg|
+    mytask = msg.subject
+    unless ( mytask =~ /Re:/i || mytask =~ /AW:/i )
+      puts '#{mytask} +gmail'
+    end
   end
 
 end

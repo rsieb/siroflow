@@ -23,7 +23,7 @@ module RoutineTracker
       @@log.debug(Time.now.strftime("%F %T") + @@bee.inspect)
       return @@bee
     end
-
+    
     def minded
       self.goals.count
     end
@@ -124,5 +124,6 @@ module RoutineTracker
       @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
       return true
     end
+
   end
 end

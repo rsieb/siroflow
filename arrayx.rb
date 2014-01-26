@@ -6,7 +6,6 @@ class Array
 # Performs delete_if and returns the elements deleted instead (delete_if will return the array with elements removed).
 # Because it is essentially delete_if, this method is destructive. Also this method is kinda redundant as you can simply
 # call dup.delete_if passing it the negation of the condition.
-
 def delete_fi
   x = select { |v| v if yield(v) }
   delete_if { |v| v if yield(v) }

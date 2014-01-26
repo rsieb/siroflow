@@ -7,7 +7,7 @@ HOMEDIR="/Users/rs/Dropbox/Elements"
 
 # start updating Beeminder
 #require './jiradaily.rb'
-say "Updating Beeminder..."
+logger -s -p6 "Updating Beeminder..."
 bash /Users/rs/rt/beeminder-update.sh
 
 # reset finished stories from yesterday in Pivotal
@@ -17,13 +17,13 @@ ruby /Users/rs/rt/pivotal_finished_reset.rb
 # ruby /Users/rs/rt/pivotal_accepted.rb # updating Beeminder is built into this script
 
 # update written and diary goals from computer
-# say "Updating Automated goals..."
+# logger -s -p6 "Updating Automated goals..."
 # beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added from add_daily_to_todoy.sh `date`"
 beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 # beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 
 # remove the old todont file
-say "Removing old TODONT file..."
+logger -s -p6 "Removing old TODONT file..."
 cat $HOMEDIR/Todont.txt $HOMEDIR/Todonterday.txt > /tmp/todonterday.txt
 rm $HOMEDIR/Todonterday.txt
 cp /dev/null $HOMEDIR/Todont.txt
@@ -35,7 +35,7 @@ echo "" > $HOMEDIR/Todonetoday.txt
 echo -e "\n# Done Today... #" >> $HOMEDIR/Todonetoday.txt
 
 # archive the old today file to the front of the yesterday file
-say "Archiving old TODAY file..."
+logger -s -p6 "Archiving old TODAY file..."
 cat $HOMEDIR/Todoy.txt $HOMEDIR/Todosterday.txt > /tmp/todosterday.txt
 rm $HOMEDIR/Todosterday.txt
 mv /tmp/todosterday.txt $HOMEDIR/Todosterday.txt
@@ -59,21 +59,22 @@ cp /dev/null $HOMEDIR/Todorrow.txt
 #echo -e "\n`date '+%Y-%m-%d'`" >> /tmp/todoy.txt 2>&1
 
 # now copy the new file into place
-say "Creating new TODOY file..."
+logger -s -p6 "Creating new TODOY file..."
 rm $HOMEDIR/Todoy.txt
 #echo "Todoy>>end" >> /tmp/todoy.txt
 mv /tmp/todoy.txt $HOMEDIR/Todoy.txt
 #touch /tmp/${TODAYDATE}.log"
-say "Todoy updated"
+logger -s -p6 "Todoy updated"
 
 # 2013-06-24 This file is now called from auto_update_todyn.sh so this call would be circular
 #rm /tmp/Todyn.txt # necessary or it calls the 5 minute exception
 #. /Users/rs/rt/auto_update_todyn.sh
-#say "Todyn updated"
+#logger -s -p6 "Todyn updated"
 
 # And create a default TODONT file
-say "Creating new TODONT file..."
+logger -s -p6 "Creating new TODONT file..."
 cat $HOMEDIR/Todonetoday.txt > $HOMEDIR/Todont.txt
 #open Todont.txt
 
+#system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
 

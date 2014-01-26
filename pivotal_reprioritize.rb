@@ -1,10 +1,5 @@
-# encoding: utf-8
-
 #!/usr/bin/env ruby -KU
-# encoding: utf-8
-
-
-
+  
 require 'rubygems'
 require 'active_resource'
 require 'pp'
