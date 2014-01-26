@@ -12,7 +12,7 @@ Gmail.new('roland@rocketfuelinc.com', 'bhwacmjjnbggsfzk') do |gmail|
   mymails.each do |msg|
     mytask = msg.subject
     unless ( mytask =~ /Re:/i || mytask =~ /AW:/i )
-      puts '#{mytask} +gmail'
+      puts "#{mytask} +gmail"
     end
   end
 

@@ -2,8 +2,15 @@
 source '/Users/rs/.bash_include_rs'
 
 # set base directory from which to work
-HOMEDIR="/Users/rs/Dropbox/Elements"
-#  cd $HOMEDIR # i think this is causing errors
+HOMEDIR    ="/Users/rs/Dropbox/Elements"
+TODODAILY  =$HOMEDIR/tododaily.txt
+TODONETODAY=$HOMEDIR/Todonetoday.txt
+TODONTERDAY=$HOMEDIR/Todonterday.txt
+TODONTFILE =$HOMEDIR/Todont.txt
+TODORROW   =$HOMEDIR/Todorrow.txt
+TODOSTERDAY=$HOMEDIR/Todosterday.txt
+TODOWEEKLY =$HOMEDIR/Todoweekly.txt
+
 
 # start updating Beeminder
 #require './jiradaily.rb'
@@ -24,35 +31,35 @@ beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Jo
 
 # remove the old todont file
 logger -s -p6 "Removing old TODONT file..."
-cat $HOMEDIR/Todont.txt $HOMEDIR/Todonterday.txt > /tmp/todonterday.txt
-rm $HOMEDIR/Todonterday.txt
-cp /dev/null $HOMEDIR/Todont.txt
-mv /tmp/todonterday.txt $HOMEDIR/Todonterday.txt
+cat $TODONTFILE $TODONTERDAY > /tmp/todonterday.txt
+rm $TODONTERDAY
+cp /dev/null $TODONTFILE
+mv /tmp/todonterday.txt $TODONTERDAY
 
 # clear the old todonetoday file
-cp /dev/null $HOMEDIR/Todonetoday.txt
-echo "" > $HOMEDIR/Todonetoday.txt
-echo -e "\n# Done Today... #" >> $HOMEDIR/Todonetoday.txt
+cp /dev/null $TODONETODAY
+echo "" > $TODONETODAY
+echo -e "\n# Done Today... #" >> $TODONETODAY
 
 # archive the old today file to the front of the yesterday file
 logger -s -p6 "Archiving old TODAY file..."
-cat $HOMEDIR/Todoy.txt $HOMEDIR/Todosterday.txt > /tmp/todosterday.txt
-rm $HOMEDIR/Todosterday.txt
-mv /tmp/todosterday.txt $HOMEDIR/Todosterday.txt
+cat $TODOYFILE $TODOSTERDAY > /tmp/todosterday.txt
+rm $TODOSTERDAY
+mv /tmp/todosterday.txt $TODOSTERDAY
 
 
 # add daily to front of todoy
 #echo "Todoy>>start" > /tmp/todoy.txt
-cat $HOMEDIR/tododaily.txt > /tmp/todoy.txt
+cat $TODODAILY > /tmp/todoy.txt
 if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
-	./add_weekly_to_todoy.sh
+	cat $TODOWEEKLY" >> "/tmp/todoy.txt"
 fi
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> /tmp/todoy.txt
 #echo -e "\n# Added Yesterday... (for Workflowy?) #" >> /tmp/todoy.txt
-cat $HOMEDIR/Todorrow.txt >> /tmp/todoy.txt
-cp /dev/null $HOMEDIR/Todorrow.txt
+cat $TODORROW >> /tmp/todoy.txt
+cp /dev/null $TODORROW
 
 # Mark as today
 #echo "" >> /tmp/todoy.txt
@@ -60,9 +67,9 @@ cp /dev/null $HOMEDIR/Todorrow.txt
 
 # now copy the new file into place
 logger -s -p6 "Creating new TODOY file..."
-rm $HOMEDIR/Todoy.txt
+rm $TODOYFILE
 #echo "Todoy>>end" >> /tmp/todoy.txt
-mv /tmp/todoy.txt $HOMEDIR/Todoy.txt
+mv /tmp/todoy.txt $TODOYFILE
 #touch /tmp/${TODAYDATE}.log"
 logger -s -p6 "Todoy updated"
 
@@ -73,7 +80,7 @@ logger -s -p6 "Todoy updated"
 
 # And create a default TODONT file
 logger -s -p6 "Creating new TODONT file..."
-cat $HOMEDIR/Todonetoday.txt > $HOMEDIR/Todont.txt
+cat $TODONETODAY > $TODONTFILE
 #open Todont.txt
 
 #system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
