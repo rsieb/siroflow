@@ -40,17 +40,6 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		# |____/ \___/|_| |_|\___| |____/ \__,_|_|_|\__, (_)
 		#                                           |___/
 		# Do we need to update the daily goals first? Is Todoy older than 00:01 today?
-		# if [[ ! -f $TODOYFILE ]] ; then
-		# 	logger -s -p7 "${TODOYFILE} is missing so I need to do my daily stuff"
-		# else
-		# 	logger -s -p7 "${TODOYFILE} is in existence already."
-		# fi
-		# if test `find $DAYBREAK -newer $TODOYFILE` ; then
-		# 	logger -s -p7 "${TODOYFILE} IS OLDER THAN ${DAYBREAK} so I need to do my daily stuff"
-		# else
-		# 	logger -s -p7 "${TODOYFILE} IS NEWER THAN ${DAYBREAK} so I don't need to do my daily stuff"
-		# fi
-		# exit
 		if [[ ! -f $TODOYFILE || `find $DAYBREAK -newer $TODOYFILE` ]]
 			then
 			logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
