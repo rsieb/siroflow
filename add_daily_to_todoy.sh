@@ -2,14 +2,15 @@
 source '/Users/rs/.bash_include_rs'
 
 # set base directory from which to work
-HOMEDIR    ="/Users/rs/Dropbox/Elements"
-TODODAILY  =$HOMEDIR/tododaily.txt
+HOMEDIR="/Users/rs/Dropbox/Elements"
+TODODAILY=$HOMEDIR/tododaily.txt
 TODONETODAY=$HOMEDIR/Todonetoday.txt
 TODONTERDAY=$HOMEDIR/Todonterday.txt
-TODONTFILE =$HOMEDIR/Todont.txt
-TODORROW   =$HOMEDIR/Todorrow.txt
+TODONTFILE=$HOMEDIR/Todont.txt
+TODORROW=$HOMEDIR/Todorrow.txt
 TODOSTERDAY=$HOMEDIR/Todosterday.txt
-TODOWEEKLY =$HOMEDIR/Todoweekly.txt
+TODOWEEKLY=$HOMEDIR/Todoweekly.txt
+TODOYFILE=$HOMEDIR/Todoy.txt
 
 
 # start updating Beeminder
@@ -52,12 +53,12 @@ mv /tmp/todosterday.txt $TODOSTERDAY
 #echo "Todoy>>start" > /tmp/todoy.txt
 cat $TODODAILY > /tmp/todoy.txt
 if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
-	cat $TODOWEEKLY" >> "/tmp/todoy.txt"
+	cat $TODOWEEKLY >> "/tmp/todoy.txt"
 fi
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> /tmp/todoy.txt
-#echo -e "\n# Added Yesterday... (for Workflowy?) #" >> /tmp/todoy.txt
+echo -e '\n# Added Yesterday... (for Workflowy?) #' >> /tmp/todoy.txt
 cat $TODORROW >> /tmp/todoy.txt
 cp /dev/null $TODORROW
 

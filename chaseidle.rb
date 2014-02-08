@@ -14,9 +14,9 @@ LOGGER.level = Logger::DEBUG
 LOGFILE = '/tmp/routinetracker.log'
 LOGGER.debug "LOGFILE = #{LOGFILE}"
 
-if File.mtime(LOCKFILE) > 60.seconds.ago
+if ( File.exists?(LOCKFILE) && File.mtime(LOCKFILE) > 60.seconds.ago )
   LOGGER.warn 'ChaseIdle already active. Abort.'
-else
+else # this means if the file does not exist OR if the mtime is more than 60 seconds ago
   File.write(LOCKFILE, '')
 
   if IO.readlines(LOGFILE).first.match('PREZMODE').to_s.size == 0

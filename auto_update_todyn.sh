@@ -40,7 +40,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		# |____/ \___/|_| |_|\___| |____/ \__,_|_|_|\__, (_)
 		#                                           |___/
 		# Do we need to update the daily goals first? Is Todoy older than 00:01 today?
-		if [[ ! -f $TODOYFILE || `find $DAYBREAK -newer $TODOYFILE` ]]
+		if [[ ! -f $TODOYFILE || ! -f $DAYBREAK || `find $DAYBREAK -newer $TODOYFILE` ]]
 			then
 			logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
 			#say "I would update Beeminder now"

@@ -50,8 +50,11 @@ else
 
     LOGGER.debug "#{@switchlabel} =? #{conte.labels}"
 
-    if @switchlabel != conte.labels
-      @switchlabel = conte.labels
+    #comparing previous label to current
+    if @switchlabel != conte.labels[0..3]
+      # reset to current
+      @switchlabel = conte.labels[0..3]
+      # and print a separator
       puts "\n+#{@switchlabel.upcase}"
     end
 
