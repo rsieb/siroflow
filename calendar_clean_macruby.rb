@@ -1,13 +1,19 @@
-# encoding: utf-8
-
-#!/usr/local/bin/macruby -wKU
+#!/usr/local/bin/macruby -KU
 framework 'calendarstore'
 # CalCalendarStore.defaultCalendarStore.calendars.each do |calendar|
+
 
 # print "\n" + calendar.uid + " " + calendar.title
 
 # end
 # TODO 2013-06-09 RS Activate this only for 80886C0A-BF70-4675-A640-B68BCEA85E91 = roland@rocketfuelinc.com
+
+#                 _     _           
+#   __ _ _ __ ___| |__ (_)_   _____ 
+#  / _` | '__/ __| '_ \| \ \ / / _ \
+# | (_| | | | (__| | | | |\ V /  __/
+#  \__,_|_|  \___|_| |_|_| \_/ \___|
+                                  
 
 period = (365 * 24 * 3600) # one year
 maxduration = (3 * 3600) # three hours
@@ -31,6 +37,13 @@ CalCalendarStore.defaultCalendarStore.eventsWithPredicate(predicate).each do |ev
   end
 end
 
+#      _          _                         __       _                  
+#   __| | ___  __| |_   _ _ __   ___       / _|_   _| |_ _   _ _ __ ___ 
+#  / _` |/ _ \/ _` | | | | '_ \ / _ \_____| |_| | | | __| | | | '__/ _ \
+# | (_| |  __/ (_| | |_| | |_) |  __/_____|  _| |_| | |_| |_| | | |  __/
+#  \__,_|\___|\__,_|\__,_| .__/ \___|     |_|  \__,_|\__|\__,_|_|  \___|
+#                        |_|                                            
+ 
 @comingplaceholders = Hash.new
 
 period = (4 * 7 * 24 * 3600) # four weeks ahead

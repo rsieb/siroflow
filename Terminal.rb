@@ -107,7 +107,6 @@ module RoutineTracker
         #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
-        #system("/bin/bash /Users/rs/rt/auto_update_todyn.sh")
       end
     end
 

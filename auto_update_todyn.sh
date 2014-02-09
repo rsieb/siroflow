@@ -12,27 +12,27 @@ touch -t `date '+%m%d0001'` $DAYBREAK
 
 # logger levels: 0emergency 1alert 2critical 3error 4warning 5notice 6info 7debug
 
-# __        __    _ _                       _             _
-# \ \      / /_ _(_) |_    __ _   _ __ ___ (_)_ __  _   _| |_ ___
-#  \ \ /\ / / _` | | __|  / _` | | '_ ` _ \| | '_ \| | | | __/ _ \
-#   \ V  V / (_| | | |_  | (_| | | | | | | | | | | | |_| | ||  __/
-#    \_/\_/ \__,_|_|\__|  \__,_| |_| |_| |_|_|_| |_|\__,_|\__\___|
-#
-if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
+#   ___        _ _                          _
+#  / _ \ _ __ | (_)_ __   ___    ___  _ __ | |_   _
+# | | | | '_ \| | | '_ \ / _ \  / _ \| '_ \| | | | |
+# | |_| | | | | | | | | |  __/ | (_) | | | | | |_| |
+#  \___/|_| |_|_|_|_| |_|\___|  \___/|_| |_|_|\__, |
+#                                             |___/
+if [[ ! `ping -o www.google.com` ]];
 	then
-	logger -s -p6 "Starting update..."
-	touch $TMPFILE # update time stamp so that the script cannot run twice in parallel
-	#   ___        _ _                          _
-	#  / _ \ _ __ | (_)_ __   ___    ___  _ __ | |_   _
-	# | | | | '_ \| | | '_ \ / _ \  / _ \| '_ \| | | | |
-	# | |_| | | | | | | | | |  __/ | (_) | | | | | |_| |
-	#  \___/|_| |_|_|_|_| |_|\___|  \___/|_| |_|_|\__, |
-	#                                             |___/
-	if [[ ! `ping -o www.google.com` ]];
+	logger -s -p2 "We are not online. Aborting."
+	exit
+else
+	# __        __    _ _                       _             _
+	# \ \      / /_ _(_) |_    __ _   _ __ ___ (_)_ __  _   _| |_ ___
+	#  \ \ /\ / / _` | | __|  / _` | | '_ ` _ \| | '_ \| | | | __/ _ \
+	#   \ V  V / (_| | | |_  | (_| | | | | | | | | | | | |_| | ||  __/
+	#    \_/\_/ \__,_|_|\__|  \__,_| |_| |_| |_|_|_| |_|\__,_|\__\___|
+	#
+	if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		then
-		logger -s -p2 "We are not online. Aborting."
-		exit
-	else
+		logger -s -p6 "Starting update..."
+		touch $TMPFILE # update time stamp so that the script cannot run twice in parallel
 		#  ____                     ____        _ _      ___
 		# |  _ \  ___  _ __   ___  |  _ \  __ _(_) |_   |__ \
 		# | | | |/ _ \| '_ \ / _ \ | | | |/ _` | | | | | |/ /
@@ -44,10 +44,10 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 			then
 			logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
 			#say "I would update Beeminder now"
-			source /Users/rs/rt/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' "
+			source /Users/rs/rt/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
 		else
 			logger -s -p5 "Skipped 'add_daily_to_todoy.sh'"
-		fi
+		fi # end done daily
 
 		#  ____                      _           _
 		# | __ )  ___  ___ _ __ ___ (_)_ __   __| | ___ _ __
@@ -58,7 +58,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		MYFILE1="$HOMEDIR/Beeminder-redplusorange.txt"
 		MYFILE2="$HOMEDIR/Beeminder-blue.txt"
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
-		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
+		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 		echo -e "\n" > "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1"
@@ -79,7 +79,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		echo -e "\n" > "$MYFILE"
 		# if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
 		# then
-		ruby -KT /Users/rs/rt/pivotal_pull_active.rb | head -5 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
+		ruby -KT /Users/rs/rt/pivotal_pull_active.rb | head -5 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
 		# fi
 		echo -e "\n" >> "$MYFILE"
 		#say "Pivotal updated"
@@ -94,7 +94,7 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		MYFILE="$HOMEDIR/Calendar.txt"
 		#echo -e "\n# From Calendar... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		source /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
+		source /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" 2>&1 || logger -s -p3 "Error: ${MYFILE}" 
 		#say "Calendar updated"
 
 		#   ____                 _ _ _____         _
@@ -123,29 +123,28 @@ if [[ ! -f $TMPFILE || `find $TMPFILE -mmin +1` ]];
 		echo "" >> $TMPFILE
 		export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
 		#echo $PATH >> $TMPFILE
-		echo -e "\n`date '+%Y-%m-%d %H:%M'` ${PARENTPROCESS}" >> $TMPFILE  || logger -s -p3 "Error: ${PARENTPROCESS}"
-	fi
-
-	#   ____ _                                  _____         _             _
-	#  / ___| | ___  __ _ _ __    _   _ _ __   |_   _|__   __| | ___  _ __ | |_
-	# | |   | |/ _ \/ _` | '_ \  | | | | '_ \    | |/ _ \ / _` |/ _ \| '_ \| __|
-	# | |___| |  __/ (_| | | | | | |_| | |_) |   | | (_) | (_| | (_) | | | | |_
-	#  \____|_|\___|\__,_|_| |_|  \__,_| .__/    |_|\___/ \__,_|\___/|_| |_|\__|
-	#                                  |_|
-	#
-	# Take out ignored lines
-	# subtracting two files from each other as per <http://aijazansari.com/2011/11/23/how-to-subtract-one-file-from-another/>
-	# NB file with negative lines should come first :)
-	if [[ -s $TODONTFILE ]] ; then
-		# first ensure there are no white lines in Todont
-		grep -v '^$' $TODONTFILE > /tmp/Todont.txt || logger -s -p3 "Error: ${TODONTFILE} white lines removal"
-		cp /tmp/Todont.txt $TODONTFILE
-		# now take all the ignorable lines out of the temporary Todyn by matching against Todont
-		grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE   || logger -s -p3 "Error: ${TODONTFILE} deduplication"
+		echo -e "\n`date '+%Y-%m-%d %H:%M:%S'` ${PARENTPROCESS}" >> $TMPFILE  || logger -s -p3 "Error: ${PARENTPROCESS}"
 	else
-		cat -s $TMPFILE > $TODYNFILE
-	fi
+		logger -s -p5 "Todyn updated less than one minute ago... Aborting."
+	fi # end need to create new todyn
+fi # end are we online
+#   ____ _                                  _____         _             _
+#  / ___| | ___  __ _ _ __    _   _ _ __   |_   _|__   __| | ___  _ __ | |_
+# | |   | |/ _ \/ _` | '_ \  | | | | '_ \    | |/ _ \ / _` |/ _ \| '_ \| __|
+# | |___| |  __/ (_| | | | | | |_| | |_) |   | | (_) | (_| | (_) | | | | |_
+#  \____|_|\___|\__,_|_| |_|  \__,_| .__/    |_|\___/ \__,_|\___/|_| |_|\__|
+#                                  |_|
+#
+# Take out ignored lines
+# subtracting two files from each other as per <http://aijazansari.com/2011/11/23/how-to-subtract-one-file-from-another/>
+# NB file with negative lines should come first :)
+if [[ -s $TODONTFILE ]] ; then
+	# first ensure there are no white lines in Todont
+	grep -v '^$' $TODONTFILE > /tmp/Todont.txt || logger -s -p3 "Error: ${TODONTFILE} white lines removal"
+	cp /tmp/Todont.txt $TODONTFILE
+	# now take all the ignorable lines out of the temporary Todyn by matching against Todont
+	grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE   || logger -s -p3 "Error: ${TODONTFILE} deduplication"
 else
-	logger -s -p5 "Todyn updated less than one minute ago... Aborting."
+	cat -s $TMPFILE > $TODYNFILE
 fi
 
