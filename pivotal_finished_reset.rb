@@ -23,7 +23,7 @@ require 'pivotal-tracker'
 end
 
 # limit the number of stories marked as started to X
-target_started_stories = 0
+target_started_stories = 3
 unless @mystories2.size <= target_started_stories
   @mystories2[target_started_stories..-1].each do |verhaaltje2|
     puts "@mystories2 = #{@mystories2.inspect}"

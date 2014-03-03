@@ -1,8 +1,8 @@
 PATH
   remote: /Users/rs/Dropbox/projects/beeminder-gem
   specs:
-    beeminder (0.2.7)
-      activesupport (~> 3.2)
+    beeminder (0.2.8)
+      activesupport (>= 3.2, < 5)
       chronic (~> 0.7)
       highline (~> 1.6)
       json
@@ -73,6 +73,9 @@ GEM
     trollop (2.0)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
+    wanikani (0.0.6)
+      multi_json (~> 1.8)
+      rest-client (~> 1.6)
 
 PLATFORMS
   ruby
@@ -83,3 +86,4 @@ DEPENDENCIES
   beeminder!
   gmail
   pivotal-tracker
+  wanikani

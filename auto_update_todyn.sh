@@ -1,14 +1,14 @@
 #!/bin/bash
 source '/Users/rs/.bash_include_rs'
 export PATH="./bin:/Users/rs/bin:/Users/rs/.rbenv/bin:/Users/rs/.rbenv/shims:/Users/rs/perl5/perlbrew/bin:/Users/rs/perl5/perlbrew/perls/perl-5.16.0/bin::/Users/rs/bin:/usr/local/bin:/usr/local/sbin:/Users/rs/Dropbox/Library/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/texbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/sbin"
-
+cd /Users/rs/rt
 HOMEDIR="/Users/rs/Dropbox/Elements"
 TODYNFILE="$HOMEDIR/Todyn.txt"
 TMPFILE="/tmp/Todyn.txt"
 TODONTFILE="$HOMEDIR/Todont.txt"
 TODOYFILE="$HOMEDIR/Todoy.txt"
 DAYBREAK="$HOMEDIR/Todobreak.txt"
-touch -t `date '+%m%d0001'` $DAYBREAK
+touch -t `date '+%m%d0330'` $DAYBREAK
 
 # logger levels: 0emergency 1alert 2critical 3error 4warning 5notice 6info 7debug
 
@@ -18,11 +18,12 @@ touch -t `date '+%m%d0001'` $DAYBREAK
 # | |_| | | | | | | | | |  __/ | (_) | | | | | |_| |
 #  \___/|_| |_|_|_|_| |_|\___|  \___/|_| |_|_|\__, |
 #                                             |___/
-if [[ ! `ping -o www.google.com` ]];
+if ! [ "`ping -c 1 beeminder.com`" ];
 	then
 	logger -s -p2 "We are not online. Aborting."
 	exit
 else
+	logger -s -p5 "We are online. Continuing."
 	# __        __    _ _                       _             _
 	# \ \      / /_ _(_) |_    __ _   _ __ ___ (_)_ __  _   _| |_ ___
 	#  \ \ /\ / / _` | | __|  / _` | | '_ ` _ \| | '_ \| | | | __/ _ \
@@ -60,6 +61,7 @@ else
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
 		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 		echo -e "\n" > "$MYFILE1"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "Error" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -3 >> "$MYFILE1"
