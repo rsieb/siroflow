@@ -8,8 +8,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
+gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'spring', group: :development
 gem 'bootstrap-sass'
 gem 'slim-rails'
 group :development do
@@ -26,7 +26,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'pry-rescue'
-  gem 'rspec-rails', '>= 3.0.0.beta2'
+  #gem 'rspec-rails', '>= 3.0.0.beta2'
+  gem 'rspec-rails'
 end
 group :test do
   gem 'capybara'

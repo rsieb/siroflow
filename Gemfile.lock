@@ -1,17 +1,10 @@
-PATH
-  remote: /Users/rs/Dropbox/projects/beeminder-gem
-  specs:
-    beeminder (0.2.10)
-      activesupport (>= 3.2, < 5)
-      chronic (~> 0.7)
-      highline (~> 1.6)
-      json
-      trollop (~> 2)
-      tzinfo
-
 GEM
   remote: https://rubygems.org/
   specs:
+    actionmailer (4.1.0)
+      actionpack (= 4.1.0)
+      actionview (= 4.1.0)
+      mail (~> 2.5.4)
     actionpack (4.1.0)
       actionview (= 4.1.0)
       activesupport (= 4.1.0)
@@ -24,10 +17,10 @@ GEM
     activemodel (4.1.0)
       activesupport (= 4.1.0)
       builder (~> 3.1)
-    activeresource (4.0.0)
-      activemodel (~> 4.0)
-      activesupport (~> 4.0)
-      rails-observers (~> 0.1.1)
+    activerecord (4.1.0)
+      activemodel (= 4.1.0)
+      activesupport (= 4.1.0)
+      arel (~> 5.0.0)
     activesupport (4.1.0)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -35,6 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    arel (5.0.1.20140414130214)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -49,117 +43,56 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    chronic (0.10.2)
+    childprocess (0.5.3)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.0)
-    crack (0.4.2)
-      safe_yaml (~> 1.0.0)
-    cucumber (1.3.14)
-      builder (>= 2.1.2)
-      diff-lcs (>= 1.1.3)
-      gherkin (~> 2.12)
-      multi_json (>= 1.7.5, < 2.0)
-      multi_test (>= 0.1.1)
-    cucumber-rails (1.3.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.1.8)
-      nokogiri (>= 1.5.0)
-    curb (0.8.5)
-    database_cleaner (1.0.1)
+    coffee-rails (4.0.1)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.7.0)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     dotenv (0.7.0)
-    email_spec (1.5.0)
-      launchy (~> 2.1)
-      mail (~> 2.2)
     erubis (2.7.0)
+    execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
+    faker (1.3.0)
+      i18n (~> 0.5)
+    ffi (1.9.3)
     foreman (0.66.0)
       dotenv (~> 0.7.0)
       thor (~> 0.19.1)
-    gherkin (2.12.2)
-      multi_json (~> 1.3)
-    gmail (0.4.0)
-      gmail_xoauth (>= 0.3.0)
-      mail (>= 2.2.1)
-      mime (>= 0.1)
-    gmail_xoauth (0.4.1)
-      oauth (>= 0.3.6)
-    haml (4.1.0.beta.1)
-      tilt
-    haml2slim (0.4.7)
-      haml (>= 3.0)
-      nokogiri
-      ruby_parser
-    happymapper (0.4.1)
-      libxml-ruby (~> 2.0)
-    hashie (2.1.1)
-    highline (1.6.21)
-    hpricot (0.8.6)
-    html2haml (1.0.1)
-      erubis (~> 2.7.0)
-      haml (>= 4.0.0.rc.1)
-      hpricot (~> 0.8.6)
-      ruby_parser (~> 3.1.1)
+    hike (1.2.3)
     hub (1.12.0)
     i18n (0.6.9)
     interception (0.5)
+    jbuilder (2.0.7)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
+    jquery-rails (3.1.0)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.1)
-    jwt (0.1.11)
-      multi_json (>= 1.5)
     launchy (2.4.2)
       addressable (~> 2.3)
-    libxml-ruby (2.7.0)
-    mail (2.2.7)
-      activesupport (>= 2.3.6)
-      mime-types
-      treetop (>= 1.4.5)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     method_source (0.8.2)
-    mime (0.4.1)
-    mime-types (2.2)
+    mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (5.3.3)
     multi_json (1.9.3)
-    multi_test (0.1.1)
-    multi_xml (0.5.5)
-    multipart-post (2.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    nokogiri-happymapper (0.5.9)
-      nokogiri (~> 1.5)
-    oauth (0.4.7)
-    oauth2 (0.9.3)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 0.1.8)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (~> 1.2)
-    omniauth (1.2.1)
-      hashie (>= 1.2, < 3)
-      rack (~> 1.0)
-    omniauth-google-oauth2 (0.2.4)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.1)
-    omniauth-oauth2 (1.1.2)
-      faraday (>= 0.8, < 0.10)
-      multi_json (~> 1.3)
-      oauth2 (~> 0.9.3)
-      omniauth (~> 1.2)
-    pivotal-tracker (0.5.12)
-      builder
-      builder
-      crack
-      happymapper (>= 0.3.2)
-      nokogiri (>= 1.4.3)
-      nokogiri (>= 1.5.5)
-      nokogiri-happymapper (>= 0.5.4)
-      rest-client (~> 1.6.0)
-      rest-client (~> 1.6.0)
     polyglot (0.3.4)
     pry (0.9.12.6)
       coderay (~> 1.0)
@@ -175,9 +108,18 @@ GEM
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails-observers (0.1.2)
-      activemodel (~> 4.0)
+    rails (4.1.0)
+      actionmailer (= 4.1.0)
+      actionpack (= 4.1.0)
+      actionview (= 4.1.0)
+      activemodel (= 4.1.0)
+      activerecord (= 4.1.0)
+      activesupport (= 4.1.0)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.1.0)
+      sprockets-rails (~> 2.0)
     rails_apps_pages (0.3.1)
+    rails_apps_testing (0.2.1)
     rails_layout (1.0.15)
     railties (4.1.0)
       actionpack (= 4.1.0)
@@ -185,8 +127,8 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.1)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rdoc (4.1.1)
+      json (~> 1.4)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -199,11 +141,21 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    ruby_parser (3.1.3)
-      sexp_processor (~> 4.1)
-    safe_yaml (1.0.3)
-    sass (3.3.7)
-    sexp_processor (4.4.3)
+    rubyzip (1.1.3)
+    sass (3.2.19)
+    sass-rails (4.0.3)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
+      sprockets-rails (~> 2.0)
+    sdoc (0.4.0)
+      json (~> 1.8)
+      rdoc (~> 4.0, < 5.0)
+    selenium-webdriver (2.41.0)
+      childprocess (>= 0.5.0)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -213,18 +165,32 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.5.0)
+    spring (1.1.2)
+    sprockets (2.11.0)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sprockets-rails (2.1.3)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
+    sqlite3 (1.3.9)
     temple (0.6.7)
     thor (0.19.1)
     thread_safe (0.3.3)
-    tilt (2.0.1)
-    treetop (1.5.3)
-      polyglot (~> 0.3)
-    trollop (2.0)
+    tilt (1.4.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    turbolinks (2.2.2)
+      coffee-rails
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
-    wanikani (0.10)
-      multi_json (~> 1.9)
-      rest-client (~> 1.6)
+    uglifier (2.5.0)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
+    websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -232,32 +198,32 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeresource
-  activesupport
-  beeminder!
   better_errors
   binding_of_caller
   bootstrap-sass
   capybara
-  cucumber-rails
-  curb
-  database_cleaner (= 1.0.1)
-  email_spec
+  coffee-rails (~> 4.0.0)
+  database_cleaner
   factory_girl_rails
+  faker
   foreman
-  gmail
-  haml2slim
-  html2haml
   hub
+  jbuilder (~> 2.0)
+  jquery-rails
   launchy
-  omniauth
-  omniauth-google-oauth2
-  pivotal-tracker
   pry-rails
   pry-rescue
   quiet_assets
+  rails (= 4.1.0)
   rails_apps_pages
+  rails_apps_testing
   rails_layout
   rspec-rails
+  sass-rails (~> 4.0.3)
+  sdoc (~> 0.4.0)
+  selenium-webdriver
   slim-rails
-  wanikani
+  spring
+  sqlite3
+  turbolinks
+  uglifier (>= 1.3.0)
