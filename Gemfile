@@ -36,3 +36,6 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
+gem 'pivotal-tracker'
+gem 'gmail'
