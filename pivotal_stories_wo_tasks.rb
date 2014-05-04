@@ -51,15 +51,16 @@ end
   end
   #pp mijntaak
   if (mijntaak == "!NoTask")
-    #p "****** Launching URL... *****"
-    systemstring = <<-ENDOFCURL
-    curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
-      -d "<task><description>Brainstorm about tasks</description></task>" \
-      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks
-    ENDOFCURL
-    system(systemstring)
+    verhaaltje.tasks.create(:description => 'Brainstorm in Workflowy')
+    # #p "****** Launching URL... *****"
+    # systemstring = <<-ENDOFCURL
+    # curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
+    #   -d "<task><description>Brainstorm about tasks</description></task>" \
+    #   http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks
+    # ENDOFCURL
+    # system(systemstring)
 
 
-    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    # system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   end
 end

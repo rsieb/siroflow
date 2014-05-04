@@ -6,17 +6,20 @@ require '/Users/rs/rt/Terminal.rb'
 require '/Users/rs/rt/Log.rb'
 require '/Users/rs/rt/Activity.rb'
 require '/Users/rs/rt/Pomodoro.rb'
-require 'Logger'
-require 'active_support/core_ext/numeric/time'
+#require 'Logger'
+#require 'active_support/core_ext/numeric/time'
+
+
 LOCKFILE = '/tmp/chaseidle.lock'
-LOGGER = Logger.new(STDERR)
+LOGGER = Logger.new(STDOUT)
+#LOGGER = Logger.new('/Users/rs/Library/Logs/chaseidle_rb.log')
 LOGGER.level = Logger::DEBUG
 LOGFILE = '/tmp/routinetracker.log'
 LOGGER.debug "LOGFILE = #{LOGFILE}"
 
-if ( File.exists?(LOCKFILE) && File.mtime(LOCKFILE) > 60.seconds.ago )
+if File.exists?(LOCKFILE) && File.mtime(LOCKFILE) > (Time.now - 60)
   LOGGER.warn 'ChaseIdle already active. Abort.'
-else # this means if the file does not exist OR if the mtime is more than 60 seconds ago
+else # ie, if file does not exist OR if mtime is more than 60 seconds ago
   File.write(LOCKFILE, '')
 
   if IO.readlines(LOGFILE).first.match('PREZMODE').to_s.size == 0

@@ -16,6 +16,12 @@ TODOYFILE=$HOMEDIR/Todoy.txt
 # start updating Beeminder
 #require './jiradaily.rb'
 logger -s -p6 "Updating Beeminder..."
+# update written and diary goals from computer
+# logger -s -p6 "Updating Automated goals..."
+# beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added from add_daily_to_todoy.sh `date`"
+# beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
+# beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
+bash /Users/rs/rt/beeminder-autoupdates.sh
 bash /Users/rs/rt/beeminder-update.sh
 
 # reset finished stories from yesterday in Pivotal
@@ -23,12 +29,6 @@ bash /Users/rs/rt/beeminder-update.sh
 # TODO 2013-08-11 can integrate those two scripts
 ruby /Users/rs/rt/pivotal_finished_reset.rb
 # ruby /Users/rs/rt/pivotal_accepted.rb # updating Beeminder is built into this script
-
-# update written and diary goals from computer
-# logger -s -p6 "Updating Automated goals..."
-# beemind -t UUTnFgjX2FyEyC3GX2zW written `find /Users/rs/Dropbox/Writing -type f -print0 | xargs -0 cat | wc -w` "Auto-added from add_daily_to_todoy.sh `date`"
-beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
-# beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 
 # remove the old todont file
 logger -s -p6 "Removing old TODONT file..."
@@ -49,12 +49,12 @@ rm $TODOSTERDAY
 mv /tmp/todosterday.txt $TODOSTERDAY
 
 
-# add daily to front of todoy
-#echo "Todoy>>start" > /tmp/todoy.txt
-cat $TODODAILY > /tmp/todoy.txt
-if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
-	cat $TODOWEEKLY >> "/tmp/todoy.txt"
-fi
+## add daily to front of todoy
+##echo "Todoy>>start" > /tmp/todoy.txt
+#cat $TODODAILY > /tmp/todoy.txt
+#if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
+#	cat $TODOWEEKLY >> "/tmp/todoy.txt"
+#fi
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> /tmp/todoy.txt

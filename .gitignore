@@ -97,3 +97,4 @@ Backup[ ]of[ ]*.numbers/
 bin/**
 .bundle/**
 runchaseidle.app**
+AutoUpdateTodyn.app/

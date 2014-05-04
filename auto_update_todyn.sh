@@ -3,6 +3,7 @@ source '/Users/rs/.bash_include_rs'
 export PATH="./bin:/Users/rs/bin:/Users/rs/.rbenv/bin:/Users/rs/.rbenv/shims:/Users/rs/perl5/perlbrew/bin:/Users/rs/perl5/perlbrew/perls/perl-5.16.0/bin::/Users/rs/bin:/usr/local/bin:/usr/local/sbin:/Users/rs/Dropbox/Library/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/texbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/sbin"
 cd /Users/rs/rt
 HOMEDIR="/Users/rs/Dropbox/Elements"
+PREZFILE
 TODYNFILE="$HOMEDIR/Todyn.txt"
 TMPFILE="/tmp/Todyn.txt"
 TODONTFILE="$HOMEDIR/Todont.txt"
@@ -11,6 +12,11 @@ DAYBREAK="$HOMEDIR/Todobreak.txt"
 touch -t `date '+%m%d0330'` $DAYBREAK
 
 # logger levels: 0emergency 1alert 2critical 3error 4warning 5notice 6info 7debug
+
+
+if grep -q "PREZMODE" /tmp/routinetracker.log ; then
+	exit "PREZMODE"
+fi
 
 #   ___        _ _                          _
 #  / _ \ _ __ | (_)_ __   ___    ___  _ __ | |_   _
@@ -106,10 +112,11 @@ else
 		#  \____|_| |_| |_|\__,_|_|_| |_|\___/ \__,_|\___/
 		#
 		# and add subjects from Mailbox/todo
-		MYFILE="$HOMEDIR/Mailboxtodo.txt"
+		#MYFILE="$HOMEDIR/Mailboxtodo.txt"
 		#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
-		echo -e "\n" > "$MYFILE"
-		ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
+		#echo -e "\n" > "$MYFILE"
+		#ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
+		ruby -KT /Users/rs/rt/gmailtodo.rb || logger -s -p3 "Error: Mailboxtodo-import"
 		#say "Mailbox-to-do updated"
 
 		#   ____                      _ _     _       _

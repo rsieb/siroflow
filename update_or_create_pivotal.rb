@@ -90,6 +90,7 @@ if @mystories.size > 0 then
       end
     end
 
+    # move just finished story to the back of the queue
     if counter > 0 # that means there are still open tasks
       unless verhaaltje.labels.include? ">burst"
         storystatus = "started"
@@ -102,7 +103,7 @@ if @mystories.size > 0 then
           "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
         ENDOFCURL4
         puts "\n\n#{systemstring}\n"
-        system(systemstring)
+        #SWITCHINGOFF: system(systemstring)
       end
     else
       storystatus = "finished"
