@@ -39,3 +39,4 @@ end
 gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
 gem 'pivotal-tracker'
 gem 'gmail'
+gem 'lunchy'
