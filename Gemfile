@@ -12,6 +12,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 gem 'bootstrap-sass'
 gem 'slim-rails'
+gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
+gem 'pivotal-tracker'
+gem 'gmail'
+gem 'lunchy'
+
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -36,7 +42,3 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
-gem 'pivotal-tracker'
-gem 'gmail'
-gem 'lunchy'

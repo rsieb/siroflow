@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby -KU
   
 require 'rubygems'
-require 'active_resource'
-require 'pp'
+require 'bundler/setup'
+# require 'active_resource'
+# require 'pp'
 require 'pivotal-tracker'
-require 'chronic'
+# require 'chronic'
 require 'logger'
 LOGGER = Logger.new(STDOUT)
 LOGGER.level = (ENV['LOGLEVEL'] || LOGGER.level = Logger::WARN)
