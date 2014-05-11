@@ -3,9 +3,9 @@
 
 require 'bundler/setup'
 #require 'rubygems'
-require 'gmail'
-require 'pp'
-require 'curb'
+# require 'gmail'
+# require 'pp'
+# require 'curb'
 
 Gmail.new('roland@rocketfuelinc.com', 'bhwacmjjnbggsfzk') do |gmail|
   # send commands
