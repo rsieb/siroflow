@@ -3,7 +3,6 @@ source '/Users/rs/.bash_include_rs'
 export PATH="./bin:/Users/rs/bin:/Users/rs/.rbenv/bin:/Users/rs/.rbenv/shims:/Users/rs/perl5/perlbrew/bin:/Users/rs/perl5/perlbrew/perls/perl-5.16.0/bin::/Users/rs/bin:/usr/local/bin:/usr/local/sbin:/Users/rs/Dropbox/Library/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/texbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/sbin"
 cd /Users/rs/rt
 HOMEDIR="/Users/rs/Dropbox/Elements"
-PREZFILE
 TODYNFILE="$HOMEDIR/Todyn.txt"
 TMPFILE="/tmp/Todyn.txt"
 TODONTFILE="$HOMEDIR/Todont.txt"
