@@ -6,8 +6,8 @@ require 'bundler/setup'
 # require 'rubygems'
 # require 'active_resource'
 # require 'pp'
-# require 'chronic'
-# require 'pivotal-tracker'
+require 'chronic'
+require 'pivotal-tracker'
 require './Beeminder.rb'
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token

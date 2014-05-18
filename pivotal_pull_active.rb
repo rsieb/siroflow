@@ -7,7 +7,7 @@ require 'bundler/setup'
 # require 'active_resource'
 # require 'pp'
 # require 'chronic'
-# require 'pivotal-tracker'
+require 'pivotal-tracker'
 
 def initials(naam)
   initialen = ""
