@@ -2,8 +2,8 @@
 
 #!/usr/bin/env ruby -KU
 
+require 'bundler/setup'
 require 'rubygems'
-require 'active_resource'
 require 'pp'
 require 'chronic'
 require 'pivotal-tracker'

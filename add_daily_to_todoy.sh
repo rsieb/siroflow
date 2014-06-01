@@ -86,3 +86,5 @@ cat $TODONETODAY > $TODONTFILE
 
 #system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
 
+
+

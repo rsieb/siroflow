@@ -12,8 +12,9 @@ source '/Users/rs/.bash_include_rs'
 	--excludeEventProps "url,notes,location,attendees"  \
 	--noCalendarNames									\
 	--propertyOrder "datetime,title"					\
-	--includeCals "roland@rocketfuelinc.com,Tripit,Big,Routines,Facebook Events" \
+	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners" \
 	--includeOnlyEventsFromNowOn						\
+	--limitItems 5                                      \
 	eventsToday | grep -v "»" | grep -v "√"
 
 /usr/local/bin/icalBuddy                                \
@@ -27,8 +28,9 @@ source '/Users/rs/.bash_include_rs'
 	--excludeEventProps "url,notes,location,attendees"  \
 	--noCalendarNames									\
 	--propertyOrder "datetime,title"					\
-	--includeCals "DSE Runners" \
+	--includeCals "Big" \
 	--includeOnlyEventsFromNowOn						\
+	--limitItems 1                                      \
 	eventsToday+7 | grep -v "Folding"
 
 #--excludeAllDayEvents								\

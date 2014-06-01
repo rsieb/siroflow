@@ -14,8 +14,9 @@ gem 'bootstrap-sass'
 gem 'slim-rails'
 gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
 gem 'pivotal-tracker'
-gem 'gmail'
+gem 'gmail', :path => "/Users/rs/Dropbox/projects/gmail"
 gem 'lunchy'
+gem 'wanikani'
 
 
 group :development do
