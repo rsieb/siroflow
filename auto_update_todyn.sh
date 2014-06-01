@@ -61,17 +61,19 @@ else
 		# | |_) |  __/  __/ | | | | | | | | | (_| |  __/ |
 		# |____/ \___|\___|_| |_| |_|_|_| |_|\__,_|\___|_|
 		#
-		MYFILE1="$HOMEDIR/Beeminder-redplusorange.txt"
-		MYFILE2="$HOMEDIR/Beeminder-blue.txt"
+		MYFILE1="$HOMEDIR/Beeminder-redplus.txt"
+		MYFILE2="$HOMEDIR/Beeminder-orange.txt"
+		MYFILE3="$HOMEDIR/Beeminder-blue.txt"
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
 		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 		echo -e "\n" > "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "Error" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1"
 		cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -3 >> "$MYFILE1"
 		echo -e "\n" > "$MYFILE2"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "BLUE" | head -3 >> "$MYFILE2"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -3 >> "$MYFILE2"
+		echo -e "\n" > "$MYFILE3"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "BLUE" | head -3 >> "$MYFILE3"
 		#say "Beeminder updated"
 
 		#  ____  _            _        _
@@ -126,7 +128,7 @@ else
 		#
 		# Pull together Todyn (dynamic todo)
 		cd $HOMEDIR
-		cat Calendar.txt Beeminder-redplusorange.txt Pivotal.txt Todoy.txt Mailboxtodo.txt Beeminder-blue.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
+		cat Beeminder-redplus.txt Calendar.txt Beeminder-orange.txt Pivotal.txt Todoy.txt Mailboxtodo.txt Beeminder-blue.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
 		# Mark as today
 		echo "" >> $TMPFILE
 		export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`

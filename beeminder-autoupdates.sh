@@ -1,8 +1,9 @@
 #!/bin/bash
 
 echo "Bash_include"
-source '/Users/rs/.bash_include_rs'
+source '/Users/rs/.rbenv_include.sh'
 
+cd /Users/rs/rt
 #beemind -t UUTnFgjX2FyEyC3GX2zW lifthabits `/usr/bin/env ruby /Users/rs/rt/Lift.rb` "Auto-added `date` from launchagents/beeminder- autoupdates.sh"
 #echo "Written"
 #bash /Users/rs/Dropbox/Writing/written.sh
