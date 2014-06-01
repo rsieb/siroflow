@@ -10,10 +10,20 @@ require 'pivotal-tracker'
 
 ## get the name of the Pomodoro
 @pomodoro_name = ARGV[0]
+
+story_type = ''
+
 ## skip for routines 2013-08-18 also skip for short improvised pomodori
-if ( @pomodoro_name.include?("+rout") || !@pomodoro_name.include?("+")) then
-  puts "Routine task. Aborted."
-  abort
+if @pomodoro_name.include?("+rout") then
+  puts "Routine task."
+  story_type = 'chore'
+  #abort
+end
+
+if !@pomodoro_name.include?("+") then
+  puts "Considered a bug."
+  story_type = 'bug'
+  #abort
 end
 
 # TODO 2013-04-30 Catch Beeminder routines to open corresponding goal in Beeminder for updating
@@ -23,7 +33,8 @@ if @pomodoro_name.include?("+beem") then
   puts "Beeminder task. Opening URL with slug `#{myslug}'"
   myurl = "http://beeminder.com/cyberroland/goals/#{myslug}"
   system("/usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
-  abort
+  story_type = 'chore'
+  #abort
 end
 
 
@@ -37,7 +48,7 @@ end
   @basepomname = @pomodoro_name.sub("√","").sub(/>>.*/,"")
   #@nametocheck = @basepomname[0]+@basepomname[2..-1]
   #$nametocheck = @basepomname[2..-1] # does not need to capture the priority level, is immaterial
-  $nametocheck = @basepomname # deleting the above while I am testing doing without status and priority
+  $nametocheck = @basepomname.sub(/ \+/,"") # deleting the above while I am testing doing without status and priority
   $taskdescrtocheck = @pomodoro_name.sub(/.*>>/,"").sub(/ \+/,"")
   ###puts projectnummer
 
@@ -51,16 +62,16 @@ end
       @mystories.push(verhaaltje)
       puts "Adding #{verhaaltje.id} to @mystories"
     end # if include
-# also set number of points to number of (sub)tasks, but use 1 when no subtasks
-  mypoints = [verhaaltje.tasks.all.size,1].max
-  puts "Story should be #{mypoints} points"
-        systemstring = <<-ENDOFCURLPOINTS
-    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+    # also set number of points to number of (sub)tasks, but use 1 when no subtasks
+    mypoints = [verhaaltje.tasks.all.size,1].max
+    puts "Story should be #{mypoints} points"
+    systemstring = <<-ENDOFCURLPOINTS
+    curl --silent -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
       -d "<story><estimate>#{mypoints}</estimate></story>" \
       http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
-        ENDOFCURLPOINTS
-        puts "\n\n#{systemstring}\n"
-        system(systemstring)
+    ENDOFCURLPOINTS
+    #puts "\n\n#{systemstring}\n"
+    system(systemstring + ' > /dev/null')
   end # stories cycle
 end # projects cycle
 
@@ -81,12 +92,12 @@ if @mystories.size > 0 then
       if taak.description.include?($taskdescrtocheck) || $taskdescrtocheck.include?(taak.description) then
         counter = counter - 1
         systemstring = <<-ENDOFCURL3
-        curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+        curl --silent -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
           -d "<task><complete>true</complete></task>" \
           http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/tasks/#{taak.id}
         ENDOFCURL3
-        puts "\n\n#{systemstring}\n"
-        system(systemstring)
+        #puts "\n\n#{systemstring}\n"
+    system(systemstring + ' > /dev/null')
       end
     end
 
@@ -95,15 +106,16 @@ if @mystories.size > 0 then
       unless verhaaltje.labels.include? ">burst"
         storystatus = "started"
         @laststoryid=@a_project.stories.all(:current_state => "started").last().id
-        if !@laststoryid then 
+        if !@laststoryid then
           @laststoryid=@a_project.stories.all(:current_state => "delivered").last().id
         end
         systemstring = <<-ENDOFCURL4
-        curl -H "X-TrackerToken: #{@mytoken}" -X POST \
+        curl --silent -H "X-TrackerToken: #{@mytoken}" -X POST \
           "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
         ENDOFCURL4
-        puts "\n\n#{systemstring}\n"
-        #SWITCHINGOFF: system(systemstring)
+        #puts "\n\n#{systemstring}\n"
+        #SWITCHINGOFF:     system(systemstring + ' > /dev/null')
+
       end
     else
       storystatus = "finished"
@@ -111,21 +123,21 @@ if @mystories.size > 0 then
 
     # Always switch owner to Roland
     systemstring = <<-ENDOFCURL
-    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+    curl --silent -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
       -d "<story><current_state>#{storystatus}</current_state><owned_by>Roland Siebelink</owned_by></story>" \
       http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}
     ENDOFCURL
     puts "\n\n#{systemstring}\n"
-    system(systemstring)
+    system(systemstring + ' > /dev/null')
 
     # then add a note with a time and date stamp when I actually worked on this
     systemstring = <<-ENDOFCURL2
-    curl -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
+    curl --silent -H "X-TrackerToken: #{@mytoken}" -X POST -H "Content-type: application/xml" \
       -d "<note><text>#{Time.now.strftime("%Y-%m-%d %H:%M")}</text></note>" \
       http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/notes
     ENDOFCURL2
     puts "\n\n#{systemstring}\n"
-    system(systemstring)
+    system(systemstring + ' > /dev/null')
 
     #puts conte.name + " " + conte.current_state
 
@@ -137,13 +149,13 @@ if @mystories.size > 0 then
 else
   puts "Did not find a matching story for [#$nametocheck]"
 
-#   ## -- set the default project
-# # @defaultproject = PivotalTracker::Project.find(786005)  # this is the "management" project
-#   @defaultproject = PivotalTracker::Project.find(787023)  # this is the "inbox" project
-#   ## ---- create a new story in the default project
-#   @mynewstory = @defaultproject.stories.create(:name => @nametocheck, :story_type => 'bug')
-#   pp @mynewstory
-#   ## Just open the found story in the UI
-#     system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")
-#   ## -- end
+  ## -- set the default project
+  @defaultproject = PivotalTracker::Project.find(781813)
+  ## ---- create a new story in the default project
+
+  @mynewstory = @defaultproject.stories.create(:name => $nametocheck, :story_type => story_type, :labels => 'w'+Time.now.strftime("%U")+'s', :current_state => 'accepted')
+  pp @mynewstory
+  ## Just open the found story in the UI
+  #system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")
+  ## -- end
 end
