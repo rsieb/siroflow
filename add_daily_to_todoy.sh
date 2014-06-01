@@ -50,11 +50,11 @@ mv /tmp/todosterday.txt $TODOSTERDAY
 
 
 ## add daily to front of todoy
-##echo "Todoy>>start" > /tmp/todoy.txt
-#cat $TODODAILY > /tmp/todoy.txt
-#if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
-#	cat $TODOWEEKLY >> "/tmp/todoy.txt"
-#fi
+#echo "Todoy>>start" > /tmp/todoy.txt
+cat $TODODAILY > /tmp/todoy.txt
+if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
+	cat $TODOWEEKLY >> "/tmp/todoy.txt"
+fi
 
 # add tomorrow to todoy -- moved somedaymaybe to weekly only
 echo "" >> /tmp/todoy.txt

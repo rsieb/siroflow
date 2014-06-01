@@ -2,10 +2,12 @@
 
 #!/usr/bin/env ruby -KU
 
-require 'rubygems'
-require 'active_resource'
-require 'pp'
-require 'pivotal-tracker'
+require 'bundler/setup'
+# require 'rubygems'
+# require 'active_resource'
+# require 'pp'
+# require 'chronic'
+# require 'pivotal-tracker'
 
 # if ARGV[0] == "--all" then
 @mystate = ["started","finished","rejected","unestimated","unstarted","unscheduled"]

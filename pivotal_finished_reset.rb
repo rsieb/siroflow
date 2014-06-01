@@ -2,10 +2,12 @@
 
 #!/usr/bin/env ruby -KU
 
-require 'rubygems'
-require 'active_resource'
-require 'pp'
-require 'pivotal-tracker'
+require 'bundler/setup'
+# require 'rubygems'
+# require 'active_resource'
+# require 'pp'
+# require 'chronic'
+# require 'pivotal-tracker'
 
 @mytoken = PivotalTracker::Client.token(
   'roland@rocketfuelinc.com',

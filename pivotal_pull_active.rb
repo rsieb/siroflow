@@ -2,10 +2,11 @@
 
 #!/usr/bin/env ruby -KU
 
-require 'rubygems'
 require 'bundler/setup'
-#require 'active_resource'
-require 'pp'
+# require 'rubygems'
+# require 'active_resource'
+# require 'pp'
+# require 'chronic'
 require 'pivotal-tracker'
 
 def initials(naam)

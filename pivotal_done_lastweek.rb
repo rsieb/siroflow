@@ -2,11 +2,12 @@
 
 #!/usr/bin/env ruby -KU
 
-require 'rubygems'
-require 'active_resource'
-require 'pp'
-require 'chronic'
-require 'pivotal-tracker'
+require 'bundler/setup'
+# require 'rubygems'
+# require 'active_resource'
+# require 'pp'
+# require 'chronic'
+# require 'pivotal-tracker'
 
 @mystate = ["started","finished","rejected","delivered", "accepted"]
 @since = Chronic::parse("35 days ago").strftime("%Y-%m-%d")

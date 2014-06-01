@@ -22,7 +22,7 @@ if File.exists?(LOCKFILE) && File.mtime(LOCKFILE) > (Time.now - 60)
 else # ie, if file does not exist OR if mtime is more than 60 seconds ago
   File.write(LOCKFILE, '')
 
-  if IO.readlines(LOGFILE).first.match('PREZMODE').to_s.size == 0
+  if IO.readlines(LOGFILE).first.match('PREZMODE').to_s.size == 0 || File.mtime(LOGFILE) < (Time.now - 90*60)
     LOGGER.debug 'PREZMODE not active'
     module RoutineTracker
       # Making sure this script somehow inherits from Activity. God so ugly.

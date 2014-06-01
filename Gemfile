@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '1.9.3'
 gem 'rails', '4.1.0'
 gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
@@ -16,6 +16,7 @@ gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
 gem 'pivotal-tracker'
 gem 'gmail', :path => "/Users/rs/Dropbox/projects/gmail"
 gem 'lunchy'
+gem 'chronic'
 gem 'wanikani'
 
 
