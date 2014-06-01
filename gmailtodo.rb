@@ -3,7 +3,7 @@
 
 require 'bundler/setup'
 #require 'rubygems'
-# require 'gmail'
+require 'gmail'
 # require 'pp'
 # require 'curb'
 
