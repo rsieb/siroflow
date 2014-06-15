@@ -1,4 +1,5 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source '/Users/rs/.bash_include_rs'
 export PATH="./bin:/Users/rs/bin:/Users/rs/.rbenv/bin:/Users/rs/.rbenv/shims:/Users/rs/perl5/perlbrew/bin:/Users/rs/perl5/perlbrew/perls/perl-5.16.0/bin::/Users/rs/bin:/usr/local/bin:/usr/local/sbin:/Users/rs/Dropbox/Library/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/texbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/sbin"
 cd /Users/rs/rt
@@ -50,7 +51,7 @@ else
 			then
 			logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
 			#say "I would update Beeminder now"
-			source /Users/rs/rt/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
+			source $DIR/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
 		else
 			logger -s -p5 "Skipped 'add_daily_to_todoy.sh'"
 		fi # end done daily
@@ -61,20 +62,10 @@ else
 		# | |_) |  __/  __/ | | | | | | | | | (_| |  __/ |
 		# |____/ \___|\___|_| |_| |_|_|_| |_|\__,_|\___|_|
 		#
-		MYFILE1="$HOMEDIR/Beeminder-redplus.txt"
-		MYFILE2="$HOMEDIR/Beeminder-orange.txt"
-		MYFILE3="$HOMEDIR/Beeminder-blue.txt"
+		MYFILE="$HOMEDIR/Beeminder-all.txt"
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
-		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
-		echo -e "\n" > "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "Error" | head -3 >> "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1"
-		echo -e "\n" > "$MYFILE2"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -3 >> "$MYFILE2"
-		echo -e "\n" > "$MYFILE3"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "BLUE" | head -3 >> "$MYFILE3"
-		#say "Beeminder updated"
+		echo -e "\n" > "$MYFILE"
+		source $DIR/beeminder-pull-endangered.sh | sort -r | head -4 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 
 		#  ____  _            _        _
 		# |  _ \(_)_   _____ | |_ __ _| |
@@ -88,7 +79,7 @@ else
 		echo -e "\n" > "$MYFILE"
 		# if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
 		# then
-		ruby -KT /Users/rs/rt/pivotal_pull_active.rb | head -5 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
+		ruby -KT $DIR/pivotal_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
 		# fi
 		echo -e "\n" >> "$MYFILE"
 		#say "Pivotal updated"
@@ -103,7 +94,8 @@ else
 		MYFILE="$HOMEDIR/Calendar.txt"
 		#echo -e "\n# From Calendar... #" > "$MYFILE"
 		echo -e "\n" > "$MYFILE"
-		source /Users/rs/rt/pullmeetingstotodoy.sh >> "$MYFILE" 2>&1 || logger -s -p3 "Error: ${MYFILE}" 
+		source $DIR/calendar_events_today.sh >> "$MYFILE" 2>&1 || logger -s -p3 "Error: ${MYFILE}"
+		cat $MYFILE 
 		#say "Calendar updated"
 
 		#   ____                 _ _ _____         _
@@ -113,11 +105,11 @@ else
 		#  \____|_| |_| |_|\__,_|_|_| |_|\___/ \__,_|\___/
 		#
 		# and add subjects from Mailbox/todo
-		#MYFILE="$HOMEDIR/Mailboxtodo.txt"
+		MYFILE="$HOMEDIR/Mailboxtodo.txt"
 		#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
-		#echo -e "\n" > "$MYFILE"
+		echo -e "\n" > "$MYFILE"
 		#ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
-		ruby -KT /Users/rs/rt/gmailtodo.rb || logger -s -p3 "Error: Mailboxtodo-import"
+		ruby -KT $DIR/gmailtodo.rb || logger -s -p3 "Error: Mailboxtodo-import"
 		#say "Mailbox-to-do updated"
 
 		#   ____                      _ _     _       _
@@ -128,7 +120,7 @@ else
 		#
 		# Pull together Todyn (dynamic todo)
 		cd $HOMEDIR
-		cat Beeminder-redplus.txt Calendar.txt Beeminder-orange.txt Pivotal.txt Todoy.txt Mailboxtodo.txt Beeminder-blue.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
+		cat Calendar.txt Beeminder-all.txt Pivotal.txt Todoy.txt Mailboxtodo.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
 		# Mark as today
 		echo "" >> $TMPFILE
 		export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
