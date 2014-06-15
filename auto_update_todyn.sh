@@ -67,13 +67,13 @@ else
 		#echo -e "\n# From Beeminder... #" > "$MYFILE"
 		source /Users/rs/rt/beeminder-pull-endangered.sh > /tmp/beeminderoutput.txt  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 		echo -e "\n" > "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "Error" | head -3 >> "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN" | head -3 >> "$MYFILE1"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "RED" | head -3 >> "$MYFILE1"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "Error"  >> "$MYFILE1"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "UNKNOWN"  >> "$MYFILE1"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "RED"  >> "$MYFILE1"
 		echo -e "\n" > "$MYFILE2"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -3 >> "$MYFILE2"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "ORANGE" | head -2 >> "$MYFILE2"
 		echo -e "\n" > "$MYFILE3"
-		cat /tmp/beeminderoutput.txt | sort -r | grep "BLUE" | head -3 >> "$MYFILE3"
+		cat /tmp/beeminderoutput.txt | sort -r | grep "BLUE" | head -1 >> "$MYFILE3"
 		#say "Beeminder updated"
 
 		#  ____  _            _        _
