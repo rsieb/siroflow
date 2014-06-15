@@ -32,7 +32,7 @@ if @pomodoro_name.include?("+beem") then
   myslug = @pomodoro_name[/\w+ \+beem/][/\w+/] # user to put slug as last word before +beem code
   puts "Beeminder task. Opening URL with slug `#{myslug}'"
   myurl = "http://beeminder.com/cyberroland/goals/#{myslug}"
-  system("/usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
+  system("cd /Users/rs/rt ; beemind #{myslug} 1 ; /usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
   story_type = 'chore'
   #abort
 end
