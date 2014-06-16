@@ -2,10 +2,10 @@
 # encoding: UTF-8
 
 require 'rubygems'
-require '/Users/rs/rt/Terminal.rb'
-require '/Users/rs/rt/Log.rb'
-require '/Users/rs/rt/Activity.rb'
-require '/Users/rs/rt/Pomodoro.rb'
+require './Terminal.rb'
+require './Log.rb'
+require './Activity.rb'
+require './Pomodoro.rb'
 #require 'Logger'
 #require 'active_support/core_ext/numeric/time'
 
