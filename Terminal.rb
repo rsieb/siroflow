@@ -90,7 +90,7 @@ module RoutineTracker
         LOGGER.debug "Instance is idle"
         minutesidle.times { |i|
           if i > (minutesidle - 10)
-            @@instance.warn("#{speakstring(i)} ")
+            @@instance.warn("#{self.speakstring(i)} ")
             LOGGER.debug "Warning time #{i}"
           end
         }
@@ -110,7 +110,7 @@ module RoutineTracker
       end
     end
 
-    def speakstring(_int)
+    def self.speakstring(_int)
       alphabet = %w/ alpha bravo charlie delta echo foxtrot golf hotel India juliett kilo lima mike November oscar papa quebec romeo sierra tango uniform victor x-ray yankee zulu /
       _int <= 26 ? alphabet[_int] : _int.to_s
     end
