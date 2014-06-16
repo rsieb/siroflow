@@ -17,7 +17,7 @@ story_type = ''
 if @pomodoro_name.include?("+rout") then
   puts "Routine task."
   story_type = 'chore'
-  #abort
+  abort
 end
 
 if !@pomodoro_name.include?("+") then
