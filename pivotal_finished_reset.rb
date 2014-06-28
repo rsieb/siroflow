@@ -7,14 +7,14 @@ require 'bundler/setup'
 # require 'active_resource'
 # require 'pp'
 # require 'chronic'
-# require 'pivotal-tracker'
+require 'pivotal-tracker'
 
 @mytoken = PivotalTracker::Client.token(
   'roland@rocketfuelinc.com',
   'qub0y?Qatar')
 @myprojects = [781813]
   
-target_started_stories = 2
+target_started_stories = 0
 
 
 # find all stories that are marked as started

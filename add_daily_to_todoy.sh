@@ -50,17 +50,17 @@ mv /tmp/todosterday.txt $TODOSTERDAY
 
 
 ## add daily to front of todoy
-#echo "Todoy>>start" > /tmp/todoy.txt
+echo "Todoy copied `date`" > /tmp/todoy.txt
 cat $TODODAILY > /tmp/todoy.txt
 if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
 	cat $TODOWEEKLY >> "/tmp/todoy.txt"
 fi
 
-# add tomorrow to todoy -- moved somedaymaybe to weekly only
-echo "" >> /tmp/todoy.txt
-echo -e '\n# Added Yesterday... (for Workflowy?) #' >> /tmp/todoy.txt
-cat $TODORROW >> /tmp/todoy.txt
-cp /dev/null $TODORROW
+# # add tomorrow to todoy -- moved somedaymaybe to weekly only
+# echo "" >> /tmp/todoy.txt
+# #echo -e '\n# Added Yesterday... (for Workflowy?) #' >> /tmp/todoy.txt
+# cat $TODORROW >> /tmp/todoy.txt
+# cp /dev/null $TODORROW
 
 # Mark as today
 #echo "" >> /tmp/todoy.txt
