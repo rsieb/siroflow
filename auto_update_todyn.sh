@@ -55,7 +55,7 @@ fi
 
 #  ____                     ____        _ _      ___
 # |  _ \  ___  _ __   ___  |  _ \  __ _(_) |_   |__ \
-	# | | | |/ _ \| '_ \ / _ \ | | | |/ _` | | | | | |/ /
+# | | | |/ _ \| '_ \ / _ \ | | | |/ _` | | | | | |/ /
 # | |_| | (_) | | | |  __/ | |_| | (_| | | | |_| |_|
 # |____/ \___/|_| |_|\___| |____/ \__,_|_|_|\__, (_)
 #                                           |___/
@@ -92,19 +92,32 @@ if grep -q "PREZMODE" /tmp/routinetracker.log ; then
 	exit "PREZMODE"
 fi
 
+#    \       |     | _ \      _) |      
+#   _ \   _` |  _` | |  | _` | | | |  | 
+# _/  _\\__,_|\__,_|___/\__,_|_|_|\_, | 
+#                                 ___/  
+
+touch -t `date '+%m%d0330'` $DAYBREAK # reset the DAYBREAK marker to 03:30am today
+ls -l $TODOYFILE $DAYBREAK
+if [[ $TODOYNEEDED || $DAYBREAKNEEDED || $NEEDFRESHTODOY ]]
+	then
+	logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
+	#say "I would update Beeminder now"
+	source $DIR/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
+else
+	logger -s -p5 "Skipped 'add_daily_to_todoy.sh'"
+fi
+
+# __ __|         |             
+#    |  _ \   _` | |   | __ \  
+#    | (   | (   | |   | |   | 
+#   _|\___/ \__,_|\__, |_|  _| 
+#                 ____/        
+
 if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	then
 	logger -s -p6 "Starting update..."
 	touch $TMPFILE # update time stamp so that the script cannot run twice in parallel
-	if [[ $TODOYNEEDED || $DAYBREAKNEEDED || $NEEDFRESHTODOY ]]
-		then
-		logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
-		#say "I would update Beeminder now"
-		#source $DIR/add_daily_to_todoy.sh || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
-		touch -t `date '+%m%d0330'` $DAYBREAK
-	else
-		logger -s -p5 "Skipped 'add_daily_to_todoy.sh'"
-	fi # end done daily
 
 	#  ____                      _           _
 	# | __ )  ___  ___ _ __ ___ (_)_ __   __| | ___ _ __
@@ -154,7 +167,7 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	#   ____                 _ _ _____         _
 	#  / ___|_ __ ___   __ _(_) |_   _|__   __| | ___
 	# | |  _| '_ ` _ \ / _` | | | | |/ _ \ / _` |/ _ \
-		# | |_| | | | | | | (_| | | | | | (_) | (_| | (_) |
+    # | |_| | | | | | | (_| | | | | | (_) | (_| | (_) |
 	#  \____|_| |_| |_|\__,_|_|_| |_|\___/ \__,_|\___/
 	#
 	# and add subjects from Mailbox/todo
@@ -168,18 +181,19 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	#   ____                      _ _     _       _
 	#  / ___|___  _ __  ___  ___ | (_) __| | __ _| |_ ___
 	# | |   / _ \| '_ \/ __|/ _ \| | |/ _` |/ _` | __/ _ \
-		# | |__| (_) | | | \__ \ (_) | | | (_| | (_| | ||  __/
+	# | |__| (_) | | | \__ \ (_) | | | (_| | (_| | ||  __/
 	#  \____\___/|_| |_|___/\___/|_|_|\__,_|\__,_|\__\___|
 	#
 	# Pull together Todyn (dynamic todo)
 	cd $HOMEDIR
-	cat Calendar.txt Beeminder-all.txt Pivotal.txt Todoy.txt Mailboxtodo.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
+	cat Pivotal.txt Calendar.txt Beeminder-all.txt Todoy.txt Mailboxtodo.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
 	# Mark as today
 	echo "" >> $TMPFILE
 	export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
 	#echo $PATH >> $TMPFILE
 	echo -e "\n`date '+%Y-%m-%d %H:%M:%S'` ${PARENTPROCESS}" >> $TMPFILE  || logger -s -p3 "Error: ${PARENTPROCESS}"
 fi # end need to create new todyn
+
 #   ____ _                                  _____         _             _
 #  / ___| | ___  __ _ _ __    _   _ _ __   |_   _|__   __| | ___  _ __ | |_
 # | |   | |/ _ \/ _` | '_ \  | | | | '_ \    | |/ _ \ / _` |/ _ \| '_ \| __|

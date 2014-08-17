@@ -29,6 +29,14 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
   #pp @mystories
 end
 
+# if @mystories.size < 5
+#   require './pivotal_finished_reset.rb'
+#   @myprojects.each do |projectnummer|
+#   @a_project = PivotalTracker::Project.find(projectnummer)
+#   @mystories = @mystories + @a_project.stories.all(:state => @mystate)
+#   #pp @mystories
+# end
+
 @mystories.each do |verhaaltje|
   begin
     mijnstatus = verhaaltje.current_state

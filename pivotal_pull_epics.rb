@@ -7,7 +7,7 @@ require 'bundler/setup'
 # require 'active_resource'
 # require 'pp'
 # require 'chronic'
-# require 'pivotal-tracker'
+require 'pivotal-tracker'
 
 
 
@@ -46,6 +46,6 @@ end
 
 epicstring = ""
 myepics.uniq.sort.each do |epique|
-  epicstring = epicstring + epique + " "
+  epicstring = epicstring + epique + "\n"
 end
 puts epicstring

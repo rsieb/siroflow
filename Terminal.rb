@@ -85,6 +85,7 @@ module RoutineTracker
       rescue
         minutesidle = 1
       end
+      system('/Users/rs/rt/auto_update_todyn.sh')
       LOGGER.debug "minutesidle = #{minutesidle}"
       if Log.instance.idle?
         LOGGER.debug "Instance is idle"
