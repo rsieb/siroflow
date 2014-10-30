@@ -26,6 +26,14 @@ if !@pomodoro_name.include?("+") then
   abort
 end
 
+if @pomodoro_name.include?("+jira") then
+  puts "Pulled this from JIRA."
+  myslug = @pomodoro_name[/QI-\d*/] # user to put slug as last word before +beem code
+  myurl = "https://rocketfuel.jira.com/browse/#{myslug}"
+  system(" /usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
+  story_type = 'bug'
+end
+
 if @pomodoro_name.include?("h00") or @pomodoro_name.include?("h30")  or @pomodoro_name.include?("h15")  or @pomodoro_name.include?("h45") then
   puts "Meeting."
   story_type = 'chore'
@@ -120,7 +128,8 @@ if @mystories.size > 0 then
           "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
         ENDOFCURL4
         #puts "\n\n#{systemstring}\n"
-        #SWITCHINGOFF:     system(systemstring + ' > /dev/null')
+        # DON'T ACTUALLY MOVE IT
+        #system(systemstring + ' > /dev/null')
 
       end
     else

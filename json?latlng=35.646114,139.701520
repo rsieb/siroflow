@@ -1,0 +1,696 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Komazawa Dori",
+               "short_name" : "都道317号線",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "2",
+               "short_name" : "2",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "1 Chome",
+               "short_name" : "1 Chome",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kamimeguro",
+               "short_name" : "Kamimeguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "153-0061",
+               "short_name" : "153-0061",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Komazawa Dori, 1 Chome-2 Kamimeguro, Meguro, Tokyo 150-0022, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6461291,
+                  "lng" : 139.7015802
+               },
+               "southwest" : {
+                  "lat" : 35.6457031,
+                  "lng" : 139.7014666
+               }
+            },
+            "location" : {
+               "lat" : 35.6459225,
+               "lng" : 139.7014882
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6472650802915,
+                  "lng" : 139.7028723802915
+               },
+               "southwest" : {
+                  "lat" : 35.6445671197085,
+                  "lng" : 139.7001744197085
+               }
+            }
+         },
+         "types" : [ "route" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "2",
+               "short_name" : "2",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "1 Chome",
+               "short_name" : "1 Chome",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kamimeguro",
+               "short_name" : "Kamimeguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "1 Chome-2 Kamimeguro, Meguro, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6465735,
+                  "lng" : 139.7022023
+               },
+               "southwest" : {
+                  "lat" : 35.6451384,
+                  "lng" : 139.7007878
+               }
+            },
+            "location" : {
+               "lat" : 35.6455292,
+               "lng" : 139.701093
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.64720493029149,
+                  "lng" : 139.7028440302915
+               },
+               "southwest" : {
+                  "lat" : 35.6445069697085,
+                  "lng" : 139.7001460697085
+               }
+            }
+         },
+         "types" : [ "sublocality_level_3", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "1 Chome",
+               "short_name" : "1 Chome",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kamimeguro",
+               "short_name" : "Kamimeguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "1 Chome Kamimeguro, Meguro, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6473303,
+                  "lng" : 139.7022023
+               },
+               "southwest" : {
+                  "lat" : 35.642449,
+                  "lng" : 139.6973022
+               }
+            },
+            "location" : {
+               "lat" : 35.6452208,
+               "lng" : 139.6993765
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6473303,
+                  "lng" : 139.7022023
+               },
+               "southwest" : {
+                  "lat" : 35.642449,
+                  "lng" : 139.6973022
+               }
+            }
+         },
+         "types" : [ "sublocality_level_2", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Kamimeguro",
+               "short_name" : "Kamimeguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Kamimeguro, Meguro, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6473326,
+                  "lng" : 139.7022051
+               },
+               "southwest" : {
+                  "lat" : 35.63819470000001,
+                  "lng" : 139.6842638
+               }
+            },
+            "location" : {
+               "lat" : 35.6408657,
+               "lng" : 139.6958103
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6473326,
+                  "lng" : 139.7022051
+               },
+               "southwest" : {
+                  "lat" : 35.63819470000001,
+                  "lng" : 139.6842638
+               }
+            }
+         },
+         "types" : [ "sublocality_level_1", "sublocality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "153-0061",
+               "short_name" : "153-0061",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Nakameguro",
+               "short_name" : "Nakameguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nakameguro, Meguro, Tokyo 153-0061, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6472624,
+                  "lng" : 139.709008
+               },
+               "southwest" : {
+                  "lat" : 35.6327317,
+                  "lng" : 139.6924137
+               }
+            },
+            "location" : {
+               "lat" : 35.6378607,
+               "lng" : 139.7032542
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6472624,
+                  "lng" : 139.709008
+               },
+               "southwest" : {
+                  "lat" : 35.6327317,
+                  "lng" : 139.6924137
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Daikanyama Station",
+               "short_name" : "Daikanyama Station",
+               "types" : [ "train_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "19",
+               "short_name" : "19",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Daikanyamacho",
+               "short_name" : "Daikanyamacho",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Shibuya",
+               "short_name" : "Shibuya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Daikanyama Station, 19 Daikanyamacho, Shibuya, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.655089,
+                  "lng" : 139.710035
+               },
+               "southwest" : {
+                  "lat" : 35.642488,
+                  "lng" : 139.693832
+               }
+            },
+            "location" : {
+               "lat" : 35.648104,
+               "lng" : 139.703168
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.655089,
+                  "lng" : 139.710035
+               },
+               "southwest" : {
+                  "lat" : 35.642488,
+                  "lng" : 139.693832
+               }
+            }
+         },
+         "types" : [ "train_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "150-0022",
+               "short_name" : "150-0022",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "Ebisuminami",
+               "short_name" : "Ebisuminami",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Shibuya",
+               "short_name" : "Shibuya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ebisuminami, Shibuya, Tokyo 150-0022, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6620583,
+                  "lng" : 139.7179454
+               },
+               "southwest" : {
+                  "lat" : 35.6406437,
+                  "lng" : 139.7013486
+               }
+            },
+            "location" : {
+               "lat" : 35.6461543,
+               "lng" : 139.7086645
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6509731,
+                  "lng" : 139.7128382
+               },
+               "southwest" : {
+                  "lat" : 35.6406437,
+                  "lng" : 139.7013486
+               }
+            }
+         },
+         "types" : [ "postal_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ebisu Station",
+               "short_name" : "Ebisu Station",
+               "types" : [ "train_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "5",
+               "short_name" : "5",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "1 Chome",
+               "short_name" : "1 Chome",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Ebisuminami",
+               "short_name" : "Ebisuminami",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Shibuya",
+               "short_name" : "Shibuya",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ebisu Station, 1 Chome-5 Ebisuminami, Shibuya, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.655062,
+                  "lng" : 139.720354
+               },
+               "southwest" : {
+                  "lat" : 35.638825,
+                  "lng" : 139.700482
+               }
+            },
+            "location" : {
+               "lat" : 35.64669,
+               "lng" : 139.710106
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.655062,
+                  "lng" : 139.720354
+               },
+               "southwest" : {
+                  "lat" : 35.638825,
+                  "lng" : 139.700482
+               }
+            }
+         },
+         "types" : [ "train_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Nakameguro Station",
+               "short_name" : "Nakameguro Station",
+               "types" : [ "train_station", "transit_station", "establishment" ]
+            },
+            {
+               "long_name" : "22",
+               "short_name" : "22",
+               "types" : [ "sublocality_level_3", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "1 Chome",
+               "short_name" : "1 Chome",
+               "types" : [ "sublocality_level_2", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Kamimeguro",
+               "short_name" : "Kamimeguro",
+               "types" : [ "sublocality_level_1", "sublocality", "political" ]
+            },
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Nakameguro Station, 1 Chome-22 Kamimeguro, Meguro, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.652356,
+                  "lng" : 139.707895
+               },
+               "southwest" : {
+                  "lat" : 35.63523,
+                  "lng" : 139.688965
+               }
+            },
+            "location" : {
+               "lat" : 35.644307,
+               "lng" : 139.699157
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.652356,
+                  "lng" : 139.707895
+               },
+               "southwest" : {
+                  "lat" : 35.63523,
+                  "lng" : 139.688965
+               }
+            }
+         },
+         "types" : [ "train_station", "transit_station", "establishment" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Meguro",
+               "short_name" : "Meguro",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Meguro, Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.6641437,
+                  "lng" : 139.7177344
+               },
+               "southwest" : {
+                  "lat" : 35.6005782,
+                  "lng" : 139.6616067
+               }
+            },
+            "location" : {
+               "lat" : 35.6414629,
+               "lng" : 139.6981712
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.6641437,
+                  "lng" : 139.7177344
+               },
+               "southwest" : {
+                  "lat" : 35.6005782,
+                  "lng" : 139.6616067
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Tokyo",
+               "short_name" : "Tokyo",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Tokyo, Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 35.8986441,
+                  "lng" : 153.9875216
+               },
+               "southwest" : {
+                  "lat" : 24.2242343,
+                  "lng" : 138.9427579
+               }
+            },
+            "location" : {
+               "lat" : 35.6894875,
+               "lng" : 139.6917064
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 35.817813,
+                  "lng" : 139.910202
+               },
+               "southwest" : {
+                  "lat" : 35.528873,
+                  "lng" : 139.510574
+               }
+            }
+         },
+         "types" : [ "administrative_area_level_1", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Japan",
+               "short_name" : "JP",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Japan",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.5227719,
+                  "lng" : 153.9874305
+               },
+               "southwest" : {
+                  "lat" : 24.0460446,
+                  "lng" : 122.9338302
+               }
+            },
+            "location" : {
+               "lat" : 36.204824,
+               "lng" : 138.252924
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.5468212,
+                  "lng" : 142.0723049
+               },
+               "southwest" : {
+                  "lat" : 33.4332424,
+                  "lng" : 130.8604967
+               }
+            }
+         },
+         "types" : [ "country", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

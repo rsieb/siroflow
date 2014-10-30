@@ -5,17 +5,18 @@ title = ARGV[0] rescue 'Blocking next hours for Pomodoro'
 
 # select the right calendar
 cal = CalCalendarStore.defaultCalendarStore.calendarWithUID("80886C0A-BF70-4675-A640-B68BCEA85E91")
+
 # create an event
 #_event = CalCalendarStore.defaultCalendarStore.createEvent(event, span:true, error:nil)
 
 # set the right parameters
 
-period = (24 * 3600) # one day
+period = (10 * 24 * 3600) # one day
+
 
 #range = (Time.local(Time.now.year, Time.now.mon, Time.now.day)-period)..Time.local(Time.now.year, Time.now.mon, Time.now.day)
 range = (Time.now - period)..Time.now
 #puts range.to_s
-cal = CalCalendarStore.defaultCalendarStore.calendarWithUID("80886C0A-BF70-4675-A640-B68BCEA85E91")
 
 predicate = CalCalendarStore.eventPredicateWithStartDate(NSDate.dateWithString(range.begin.to_s), endDate:NSDate.dateWithString(range.end.to_s), calendars:[cal])
 
@@ -40,4 +41,8 @@ CalCalendarStore.defaultCalendarStore.eventsWithPredicate(predicate).each do |ev
       CalCalendarStore.defaultCalendarStore.removeEvent(event, span:true, error:nil)
     end
   end
+end
+
+if foundone == false
+  puts "Could not find calendar blocking event, create one starting with » please"
 end

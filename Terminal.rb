@@ -79,22 +79,26 @@ module RoutineTracker
     end
 
     def self.chaseup(tasklist)
+            system('/Users/rs/rt/auto_update_todyn.sh')
       # TODO: 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
         minutesidle = IO.readlines("/tmp/routinetracker.log").last.scan('*').size
       rescue
         minutesidle = 1
       end
-      system('/Users/rs/rt/auto_update_todyn.sh')
       LOGGER.debug "minutesidle = #{minutesidle}"
       if Log.instance.idle?
         LOGGER.debug "Instance is idle"
+        # if minutesidle > 20
+        #   system(%q(osascript -e 'tell application "Finder" to sleep'))
+        # else
         minutesidle.times { |i|
           if i > (minutesidle - 10)
             @@instance.warn("#{i.to_s} ")
             LOGGER.debug "Warning time #{i}"
           end
         }
+      # end
         # @toptask = tasklist.gsub(/\n.*$/,"")
         # #        @@instance.warn("#{minutesidle.to_s} ")
         # @@instance.warn("#{@toptask} ")
@@ -103,7 +107,7 @@ module RoutineTracker
         f.write("#{IDLEMARKER}")
         f.close
         LOGGER.debug "Ready to open PromptForPomodoro #{minutesidle}"
-        output = system "osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{minutesidle}"
+        output = system "osascript /Users/rs/rt/prompt_for_pomodoro_2.scpt #{minutesidle}"
         LOGGER.info "Output is #{output.inspect}"
         #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")

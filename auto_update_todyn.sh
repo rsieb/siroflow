@@ -128,7 +128,8 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	MYFILE="$HOMEDIR/Beeminder-all.txt"
 	#echo -e "\n# From Beeminder... #" > "$MYFILE"
 	echo -e "\n" > "$MYFILE"
-	source $DIR/beeminder-pull-endangered.sh | sort -r | head -4 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
+	#source $DIR/beeminder-pull-endangered.sh | sort -r | head -4 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
+	source $DIR/beeminder-pull-endangered.sh | sort -r >> "$MYFILE"  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 
 	#  ____  _            _        _
 	# |  _ \(_)_   _____ | |_ __ _| |
@@ -145,10 +146,27 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	## leave next line commented out or it leaves me never to look at pivotal again
 	# ruby -KT $DIR/pivotal_finished_reset.rb || logger -s -p3 "Error: pivotal_finished_reset.rb"
 
-	ruby -KT $DIR/pivotal_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
+	#ruby -KT $DIR/pivotal_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
+	ruby -KT $DIR/pivotal_pull_active.rb  >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
 	# fi
 	echo -e "\n" >> "$MYFILE"
 	#say "Pivotal updated"
+
+	# #      _ _            ___  ___ 
+	# #     | (_)_ __ __ _ / _ \|_ _|
+	# #  _  | | | '__/ _` | | | || | 
+	# # | |_| | | | | (_| | |_| || | 
+	# #  \___/|_|_|  \__,_|\__\_\___|
+                             
+	# MYFILE="$HOMEDIR/JiraQuery.txt"
+	# echo -e "\n" > "$MYFILE"
+
+	# ruby -KT $DIR/jira_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
+	# # fi
+	# echo -e "\n" >> "$MYFILE"
+	# #say "Pivotal updated"
+
+
 
 	#   ____      _                _
 	#  / ___|__ _| | ___ _ __   __| | __ _ _ __
@@ -171,11 +189,11 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	#  \____|_| |_| |_|\__,_|_|_| |_|\___/ \__,_|\___/
 	#
 	# and add subjects from Mailbox/todo
-	MYFILE="$HOMEDIR/Mailboxtodo.txt"
+	MYFILE="$HOMEDIR/Planleaf.txt"
 	#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
 	echo -e "\n" > "$MYFILE"
 	#ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
-	ruby -KT $DIR/gmailtodo.rb || logger -s -p3 "Error: Mailboxtodo-import"
+	ruby -KT $DIR/gmailtodo.rb | sort -u >> "$MYFILE" || logger -s -p3 "Error: Mailboxtodo-import"
 	#say "Mailbox-to-do updated"
 
 	#   ____                      _ _     _       _
@@ -186,7 +204,7 @@ if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
 	#
 	# Pull together Todyn (dynamic todo)
 	cd $HOMEDIR
-	cat Pivotal.txt Calendar.txt Beeminder-all.txt Todoy.txt Mailboxtodo.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
+	cat Pivotal.txt Calendar.txt Beeminder-all.txt Todoy.txt Planleaf.txt > $TMPFILE || logger -s -p3 "Error: Consolidation"
 	# Mark as today
 	echo "" >> $TMPFILE
 	export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
@@ -204,13 +222,19 @@ fi # end need to create new todyn
 # Take out ignored lines
 # subtracting two files from each other as per <http://aijazansari.com/2011/11/23/how-to-subtract-one-file-from-another/>
 # NB file with negative lines should come first :)
+logger -s -p3 "Starting cleanup"
 if [[ -s $TODONTFILE ]] ; then
 	# first ensure there are no white lines in Todont
+	logger -s -p3 "Starting grep"
 	grep -v '^$' $TODONTFILE > /tmp/Todont.txt || logger -s -p3 "Error: ${TODONTFILE} white lines removal"
+	logger -s -p3 "Copying todontfile"
 	cp /tmp/Todont.txt $TODONTFILE
 	# now take all the ignorable lines out of the temporary Todyn by matching against Todont
-	grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE   || logger -s -p3 "Error: ${TODONTFILE} deduplication"
+	logger -s -p3 "Taking the lines out"
+	#grep --invert-match --line-regexp --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE   || logger -s -p3 "Error: ${TODONTFILE} deduplication"
+	grep --invert-match --fixed-strings --file=$TODONTFILE $TMPFILE | cat -s > $TODYNFILE   || logger -s -p3 "Error: ${TODONTFILE} deduplication"
 else
+	logger -s -p4 "Just copying tempfile to todyn"
 	cat -s $TMPFILE > $TODYNFILE
 fi
 

@@ -17,6 +17,8 @@ def initials(naam)
   initialen
 end
 @mystate = %w( started rejected )
+@mydeadline = (Time.now + 86400).to_datetime 
+
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
@@ -25,8 +27,14 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
 @myprojects = [781813] # take out FUEL 780227,786005,479975
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
-  @mystories = @mystories + @a_project.stories.all(:state => @mystate)
-  #pp @mystories
+  @thisprojectstories = @a_project.stories.all(:state => @mystate)
+  @thisprojectreleases = @a_project.stories.all(:type => 'release', :state => 'unstarted').find_all{|rel| rel.deadline < @mydeadline}
+  @mystories = @mystories + @thisprojectstories + @thisprojectreleases
+  if Time.now.hour < 17 && @thisprojectstories.count < 3
+    yourwish = "/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/n/projects/" + projectnummer.to_s + "\" ' "
+    #puts yourwish
+    system(yourwish)
+  end
 end
 
 # if @mystories.size < 5
