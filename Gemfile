@@ -22,7 +22,7 @@ gem 'jira-ruby', :require => 'jira'
 gem 'json'
 gem 'httparty'
 gem 'nokogiri'
-
+gem 'growl'
 
 group :development do
   #gem 'better_errors'
