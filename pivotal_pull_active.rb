@@ -15,7 +15,7 @@ def initials(naam)
   initialen
 end
 @mystate = %w( started rejected )
-@mydeadline = (Time.now + 86400).to_datetime 
+@mydeadline = (Time.now).to_datetime 
 
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
