@@ -33,7 +33,11 @@ else # ie, if file does not exist OR if mtime is more than 60 seconds ago
           LOGGER.info 'Chaseup'
           LOGGER.debug "targetfile = #{targetfile}"
           Terminal.chaseup(targetfile)
-        else
+        elsif break?(actual)
+          LOGGER.debug 'break = true'
+          LOGGER.info 'ScreenSave'
+          system("/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine")
+        else ## not idle nor break
           LOGGER.debug 'idle = false'
           LOGGER.info 'Remind'
           LOGGER.debug "reminding of  = #{actual}"
