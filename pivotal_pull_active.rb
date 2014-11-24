@@ -102,7 +102,7 @@ end
   if mijntaak == "NO TASK"
     #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam} +#{mijnetiket.first}"
     puts "#{mijnnaam} \##{verhaaltje.id} +#{mijnetiket.first}"
-    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    #system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   else
     #   #puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1..-1]}>>#{mijntaak} +#{mijnetiket} "
     #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam}>>#{mijntaak} +#{mijnetiket.first}"

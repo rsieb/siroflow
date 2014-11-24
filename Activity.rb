@@ -48,6 +48,11 @@ module RoutineTracker
     end
     #end
 
+    def self.break?(summary)
+      summary.match("#Break#").to_s.size > 0
+    end
+    #end
+
     def self.actual
       Log.instance.contents.split(' +')[0]
     end
