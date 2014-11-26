@@ -33,7 +33,7 @@ module RoutineTracker
 
     def self.idle?(summary)
       if (
-          ( summary.match("#Break#").to_s.size > 0 && Time.now() - File.mtime(LOGFILE) > 1800 ) ||
+          ( summary.match("#Break#").to_s.size > 0 && Time.now() - File.mtime(LOGFILE) > 2700 ) ||
           ( summary.match("PREZMODE").to_s.size > 0 && Time.now() - File.mtime(LOGFILE) > 5400 ) ||
           ( Time.now() - File.mtime(LOGFILE) > 3600 )
         )

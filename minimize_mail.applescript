@@ -1,0 +1,1 @@
+/Users/rs/Dropbox/Library/Scripts/minimize_mail.applescript

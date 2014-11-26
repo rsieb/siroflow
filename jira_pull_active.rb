@@ -31,8 +31,8 @@ puts "Story,Labels,Story Type,Estimate,Current State"
 @mystories.each do |verhaaltje|
   fieldline = ""
   #puts verhaaltje
-  fieldline << verhaaltje['key'] + ' ' + verhaaltje['fields']['summary'].gsub(/"/, '`' ).gsub(/'/, '`' )
-  fieldline << ","
+  fieldline << '"' + verhaaltje['key'] + ' ' + verhaaltje['fields']['summary'].gsub(/"/, '`' ).gsub(/'/, '`' )
+  fieldline << '", '
   fieldline << ' +jira'
   fieldline << ",feature,"
   fieldline << verhaaltje['customfield_10093'].to_s

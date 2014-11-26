@@ -1,6 +1,6 @@
 #!/usr/local/bin/macruby -KU
 framework 'calendarstore'
-duration = (4 * 3600) 
+duration = (4 * 3600)
 title = ARGV[0] rescue 'Blocking next hours for Pomodoro'
 
 # select the right calendar
@@ -24,21 +24,24 @@ predicate = CalCalendarStore.eventPredicateWithStartDate(NSDate.dateWithString(r
 
 foundone = false
 CalCalendarStore.defaultCalendarStore.eventsWithPredicate(predicate).each do |event|
-  started_at = Time.at(event.startDate.timeIntervalSince1970)
-  if event.title.start_with?("»")
-    puts "#{event.title} #{event.startDate} #{event.endDate}"
-    if foundone == false
-      puts "moving hours around"
-      foundone = true
-      t = Time.now
-      event.startDate = t - t.sec - 60*t.min # round down to nearest hour
-      event.endDate = event.startDate + duration
-      event.title = "» #{title}"
+  unless event.title.include?("アキ")
+
+    started_at = Time.at(event.startDate.timeIntervalSince1970)
+    if event.title.start_with?("»")
       puts "#{event.title} #{event.startDate} #{event.endDate}"
-      CalCalendarStore.defaultCalendarStore.saveEvent(event, span:true, error:nil)
-    else
-      puts "deleting"
-      CalCalendarStore.defaultCalendarStore.removeEvent(event, span:true, error:nil)
+      if foundone == false
+        puts "moving hours around"
+        foundone = true
+        t = Time.now
+        event.startDate = t - t.sec - 60*t.min # round down to nearest hour
+        event.endDate = event.startDate + duration
+        event.title = "» #{title}"
+        puts "#{event.title} #{event.startDate} #{event.endDate}"
+        CalCalendarStore.defaultCalendarStore.saveEvent(event, span:true, error:nil)
+      else
+        puts "deleting"
+        CalCalendarStore.defaultCalendarStore.removeEvent(event, span:true, error:nil)
+      end
     end
   end
 end
@@ -46,3 +49,22 @@ end
 if foundone == false
   puts "Could not find calendar blocking event, create one starting with » please"
 end
+
+    # set dateVar to the current date
+    # --  ignoring application responses
+    # set the minutes of dateVar to 0
+    # --  end if
+    # set the seconds of dateVar to 0
+    # set mystartdate to dateVar + (random number from 1 to 3) * 7 * 24 * 3600 -- TODO: 3-2-1 weighting for coming weeks
+    # set myenddate to mystartdate + 0.5 * 3600 -- one half hour duration
+    
+    # with timeout of 15 seconds
+    #   tell application "Calendar"
+    #     tell calendar "roland@rocketfuelinc.com"
+    #       set myevent to (make new event at end of events with properties {summary:"√", start date:mystartdate, end date:myenddate})
+    #       switch view to day view
+          
+    #     end tell
+    #   end tell
+    # end timeout
+
