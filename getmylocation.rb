@@ -10,8 +10,13 @@ require 'json'
 # capture if in-flight
 #ssid = system("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I|grep \" SSID:\" | cut -c 18-")
 ssid = `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | /usr/bin/grep \" SSID:\" | /usr/bin/cut -c 18-`.chomp
+Growl.notify "__#{ssid}__", :icon => :Maps
 if ssid == "gogoinflight"
   location = "In flight"
+elsif ssid == "CyberRoland"
+  location = "WFH@SF 4159873440"
+elsif ssid == "ghNet"
+  location = "Wouw, NL ~#{(Time.now+1800).strftime("%l%P %Z").lstrip}" 
 else
   # get the location through a dedicated tool
 

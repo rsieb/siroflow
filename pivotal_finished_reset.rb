@@ -14,7 +14,7 @@ require 'pivotal-tracker'
   'qub0y?Qatar')
 @myprojects = [781813]
   
-target_started_stories = 4
+target_started_stories = 2
 
 
 # find all stories that are marked as started

@@ -35,10 +35,10 @@ myepics = Array.new
   begin
     mijnetiket.each do |etiketje|
       #puts "etiketje = #{etiketje}"
-      if etiketje[0] =~ /[0-9]/
+      #if etiketje[0] =~ /[0-9]/
         # this is an epic label
         myepics.push(etiketje)
-      end
+      #end
     end
   rescue
   end

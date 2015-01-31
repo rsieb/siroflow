@@ -6,7 +6,7 @@ require '/Users/rs/rt/Terminal.rb'
 require '/Users/rs/rt/Log.rb'
 require '/Users/rs/rt/Activity.rb'
 require '/Users/rs/rt/Pomodoro.rb'
-#require 'Logger'
+require 'Logger'
 #require 'active_support/core_ext/numeric/time'
 
 
@@ -35,8 +35,11 @@ else # ie, if file does not exist OR if mtime is more than 60 seconds ago
           Terminal.chaseup(targetfile)
         elsif break?(actual)
           LOGGER.debug 'break = true'
-          LOGGER.info 'ScreenSaver'
-          system("/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine")
+          #LOGGER.info 'ScreenSaver'
+          #system("/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine")
+        elsif longprezmode?(actual)
+          LOGGER.debug 'longprezmode'
+          system %q(osascript -e 'display alert "This computer has been running in presentation mode for over 1.5 hours."')
         else ## not idle nor break
           LOGGER.debug 'idle = false'
           LOGGER.info 'Remind'

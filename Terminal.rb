@@ -1,9 +1,8 @@
 # encoding: utf-8
-require 'LOGGER'
+# require 'Logger'
 
 # RoutineTracker is the overall module for this project.
 module RoutineTracker
-
 
   # temporary class for addressing the user terminal
   class Terminal
@@ -20,7 +19,7 @@ module RoutineTracker
       @terminal
     end
 
-    @@instance = Terminal.new
+    @@instance = self.new
 
     def self.instance
       return @@instance
@@ -51,25 +50,25 @@ module RoutineTracker
 
     def info(msg)
       puts msg
-      system("/usr/local/bin/growlnotify -p 'Moderate' -m \"#{msg}\" ")
+      #system("/usr/local/bin/growlnotify -p 'Moderate' -m \"#{msg}\" ")
     end
 
     def warn(msg)
       puts "\a" + msg
-      system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
     end
 
     def error(msg)
       puts "\a\a\a" + msg
-      system("/usr/local/bin/growlnotify -p 'High' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'High' -m \"#{msg}\" ")
     end
 
     def fatal(msg)
       puts "\a\a\a\a\a" + msg
-      system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
     end
 
     def display(notification)
@@ -79,7 +78,6 @@ module RoutineTracker
     end
 
     def self.chaseup(tasklist)
-            system('/Users/rs/rt/auto_update_todyn.sh')
       # TODO: 2012-04-08 normalize ugly code at self.chaseup in proper objects
       begin
         minutesidle = IO.readlines("/tmp/routinetracker.log").last.scan('*').size
@@ -94,11 +92,11 @@ module RoutineTracker
         # else
         minutesidle.times { |i|
           if i > (minutesidle - 10)
-            @@instance.warn("#{i.to_s} ")
+            system("say #{i.to_s} ")
             LOGGER.debug "Warning time #{i}"
           end
         }
-      # end
+        # end
         # @toptask = tasklist.gsub(/\n.*$/,"")
         # #        @@instance.warn("#{minutesidle.to_s} ")
         # @@instance.warn("#{@toptask} ")
@@ -109,6 +107,8 @@ module RoutineTracker
         LOGGER.debug "Ready to open PromptForPomodoro #{minutesidle}"
         output = system "osascript /Users/rs/rt/prompt_for_pomodoro_2.scpt #{minutesidle}"
         LOGGER.info "Output is #{output.inspect}"
+        system('/Users/rs/rt/auto_update_todyn.sh')
+
         #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
         # @@instance.warn("#{Time.now.strftime('%H %M')} ")
         # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?

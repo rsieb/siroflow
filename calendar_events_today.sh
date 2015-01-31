@@ -12,9 +12,11 @@ source '/Users/rs/.bash_include_rs'
 	--excludeEventProps "url,notes,location,attendees"  \
 	--noCalendarNames									\
 	--propertyOrder "datetime,title"					\
-	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners,SaneReminders,FollowUpThen" \
+	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners,Quality time" \
+	--excludeAllDayEvents                               \
+	--excludeCals "Rocket Fuel Training" \
 	--includeOnlyEventsFromNowOn						\
-	eventsToday 2>/dev/null | grep -v "»" | grep -v "√" | head -5
+	eventsToday 2>/dev/null | grep -v "»" | grep -v "√" 
 
 
 # /usr/local/bin/icalBuddy                                \

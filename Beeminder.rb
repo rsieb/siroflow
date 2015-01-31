@@ -123,7 +123,8 @@ module RoutineTracker
     end
 
     def browser(doel)
-      scripttekst = 'tell application "Beeminder" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+      #scripttekst = 'tell application "Beeminder" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+      scripttekst = 'beep'
       system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
       @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
       return true
