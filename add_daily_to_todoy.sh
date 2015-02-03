@@ -22,7 +22,7 @@ logger -s -p6 "Updating Beeminder..."
 # beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 # beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 bash /Users/rs/rt/beeminder-autoupdates.sh
-bash /Users/rs/rt/beeminder-update.sh
+#bash /Users/rs/rt/beeminder-update.sh - this is the one causing all the browser windows to open :)
 
 # reset finished stories from yesterday in Pivotal
 # [this allows for temporary ignoring stories, i.e. "finished" needs to be delivered to be really finished]

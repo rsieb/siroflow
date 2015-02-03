@@ -147,24 +147,24 @@ then
 	# ruby -KT $DIR/pivotal_finished_reset.rb || logger -s -p3 "Error: pivotal_finished_reset.rb"
 
 	#ruby -KT $DIR/pivotal_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
-	ruby -KT $DIR/pivotal_pull_active.rb  >> "$MYFILE"  2>&1  && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
+	ruby -KT $DIR/pivotal_pull_active.rb  | head -4 >> "$MYFILE"  2>&1  && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
 	# fi
 	echo -e "\n" >> "$MYFILE"
 	#say "Pivotal updated"
 
-	# #      _ _            ___  ___ 
-	# #     | (_)_ __ __ _ / _ \|_ _|
-	# #  _  | | | '__/ _` | | | || | 
-	# # | |_| | | | | (_| | |_| || | 
-	# #  \___/|_|_|  \__,_|\__\_\___|
+	# # #      _ _            ___  ___ 
+	# # #     | (_)_ __ __ _ / _ \|_ _|
+	# # #  _  | | | '__/ _` | | | || | 
+	# # # | |_| | | | | (_| | |_| || | 
+	# # #  \___/|_|_|  \__,_|\__\_\___|
 
-	MYFILE="$HOMEDIR/JiraQuery.txt"
-	echo -e "\n" > "$MYFILE"
+	# MYFILE="$HOMEDIR/JiraQuery.txt"
+	# echo -e "\n" > "$MYFILE"
 
-	ruby -KT $DIR/jira_pull_active.rb >> "$MYFILE"  2>&1 && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
-	# fi
-	echo -e "\n" >> "$MYFILE"
-	#say "Pivotal updated"
+	# ruby -KT $DIR/jira_pull_active.rb >> "$MYFILE"  2>&1 && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
+	# # fi
+	# echo -e "\n" >> "$MYFILE"
+	# #say "Pivotal updated"
 
 
 
@@ -191,7 +191,7 @@ then
 	#
 	MYFILE="$HOMEDIR/Wanikani.txt"
 	echo -e "\n" > "$MYFILE"
-	echo -e "Wanikani reviews: `ruby -KT $DIR/wanikani-lessons.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
+#	echo -e "Wanikani reviews: `ruby -KT $DIR/wanikani-lessons.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
 	echo -e "Wanikani progress: `ruby -KT $DIR/wanikani-progress.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
 
 	#   ____                 _ _ _____         _
@@ -231,9 +231,9 @@ then
 	#echo -e "`fortune`" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header" || logger -s -p3 "Error: Header date"
 	echo -e "TODYN" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header" || logger -s -p3 "Error: Header date"
 	# now match every generated file against the tasks already done today
-	for FILENAME in Pivotal Calendar JiraQuery Wanikani Beeminder-all Todoy Planleaf
+	for FILENAME in Calendar Wanikani Beeminder-all Todoy
 	do
-	grep --invert-match --fixed-strings --file=$TODONTFILE $FILENAME.txt | cat -s | head -4 >> $TODYNFILE  && cat "${FILENAME}.txt" && logger -s -p6 "Worked: grepping ${FILENAME}.txt" || logger -s -p3 "Error: ${FILENAME}.txt deduplication"
+	grep --invert-match --fixed-strings --file=$TODONTFILE $FILENAME.txt | cat -s >> $TODYNFILE  && cat "${FILENAME}.txt" && logger -s -p6 "Worked: grepping ${FILENAME}.txt" || logger -s -p3 "Error: ${FILENAME}.txt deduplication"
 	done
 	# Mark as today
 	echo "" >> $TODYNFILE

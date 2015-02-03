@@ -15,7 +15,7 @@ source '/Users/rs/.bash_include_rs'
 	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners,Quality time" \
 	--excludeAllDayEvents                               \
 	--excludeCals "Rocket Fuel Training" \
-	eventsToday 2>/dev/null | grep -v "»" | grep -v "√" 
+	eventsNow 2>/dev/null | grep -v "»" | grep -v "√" 
 
 #	--includeOnlyEventsFromNowOn						\
 

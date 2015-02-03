@@ -87,32 +87,32 @@ module RoutineTracker
       LOGGER.debug "minutesidle = #{minutesidle}"
       if Log.instance.idle?
         LOGGER.debug "Instance is idle"
-        # if minutesidle > 20
-        #   system(%q(osascript -e 'tell application "Finder" to sleep'))
-        # else
-        minutesidle.times { |i|
-          if i > (minutesidle - 10)
-            system("say #{i.to_s} ")
-            LOGGER.debug "Warning time #{i}"
-          end
-        }
-        # end
-        # @toptask = tasklist.gsub(/\n.*$/,"")
-        # #        @@instance.warn("#{minutesidle.to_s} ")
-        # @@instance.warn("#{@toptask} ")
-        f = File.open("/tmp/routinetracker.log", "a")
-        LOGGER.debug "File is opened #{f.class}"
+        @toptask = tasklist.gsub(/\n.*$/,"")
+        growl(minutesidle,@toptask)
+        markidle
+      end
+    end
+
+    def self.growl(minutesidle,toptask)
+      currentevents = %x("/Users/rs/rt/calendar_events_now.sh")
+      LOGGER.debug "currentevents = #{currentevents} and later"
+      currentevent = currentevents.split(/\r?\n?\`/).first
+      LOGGER.debug "currentevent = #{currentevent} and so on"
+      growls = (1 + (minutesidle / 5).to_i)
+      growls.times do |i|
+        system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
+      end
+    end
+
+    def self.markidle
+      markerfiles = ["/tmp/routinetracker.log"]
+      markerfiles.each do |logfile|
+        f = File.open(logfile, "a")
+        LOGGER.debug "#{f.class} is opened #{logfile}"
         f.write("#{IDLEMARKER}")
         f.close
-        LOGGER.debug "Ready to open PromptForPomodoro #{minutesidle}"
-        output = system "osascript /Users/rs/rt/prompt_for_pomodoro_2.scpt #{minutesidle}"
-        LOGGER.info "Output is #{output.inspect}"
-        system('/Users/rs/rt/auto_update_todyn.sh')
-
-        #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
-        # @@instance.warn("#{Time.now.strftime('%H %M')} ")
-        # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
       end
+      system(%Q^/Users/rs/.rbenv/shims/beemind -t  UUTnFgjX2FyEyC3GX2zW totalidle 1 "Auto-added `date` from chaseidle.rb>>Terminal.rb"^)
     end
 
     def self.remind(sayable)
