@@ -28,7 +28,10 @@ response = JIRA.json(
 @avgtimeopen = 0
 
 @mystories.each do |verhaaltje|
-  @totaltimeopen = @totaltimeopen + (Time.now - Chronic.parse(verhaaltje['fields']['updated']))
+  
+  lastmodified = Chronic.parse(verhaaltje['fields']['updated'])
+  #puts verhaaltje['key'] + ' ' + ((Time.now - lastmodified)/86400).to_s
+  @totaltimeopen = @totaltimeopen + (Time.now - lastmodified)
 end
 
 puts ( @totaltimeopen / @mystories.size )/86400

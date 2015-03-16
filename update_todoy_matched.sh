@@ -25,7 +25,7 @@ echo `date +'%a %Y-%m-%d %H:%M'` $MYMATCH > /tmp/todone.txt && cat "$ROOT/Todone
 # /usr/bin/grep -v "${MYMATCH}" $ROOT/Todoy.txt > /tmp/todoy.txt && mv /tmp/todoy.txt $ROOT/Todoy.txt #&& say "todo updated 1" || true
 
 # ## or try to cut it a different way if the above did not work
-export MYMATCHCHOPPED=`echo $MYMATCH | sed s/.$//`
+export MYMATCHCHOPPED=`echo $MYMATCH | sed s/[[:space:]].$//`
 # /usr/bin/grep -v "${MYMATCHCHOPPED}" $ROOT/Todoy.txt > /tmp/todoy.txt && mv /tmp/todoy.txt $ROOT/Todoy.txt #&& say "todo updated 2" || true
 
 ## and add it back at the end of the file
@@ -37,3 +37,5 @@ cp /tmp/Todonetoday.txt $ROOT/Todonetoday.txt  #&& say "todoy updated 3" || true
 ## and add it to TODONT so that it does not figure twice
 echo "${MYMATCH}" >> $ROOT/Todont.txt #&& say "todont updated 4" # does this also get the one with the checkmark? :(
 echo "${MYMATCHCHOPPED}" >> $ROOT/Todont.txt #&& say "todont updated 5" # does this also get the one with the checkmark? :(
+
+

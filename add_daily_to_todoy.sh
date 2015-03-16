@@ -85,6 +85,6 @@ cat $TODONETODAY > $TODONTFILE
 #open Todont.txt
 
 #system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
-
+system("/Applications/Growl.app/Contents/MacOS/Growl  ")
 
 

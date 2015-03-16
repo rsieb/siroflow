@@ -89,6 +89,8 @@ module RoutineTracker
         LOGGER.debug "Instance is idle"
         @toptask = tasklist.gsub(/\n.*$/,"")
         growl(minutesidle,@toptask)
+        beep(minutesidle)
+        chotto(minutesidle) unless File.exist?('/Users/rs/Desktop/silent')
         markidle
       end
     end
@@ -99,9 +101,23 @@ module RoutineTracker
       currentevent = currentevents.split(/\r?\n?\`/).first
       LOGGER.debug "currentevent = #{currentevent} and so on"
       growls = (1 + (minutesidle / 5).to_i)
+      growlprio = [(growls -3), 2].min #priorities range from -2 to +2
+      LOGGER.debug "growls = #{growls}, growlprio = #{growlprio}"
       growls.times do |i|
-        system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
+        #system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
+        system(%Q^/usr/local/bin/growlnotify -n "#{minutesidle}'#{currentevent}" -m "#{Time.now.strftime('%H:%M')} #{minutesidle} minutes idle" -p #{growlprio}^)
       end
+      system(%Q^touch /Users/rs/Desktop/#{Time.now.strftime("%H.%M")}_#{minutesidle.to_s}_min_idle.log^)
+    end
+
+    def self.beep(multiplier)
+      multiplier.times do |i|
+        system("tput bel")
+      end
+    end
+
+    def self.chotto(minutesidle)
+      system("say -v Kyoko #{minutesidle}") 
     end
 
     def self.markidle

@@ -1,4 +1,4 @@
-APIREF="https://rocketfuel.jira.com/rest/api/latest/"
+APIREF="https://jira.rocketfuel.com/rest/api/latest/"
 
 class JIRA
   def initialize(args)

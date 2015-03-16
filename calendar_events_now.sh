@@ -9,9 +9,9 @@ source '/Users/rs/.bash_include_rs'
 	--timeFormat "%Hh%M" 								\
 	--dateFormat "%a %d %b"								\
 	--propertySeparators "/ /" 							\
-	--excludeEventProps "url,notes,location,attendees"  \
+	--excludeEventProps "datetime,url,attendees,location,notes"  \
 	--noCalendarNames									\
-	--propertyOrder "datetime,title"					\
+	--propertyOrder "title"					\
 	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners,Quality time" \
 	--excludeAllDayEvents                               \
 	--excludeCals "Rocket Fuel Training" \

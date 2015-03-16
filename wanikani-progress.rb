@@ -12,7 +12,8 @@ Wanikani.api_key = "7af4ab9dbbe7b49a5b9b504903d89d15"
 #   # => false
 
 level = Wanikani::User.information['level']
-
+reviews = Wanikani::StudyQueue.queue['reviews_available']
+lessons = Wanikani::StudyQueue.queue['lessons_available']
 done = Wanikani::Level.progression['kanji_progress']
 total = Wanikani::Level.progression['kanji_total']
 progress = level.to_f + (done.to_f / total.to_f )
@@ -35,4 +36,4 @@ critical.each do |entry|
   criticalstring << entry['character']
 end
 
-puts "#{progress} #{criticalstring} <#{percentage}% "
+puts "#{progress} #{lessons}L/#{reviews}R #{criticalstring} <#{percentage}% "

@@ -49,8 +49,8 @@ if [ `find $TMPFILE -mmin +1` ]; then
 	logger -s -p6 "$TMPFILE updated more than one minute ago."
 	WAITAMINUTE=true
 else
-	logger -s -p4 "$TMPFILE updated LESS than one minute ago TEMPORARY OVERRIDE REMOVE TRUE BELOW TO DISABLE"
-	WAITAMINUTE=true
+	logger -s -p4 "$TMPFILE updated LESS than one minute ago."
+	WAITAMINUTE=
 fi
 
 #  ____                     ____        _ _      ___
@@ -100,7 +100,7 @@ fi
 touch -t `date '+%m%d0330'` $DAYBREAK # reset the DAYBREAK marker to 03:30am today
 ls -l $TODOYFILE $DAYBREAK
 if [[ $TODOYNEEDED || $DAYBREAKNEEDED || $NEEDFRESHTODOY ]]
-then
+	then
 	logger -s -p5 "Performing 'add_daily_to_todoy.sh' "
 	#say "I would update Beeminder now"
 	source $DIR/add_daily_to_todoy.sh && logger -s -p6 "Worked: 'add_daily_to_todoy.sh'" || logger -s -p3 "Error: 'add_daily_to_todoy.sh' " 
@@ -115,7 +115,7 @@ fi
 #                 ____/        
 
 if [[ $ONLINE && ( $TMPFILENEEDED || $WAITAMINUTE ) ]]
-then
+	then
 	logger -s -p6 "Starting update..."
 	touch $TMPFILE # update time stamp so that the script cannot run twice in parallel
 
@@ -126,8 +126,7 @@ then
 	# |____/ \___|\___|_| |_| |_|_|_| |_|\__,_|\___|_|
 	#
 	MYFILE="$HOMEDIR/Beeminder-all.txt"
-	#echo -e "\n# From Beeminder... #" > "$MYFILE"
-	echo -e "\n" > "$MYFILE"
+	printf "\n" > "$MYFILE"
 	#source $DIR/beeminder-pull-endangered.sh | sort -r | head -4 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: 'beeminder-pull-endangered.sh'"
 	source $DIR/beeminder-pull-endangered.sh | sort -r >> "$MYFILE"  2>&1 && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
 
@@ -139,8 +138,8 @@ then
 	#
 	# from Pivotal tracker
 	MYFILE="$HOMEDIR/Pivotal.txt"
-	#echo -e "# From Pivotal... #" > "$MYFILE"
-	echo -e "\n" > "$MYFILE"
+	#echo "# From Pivotal... #" > "$MYFILE"
+	printf "\n" > "$MYFILE"
 	# if [[ $(date +%u) -ne 6 ]] # no proactive work on Saturdays
 	# then
 	## leave next line commented out or it leaves me never to look at pivotal again
@@ -149,7 +148,7 @@ then
 	#ruby -KT $DIR/pivotal_pull_active.rb | head -3 >> "$MYFILE"  2>&1 || logger -s -p3 "Error: ${MYFILE}"
 	ruby -KT $DIR/pivotal_pull_active.rb  | head -4 >> "$MYFILE"  2>&1  && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
 	# fi
-	echo -e "\n" >> "$MYFILE"
+	#echo "\n" >> "$MYFILE"
 	#say "Pivotal updated"
 
 	# # #      _ _            ___  ___ 
@@ -159,11 +158,11 @@ then
 	# # #  \___/|_|_|  \__,_|\__\_\___|
 
 	# MYFILE="$HOMEDIR/JiraQuery.txt"
-	# echo -e "\n" > "$MYFILE"
+	# echo "\n" > "$MYFILE"
 
 	# ruby -KT $DIR/jira_pull_active.rb >> "$MYFILE"  2>&1 && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
 	# # fi
-	# echo -e "\n" >> "$MYFILE"
+	# echo "\n" >> "$MYFILE"
 	# #say "Pivotal updated"
 
 
@@ -176,10 +175,10 @@ then
 	#
 	# and add meetings from icalendarbuddy and mark as today
 	MYFILE="$HOMEDIR/Calendar.txt"
-	#echo -e "\n# From Calendar... #" > "$MYFILE"
-	echo -e "\n" > "$MYFILE"
+	#echo "\n# From Calendar... #" > "$MYFILE"
+	printf "\n" > "$MYFILE"
 	source $DIR/calendar_events_today.sh >> "$MYFILE" 2>&1 && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: ${MYFILE}"
-	cat $MYFILE 
+	#cat $MYFILE 
 	#say "Calendar updated"
 
 	# __        __          _ _               _ 
@@ -187,12 +186,12 @@ then
 	#  \ \ /\ / / _` | '_ \| | |/ / _` | '_ \| |
 	#   \ V  V / (_| | | | | |   < (_| | | | | |
 	#    \_/\_/ \__,_|_| |_|_|_|\_\__,_|_| |_|_|
-                                          
+
 	#
 	MYFILE="$HOMEDIR/Wanikani.txt"
-	echo -e "\n" > "$MYFILE"
-#	echo -e "Wanikani reviews: `ruby -KT $DIR/wanikani-lessons.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
-	echo -e "Wanikani progress: `ruby -KT $DIR/wanikani-progress.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
+	printf "\n" > "$MYFILE"
+#	echo "Wanikani reviews: `ruby -KT $DIR/wanikani-lessons.rb` +rout\n" | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
+echo "Wanikani progress: `ruby -KT $DIR/wanikani-progress.rb` " | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
 
 	#   ____                 _ _ _____         _
 	#  / ___|_ __ ___   __ _(_) |_   _|__   __| | ___
@@ -202,8 +201,8 @@ then
 	#
 	# and add subjects from Mailbox/todo
 	MYFILE="$HOMEDIR/Planleaf.txt"
-	#echo -e "\n# From Mailbox/ToDo... #" > "$MYFILE"
-	echo -e "\n" > "$MYFILE"
+	#echo "\n# From Mailbox/ToDo... #" > "$MYFILE"
+	printf "\n" > "$MYFILE"
 	#ruby -KT /Users/rs/rt/gmailtodo.rb | head -3 >> "$MYFILE" || logger -s -p3 "Error: ${MYFILE}"
 	ruby -KT $DIR/gmailtodo.rb | sort -u >> "$MYFILE" && logger -s -p6 "Worked: ${MYFILE}" || logger -s -p3 "Error: Mailboxtodo-import"
 	#say "Mailbox-to-do updated"
@@ -223,25 +222,26 @@ then
 		grep -v '^$' $TODONTFILE > /tmp/Todont.txt && logger -s -p6 "Worked: ${TODONTFILE} white lines removal" || logger -s -p3 "Error: ${TODONTFILE} white lines removal"
 		cp /tmp/Todont.txt $TODONTFILE && logger -s -p6 "Worked: copying ${TODONTFILE}" || logger -s -p3 "Error: copying ${TODONTFILE}"
 	else
-		echo -e "\n`date '+%Y-%m-%d %H:%M:%S'`" > $TODONTFILE && logger -s -p6 "Worked: header date" || logger -s -p3 "Error: Header date"
+		echo "`date '+%Y-%m-%d %H:%M:%S'`" > $TODONTFILE && logger -s -p6 "Worked: header date" || logger -s -p3 "Error: Header date"
 	fi
-	cat $TODONTFILE 
+	#cat $TODONTFILE 
 	# and generate clean TODYNFILE
-	#echo -e "\n`date '+%Y-%m-%d %H:%M:%S'`" > $TODYNFILE && logger -s -p6 "Worked: header date" || logger -s -p3 "Error: Header date"
-	#echo -e "`fortune`" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header" || logger -s -p3 "Error: Header date"
-	echo -e "TODYN" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header" || logger -s -p3 "Error: Header date"
+	#echo "\n`date '+%Y-%m-%d %H:%M:%S'`" > $TODYNFILE && logger -s -p6 "Worked: header date" || logger -s -p3 "Error: Header date"
+	#echo "`fortune`" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header" || logger -s -p3 "Error: Header date"
+	echo "+spon" > $TODYNFILE && logger -s -p6 "Worked: Wanikani header +spon" || logger -s -p3 "Error: Header +spon"
+	echo "+cdng" >> $TODYNFILE && logger -s -p6 "Worked: Wanikani header +cdng" || logger -s -p3 "Error: Header +cdng"
 	# now match every generated file against the tasks already done today
-	for FILENAME in Calendar Wanikani Beeminder-all Todoy
+	for FILENAME in Beeminder-all Todoy Calendar Wanikani 
 	do
-	grep --invert-match --fixed-strings --file=$TODONTFILE $FILENAME.txt | cat -s >> $TODYNFILE  && cat "${FILENAME}.txt" && logger -s -p6 "Worked: grepping ${FILENAME}.txt" || logger -s -p3 "Error: ${FILENAME}.txt deduplication"
+		grep --invert-match --fixed-strings --file=$TODONTFILE $FILENAME.txt | cat -s >> $TODYNFILE  && logger -s -p6 "Worked: grepping ${FILENAME}.txt" || logger -s -p3 "Error: ${FILENAME}.txt deduplication"
 	done
 	# Mark as today
 	echo "" >> $TODYNFILE
 	export PARENTPROCESS=`ps -ocommand= -p $PPID | awk -F/ '{print $NF}' | awk '{print $1}'`
 	#echo $PATH >> $TMPFILE
-	echo -e "\n`date '+%Y-%m-%d %H:%M:%S'` ${PARENTPROCESS}" >> $TODYNFILE  || logger -s -p3 "Error: ${PARENTPROCESS}"
+	echo "`date '+%Y-%m-%d %H:%M:%S'` ${PARENTPROCESS}" >> $TODYNFILE  || logger -s -p3 "Error: ${PARENTPROCESS}"
 fi # end need to create new todyn
-cat $TODYNFILE
+#cat $TODYNFILE
 # #   ____ _                                  _____         _             _
 # #  / ___| | ___  __ _ _ __    _   _ _ __   |_   _|__   __| | ___  _ __ | |_
 # # | |   | |/ _ \/ _` | '_ \  | | | | '_ \    | |/ _ \ / _` |/ _ \| '_ \| __|
