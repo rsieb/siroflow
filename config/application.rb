@@ -19,6 +19,12 @@ module Siroflow
         request_specs: false
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+    # 4. If you are deploying on Heroku with Rails 3.2 only, you may want to set:
+
+    config.assets.initialize_on_precompile = false
+
+    # On config/application.rb forcing your application to not access the DB
+    # or load models when precompiling your assets.
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
