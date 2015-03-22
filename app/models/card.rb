@@ -1,0 +1,2 @@
+class Card < Assignment
+end
