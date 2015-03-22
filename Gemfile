@@ -40,3 +40,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+# 2015-03-21 
+gem 'ruby-trello'
