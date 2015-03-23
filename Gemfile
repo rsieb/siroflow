@@ -42,3 +42,5 @@ group :test do
 end
 # 2015-03-21 
 gem 'ruby-trello'
+# 2015-03-22 
+gem 'fuubar'
