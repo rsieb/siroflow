@@ -5,7 +5,17 @@ class AssignmentsController < ApplicationController
   # GET /assignments.json
   def index
     @assignments = Assignment.all
+      respond_to do |format|
+       format.html # index.html.erb
+       format.json { render json: @assignments }
+       format.text # index.text.erb
+     end
   end
+
+  # def test
+  #   @assignments = Assignment.all
+  #   render 'index.text.erb', layout: false, content_type: 'text/plain'
+  # end
 
   # def textlist
   #   @assignments = Assignment.all
