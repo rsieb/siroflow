@@ -40,3 +40,10 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+# 2015-03-21 
+gem 'ruby-trello'
+# 2015-03-22 
+gem 'fuubar'
+# 2015-03-23
+# required for Heroku 
+gem 'rails_12factor', group: :production
