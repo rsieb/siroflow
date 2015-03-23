@@ -6,7 +6,9 @@ RSpec.describe Card, type: :model do
 
   subject { @card }
 
-  it { should respond_to(:name) }
+  it "#name should be valid method" do
+    expect(@card).to respond_to(:name)
+  end
 
   it "#name returns correct string" do
     expect(@card.name).to match 'My Test Card'
