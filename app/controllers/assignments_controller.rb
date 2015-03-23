@@ -5,7 +5,24 @@ class AssignmentsController < ApplicationController
   # GET /assignments.json
   def index
     @assignments = Assignment.all
+      respond_to do |format|
+       format.html # index.html.erb
+       format.json { render json: @assignments }
+       format.text # index.text.erb
+     end
   end
+
+  # def test
+  #   @assignments = Assignment.all
+  #   render 'index.text.erb', layout: false, content_type: 'text/plain'
+  # end
+
+  # def textlist
+  #   @assignments = Assignment.all
+  #   format.text do
+  #     render :text => @assignments.map(&:puts).join("\n")
+  #   end
+  # end
 
   # GET /assignments/1
   # GET /assignments/1.json
@@ -62,13 +79,13 @@ class AssignmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_assignment
-      @assignment = Assignment.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_assignment
+    @assignment = Assignment.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def assignment_params
-      params.require(:assignment).permit(:name, :url, :planned_start, :duration, :notes)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def assignment_params
+    params.require(:assignment).permit(:name, :url, :planned_start, :duration, :notes)
+  end
 end

@@ -4,5 +4,8 @@ class Card < Assignment
   tc = Service::TrelloClient.new()
   tc.reload_cards
 
+  def self.model_name
+    Assignment.model_name
+  end
 
 end
