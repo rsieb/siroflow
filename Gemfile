@@ -45,5 +45,3 @@ gem 'ruby-trello'
 # 2015-03-22 
 gem 'fuubar'
 # 2015-03-23
-# required for Heroku 
-gem 'rails_12factor', group: :production
