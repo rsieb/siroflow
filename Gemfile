@@ -32,7 +32,8 @@ group :development, :test do
 end
 group :production do
   gem 'rails_12factor'
-  gem 'thin'
+  # 2015-03-24 Heroku recommends puma as production web server
+  gem 'puma'
 end
 group :test do
   gem 'capybara'
@@ -40,10 +41,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-# 2015-03-21 
+# 2015-03-21
 gem 'ruby-trello'
-# 2015-03-22 
+# 2015-03-22
 gem 'fuubar'
-# 2015-03-23
-# required for Heroku 
-gem 'rails_12factor', group: :production
