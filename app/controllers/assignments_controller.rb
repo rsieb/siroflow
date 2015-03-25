@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all
+    @assignments = Assignment.order(:prio_native)
       respond_to do |format|
        format.html # index.html.erb
        format.json { render json: @assignments }
