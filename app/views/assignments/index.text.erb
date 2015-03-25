@@ -1,4 +1,4 @@
 <%= notice %>
     <% @assignments.each do |assignment| %>
-<%= assignment.name %> <%= assignment.url %>
+<%= assignment.name %> <%= assignment.url %> <%= assignment.planned_start.strftime("%m-%d") unless assignment.planned_start.nil? %> 
     <% end %>
