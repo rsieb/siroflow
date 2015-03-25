@@ -4,7 +4,8 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.order(:prio_native)
+    @assignments = Assignment.where("status in ('Plan','Do','Check','Act') ").order("context")
+    # :order => :prio_native)
       respond_to do |format|
        format.html # index.html.erb
        format.json { render json: @assignments }
@@ -12,17 +13,11 @@ class AssignmentsController < ApplicationController
      end
   end
 
-  # def test
-  #   @assignments = Assignment.all
-  #   render 'index.text.erb', layout: false, content_type: 'text/plain'
-  # end
+  # GET /assignments/due
+  def due
+    @assignments = Assignment.find(:planned_start < (Time.now()+86400))
+  end
 
-  # def textlist
-  #   @assignments = Assignment.all
-  #   format.text do
-  #     render :text => @assignments.map(&:puts).join("\n")
-  #   end
-  # end
 
   # GET /assignments/1
   # GET /assignments/1.json

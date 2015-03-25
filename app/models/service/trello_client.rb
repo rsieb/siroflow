@@ -20,6 +20,14 @@ module Service
       @boards = @@me.boards.find_all
     end
 
+    def board_name(board_id)
+      Trello::Board.find(board_id).name
+    end
+
+    def list_name(list_id)
+      Trello::List.find(list_id).name
+    end
+
     def cards
       @cards = @@me.cards.find_all
     end
@@ -34,6 +42,8 @@ module Service
         c.closed           = tc.closed
         c.prio_native      = tc.pos
         c.parent_id_native = tc.board_id
+        c.context          = board_name(tc.board_id)
+        c.status           = list_name(tc.list_id)
         c.save!
       end
     end
