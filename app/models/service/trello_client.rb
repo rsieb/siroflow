@@ -44,9 +44,9 @@ module Service
         c.parent_id_native = tc.board_id
         c.context          = board_name(tc.board_id)
         c.status           = list_name(tc.list_id)
+        c.updated_at_native = tc.last_activity_date
         c.save!
       end
     end
-
   end
 end
