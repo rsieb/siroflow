@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325190425) do
+ActiveRecord::Schema.define(version: 20150327065406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20150325190425) do
     t.datetime "planned_start"
     t.integer  "duration"
     t.text     "notes"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "type"
     t.string   "id_native"
     t.boolean  "closed"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150325190425) do
     t.string   "parent_id_native"
     t.string   "status"
     t.string   "context"
+    t.datetime "updated_at_native"
   end
 
   create_table "users", force: :cascade do |t|
