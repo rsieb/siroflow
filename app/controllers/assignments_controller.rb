@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.where("status in ('Plan','Do','Check','Act') ").order("context")
+    @assignments = Assignment.where("status in ('Plan','Do','Check','Act') ").order("updated_at_native")
     # :order => :prio_native)
       respond_to do |format|
        format.html # index.html.erb
