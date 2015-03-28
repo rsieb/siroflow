@@ -12,12 +12,11 @@ module Service
 
     def initialize()
       Rails.logger.info "Initializing Trello connection..."
-      @@me = Trello::Member.find("cyberroland")
-      @@client
+      @@client = Trello::Member.find("cyberroland")
     end
 
     def boards()
-      @boards = @@me.boards.find_all
+      @boards = @@client.boards.find_all
     end
 
     def board_name(board_id)
@@ -29,18 +28,27 @@ module Service
     end
 
     def cards
-      @cards = @@me.cards.find_all
+      @@cards = []
+      self.boards.each do |b|
+        firstchar = b.name[0]
+        if (firstchar =~ /[[:digit:]]/ && firstchar.to_i < 6) ## this means it's below the Buffett barrier and thus top priority
+          b.cards.each do |c|
+            @@cards << c
+          end
+        end
+      end
+      return @@cards
     end
 
-    def reload_cards
+    def reload_cards(force=false)
       tijd= Time.now()
-      last_updated = Card.maximum(:updated_at)
+      last_updated = Card.maximum(:updated_at) || Time.at(0)
       Rails.logger.debug("Last updated is #{last_updated}")
       Rails.logger.debug("Starting reload_cards " + (Time.now - tijd).to_s)
       counter = 0
       self.cards.each do |tc|
         counter = counter + 1
-        if tc.last_activity_date > last_updated
+        if (tc.last_activity_date > last_updated || force==true)
           c = Card.find_or_initialize_by(id_native: tc.id)
           c.id_native        = tc.id
           c.name             = tc.name
@@ -50,6 +58,7 @@ module Service
           c.prio_native      = tc.pos
           c.parent_id_native = tc.board_id
           c.context          = board_name(tc.board_id)
+          Rails.logger.debug("#{c.context} #{c.name}")
           c.status           = list_name(tc.list_id)
           c.updated_at_native = tc.last_activity_date
           Rails.logger.info("Updated #{counter} " + (Time.now - tijd).to_s)

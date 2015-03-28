@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'assignments/avg_per_day', to: 'assignments#avg_per_day'
+
   devise_for :admins
   resources :assignments
   get 'home/index'
