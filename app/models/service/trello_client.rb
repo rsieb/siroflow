@@ -33,20 +33,31 @@ module Service
     end
 
     def reload_cards
+      tijd= Time.now()
+      last_updated = Card.maximum(:updated_at)
+      Rails.logger.debug("Last updated is #{last_updated}")
+      Rails.logger.debug("Starting reload_cards " + (Time.now - tijd).to_s)
+      counter = 0
       self.cards.each do |tc|
-        c = Card.find_or_initialize_by(id_native: tc.id)
-        c.id_native        = tc.id
-        c.name             = tc.name
-        c.url              = tc.short_url
-        c.planned_start    = tc.due
-        c.closed           = tc.closed
-        c.prio_native      = tc.pos
-        c.parent_id_native = tc.board_id
-        c.context          = board_name(tc.board_id)
-        c.status           = list_name(tc.list_id)
-        c.updated_at_native = tc.last_activity_date
-        c.save!
+        counter = counter + 1
+        if tc.last_activity_date > last_updated
+          c = Card.find_or_initialize_by(id_native: tc.id)
+          c.id_native        = tc.id
+          c.name             = tc.name
+          c.url              = tc.short_url
+          c.planned_start    = tc.due
+          c.closed           = tc.closed
+          c.prio_native      = tc.pos
+          c.parent_id_native = tc.board_id
+          c.context          = board_name(tc.board_id)
+          c.status           = list_name(tc.list_id)
+          c.updated_at_native = tc.last_activity_date
+          Rails.logger.info("Updated #{counter} " + (Time.now - tijd).to_s)
+          c.save!
+          Rails.logger.warn("Saved #{counter} " +  (Time.now - tijd).to_s)
+        end
       end
+      Rails.logger.warn("Done with reload_cards " + (Time.now - tijd).to_s)
     end
   end
 end
