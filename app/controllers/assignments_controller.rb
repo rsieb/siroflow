@@ -13,6 +13,14 @@ class AssignmentsController < ApplicationController
      end
   end
 
+  def avg_per_day
+    @average = Card.avg_per_day
+    respond_to do |format|
+      format.text {render plain: @average}
+    end
+  end
+
+
   # GET /assignments/due
   def due
     @assignments = Assignment.find(:planned_start < (Time.now()+86400))
