@@ -4,13 +4,17 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.where("status in ('Plan','Do','Check','Act') ").order("updated_at_native")
+    @assignments = Assignment.where("
+      (status in ('Plan','Do','Check','Act'))
+      and
+      (not(planned_start > ?) or planned_start IS ?)",Time.now()+2*86400,nil).order("planned_start,updated_at_native")
     # :order => :prio_native)
       respond_to do |format|
        format.html # index.html.erb
        format.json { render json: @assignments }
        format.text # index.text.erb
      end
+     #Service::TrelloClient.new().reload_cards
   end
 
   def avg_per_day
