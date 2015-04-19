@@ -4,10 +4,11 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
+    # TODO: 2015-04-18 definitely move this complicated query to the model
     @assignments = Assignment.where("
-      (status in ('Plan','Do','Check','Act'))
+      (right(status,1) = ?)
       and
-      (not(planned_start > ?) or planned_start IS ?)",Time.now()+2*86400,nil).order("planned_start,updated_at_native")
+      (not(planned_start > ?) or planned_start IS ?)","!",Time.now()+2*86400,nil).order("planned_start,updated_at_native")
     # :order => :prio_native)
       respond_to do |format|
        format.html # index.html.erb
