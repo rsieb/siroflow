@@ -106,6 +106,9 @@ module RoutineTracker
       growls.times do |i|
         #system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
         system(%Q^/usr/local/bin/growlnotify -n "#{minutesidle}'#{currentevent}" -m "#{Time.now.strftime('%H:%M')} #{minutesidle} minutes idle" -p #{growlprio}^)
+        #system(%Q^osascript -e 'tell application "system events" to key code 107'^)
+        system(%Q^osascript -e 'tell application "System Events" to key code 47 using {control down, command down, option down}
+'^)
       end
       system(%Q^touch /Users/rs/Desktop/#{Time.now.strftime("%H.%M")}_#{minutesidle.to_s}_min_idle.log^)
     end
