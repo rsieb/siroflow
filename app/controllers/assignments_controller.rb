@@ -8,7 +8,7 @@ class AssignmentsController < ApplicationController
     @assignments = Assignment.where("
       (right(status,1) = ?)
       and
-      (not(planned_start > ?) or planned_start IS ?)","!",Time.now()+2*86400,nil).order("planned_start,updated_at_native")
+      (not(planned_start > ?) or planned_start IS ?)","!",Time.now()+2*86400,nil).order("updated_at_native DESC")
     # :order => :prio_native)
       respond_to do |format|
        format.html # index.html.erb
