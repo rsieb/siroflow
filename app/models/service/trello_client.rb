@@ -1,6 +1,6 @@
 require 'trello'
 
-module Service
+#module Service
   class TrelloClient
 
     # setting up a singleton for this connection
@@ -69,4 +69,4 @@ module Service
       Rails.logger.warn("Done with reload_cards " + (Time.now - tijd).to_s)
     end
   end
-end
+#end

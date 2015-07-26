@@ -41,7 +41,7 @@ group :test do
 end
 gem 'beeminder', :path => "/Users/rs/Dropbox/projects/beeminder-gem"
 gem 'pivotal-tracker'
-gem 'gmail', :path => "/Users/rs/Dropbox/projects/gmail"
+gem 'gmail'
 gem 'lunchy'
 gem 'chronic'
 gem 'wanikani'
@@ -54,3 +54,4 @@ gem 'growl'
 gem 'ruby-trello'
 # 2015-03-22
 gem 'fuubar'
+
