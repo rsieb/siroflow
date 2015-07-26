@@ -9,10 +9,10 @@ source '/Users/rs/.bash_include_rs'
 	--timeFormat "%Hh%M" 								\
 	--dateFormat "%a %d %b"								\
 	--propertySeparators "/ /" 							\
-	--excludeEventProps "datetime,url,attendees,location,notes"  \
+	--excludeEventProps "url,attendees,location,notes"  \
 	--noCalendarNames									\
-	--propertyOrder "title"					\
-	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Routines,Facebook Events,DSE Runners,Quality time" \
+	--propertyOrder "datetime,title"					\
+	--includeCals "roland@rocketfuelinc.com,roland@siebelink.org,Tripit,Facebook Events,DSE Runners,Quality time" \
 	--excludeAllDayEvents                               \
 	--excludeCals "Rocket Fuel Training" \
 	eventsNow 2>/dev/null | grep -v "»" | grep -v "√" 

@@ -11,4 +11,4 @@ Wanikani.api_key = "7af4ab9dbbe7b49a5b9b504903d89d15"
 # Wanikani::User.on_vacation?
 #   # => false
 
-puts Wanikani::StudyQueue.queue['lessons_available']
+puts Wanikani::StudyQueue.queue['reviews_available']

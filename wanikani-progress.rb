@@ -36,4 +36,6 @@ critical.each do |entry|
   criticalstring << entry['character']
 end
 
-puts "#{progress} #{lessons}L/#{reviews}R #{criticalstring} <#{percentage}% "
+planminutes = ((reviews + lessons)/3.0).to_i
+
+puts "#{progress} #{lessons}L/#{reviews}R #{criticalstring} <#{percentage}% `#{planminutes}"
