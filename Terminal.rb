@@ -88,55 +88,83 @@ module RoutineTracker
       LOGGER.debug "minutesidle = #{minutesidle}"
       if Log.instance.idle?
         LOGGER.debug "Instance is idle"
-        minutesidle.times { |i|
-          if i > (minutesidle - 10)
-            @@instance.warn("#{self.speakstring(i)} ")
-            LOGGER.debug "Warning time #{i}"
-          end
-        }
-        # @toptask = tasklist.gsub(/\n.*$/,"")
-        # #        @@instance.warn("#{minutesidle.to_s} ")
-        # @@instance.warn("#{@toptask} ")
-        f = File.open("/tmp/routinetracker.log", "a")
-        LOGGER.debug "File is opened #{f.class}"
-        f.write("#{IDLEMARKER}")
-        f.close
-        LOGGER.debug "Ready to open PromptForPomodoro #{minutesidle}"
-        output = system "osascript /Users/rs/Dropbox/Library/Scripts/Applications/Pomodoro/PromptForPomodoro.scpt #{minutesidle}"
-        LOGGER.info "Output is #{output.inspect}"
-        #system("open -a 'NVAlt' '/Users/rs/Dropbox/Elements/Todyn.txt'")
-        # @@instance.warn("#{Time.now.strftime('%H %M')} ")
-        # DONE rs 2012-07-29 solved major risk: sending an array full of random commands into system as text?
+        @toptask = tasklist.gsub(/\n.*$/,"")
+        growl(minutesidle,@toptask)
+        showlist
+                beep(minutesidle)
+
+        chotto(minutesidle) unless File.exist?('/Users/rs/Desktop/silent')
+        markidle
       end
     end
 
-    def self.speakstring(_int)
-      alphabet = %w/ alpha bravo charlie delta echo foxtrot golf hotel India juliett kilo lima mike November oscar papa quebec romeo sierra tango uniform victor x-ray yankee zulu /
-      _int <= 26 ? alphabet[_int] : _int.to_s
+    def self.showlist
+      system("osascript /Users/rs/Library/Scripts/LargeTasks.scpt")
     end
 
-    def self.remind(sayable)
-      @@instance.info "#{sayable}"
-    end
-
-    def welcome(software)
-      #ψ Clear screen and welcome user
-      print "\e[H\e[2J"
-      puts "\nWelcome to #{software}!\n"
-      @@instance.say "Welcome!"
-    end
-
-    protected
-
-    def say(saying)
-      saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01
-      unless @@instance.silent?
-        @voice = %w(Alex Vicki Kathy Victoria Alex Bruce Fred).sample
-        system("say -v #{@voice} #{saying}")
+    def self.growl(minutesidle,toptask)
+      #currentevents = %x("/usr/local/bin/todo.sh -p ls | egrep '\(\w\)' | sed -E 's/[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} //' | sort -r ") + %x("/Users/rs/rt/calendar_events_now.sh")
+      currentevents = `/usr/local/bin/todo.sh -p ls | egrep '\(\w\)' `
+      LOGGER.info "currentevents = #{currentevents} and later"
+      currentevent = currentevents.split(/\r?\n?\`/).first
+      LOGGER.warn "currentevent = #{currentevent} and so on"
+      growls = (1 + (minutesidle / 5).to_i)
+      growlprio = [(growls -3), 2].min #priorities range from -2 to +2
+      LOGGER.debug "growls = #{growls}, growlprio = #{growlprio}"
+      growls.times do |i|
+        #system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
+        system(%Q[/usr/local/bin/growlnotify -n "#{minutesidle}'#{currentevent}" -m "#{Time.now.strftime('%H:%M')} #{minutesidle} minutes idle" -p #{growlprio}])
+        #system(%Q^osascript -e 'tell application "system events" to key code 107'^)
+        system(%Q^osascript -e 'tell application "System Events" to key code 47 using {control down, command down, option down}
+'^)
       end
-    end
+      system(%Q^touch /Users/rs/Desktop/#{Time.now.strftime("%H.%M")}_#{minutesidle.to_s}_min_idle.log^)
+             end
 
-    private_class_method :new
-  end
 
-end
+             def self.beep(multiplier)
+               multiplier.times do |i|
+                 system("tput bel")
+               end
+             end
+
+             def self.chotto(minutesidle)
+               #system("say -v Kyoko #{minutesidle}")
+             end
+
+             def self.markidle
+               markerfiles = ["/tmp/routinetracker.log"]
+               markerfiles.each do |logfile|
+                 f = File.open(logfile, "a")
+                 LOGGER.debug "#{f.class} is opened #{logfile}"
+                 f.write("#{IDLEMARKER}")
+                 f.close
+               end
+               system(%Q^/Users/rs/.rbenv/shims/beemind -t  UUTnFgjX2FyEyC3GX2zW totalidle 1 "Auto-added `date` from chaseidle.rb>>Terminal.rb"^)
+             end
+
+             def self.remind(sayable)
+               @@instance.info "#{sayable}"
+             end
+
+             def welcome(software)
+               #ψ Clear screen and welcome user
+               print "\e[H\e[2J"
+               puts "\nWelcome to #{software}!\n"
+               @@instance.say "Welcome!"
+             end
+
+             protected
+
+             def say(saying)
+               saying.gsub!(/\+*$/, '') #thought it would only take the +goal out but it also does the ®routine. weird. 2012-11-01
+               unless @@instance.silent?
+                 @voice = %w(Alex Vicki Kathy Victoria Alex Bruce Fred).sample
+                 system("say -v #{@voice} #{saying}")
+               end
+             end
+
+             private_class_method :new
+             end
+
+             end

@@ -56,11 +56,14 @@ if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
 	cat $TODOWEEKLY >> "/tmp/todoy.txt"
 fi
 
-# add tomorrow to todoy -- moved somedaymaybe to weekly only
-echo "" >> /tmp/todoy.txt
-echo -e '\n# Added Yesterday... (for Workflowy?) #' >> /tmp/todoy.txt
-cat $TODORROW >> /tmp/todoy.txt
-cp /dev/null $TODORROW
+## add recurring tasks from todo.sh recur
+/Users/rs/bin/runrecur.sh >> /tmp/todoy.txt 
+
+# # add tomorrow to todoy -- moved somedaymaybe to weekly only
+# echo "" >> /tmp/todoy.txt
+# #echo -e '\n# Added Yesterday... (for Workflowy?) #' >> /tmp/todoy.txt
+# cat $TODORROW >> /tmp/todoy.txt
+# cp /dev/null $TODORROW
 
 # Mark as today
 #echo "" >> /tmp/todoy.txt
@@ -85,6 +88,10 @@ cat $TODONETODAY > $TODONTFILE
 #open Todont.txt
 
 #system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
+<<<<<<< Updated upstream
 
+=======
+# system("/Applications/Growl.app/Contents/MacOS/Growl  ")
+>>>>>>> Stashed changes
 
 
