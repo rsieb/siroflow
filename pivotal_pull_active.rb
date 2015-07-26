@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #!/usr/bin/env ruby -KU
 
 require 'bundler/setup'
@@ -17,6 +15,8 @@ def initials(naam)
   initialen
 end
 @mystate = %w( started rejected )
+@mydeadline = (Time.now).to_datetime 
+
 
 PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        # Automatically fetch API Token
 
@@ -25,9 +25,23 @@ PivotalTracker::Client.token('roland@rocketfuelinc.com', 'qub0y?Qatar')        #
 @myprojects = [781813] # take out FUEL 780227,786005,479975
 @myprojects.each do |projectnummer|
   @a_project = PivotalTracker::Project.find(projectnummer)
-  @mystories = @mystories + @a_project.stories.all(:state => @mystate)
-  #pp @mystories
+  @thisprojectstories = @a_project.stories.all(:state => @mystate)
+  @thisprojectreleases = @a_project.stories.all(:type => 'release', :state => 'unstarted').find_all{|rel| rel.deadline < @mydeadline}
+  @mystories = @mystories + @thisprojectstories + @thisprojectreleases
+  if Time.now.hour < 17 && @thisprojectstories.count < 3
+    yourwish = "/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/n/projects/" + projectnummer.to_s + "\" ' "
+    #puts yourwish
+    system(yourwish)
+  end
 end
+
+# if @mystories.size < 5
+#   require './pivotal_finished_reset.rb'
+#   @myprojects.each do |projectnummer|
+#   @a_project = PivotalTracker::Project.find(projectnummer)
+#   @mystories = @mystories + @a_project.stories.all(:state => @mystate)
+#   #pp @mystories
+# end
 
 @mystories.each do |verhaaltje|
   begin
@@ -88,7 +102,7 @@ end
   if mijntaak == "NO TASK"
     #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam} +#{mijnetiket.first}"
     puts "#{mijnnaam} \##{verhaaltje.id} +#{mijnetiket.first}"
-    system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
+    #system("/usr/bin/osascript -e 'open location  \"" + verhaaltje.url + "\" ' ")
   else
     #   #puts "#{mijnnaam[0]}#{mijnstatus[0].upcase}#{mijnnaam[1..-1]}>>#{mijntaak} +#{mijnetiket} "
     #puts "#{mijnprioriteit}#{mijnstatus[0].upcase}-#{mijnnaam}>>#{mijntaak} +#{mijnetiket.first}"

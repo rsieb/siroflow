@@ -30,8 +30,8 @@ target_started_stories = 2
 end
 
 surplus = @mystories2.size - target_started_stories
-# limit the number of stories marked as started to X
 if surplus < 0
+  # make sure at least x stories are started
   @mystories1[0..(-surplus)].each do |verhaaltje1|
     puts "@mystories1 = #{@mystories1.inspect}"
     puts "@verhaaltje3 = #{@verhaaltje1.inspect}"
@@ -43,14 +43,15 @@ if surplus < 0
     system(systemstring)
   end
 else
-  @mystories2[target_started_stories..-1].each do |verhaaltje2|
-    puts "@mystories2 = #{@mystories2.inspect}"
-    puts "@verhaaltje2 = #{@verhaaltje2.inspect}"
-    systemstring = <<-ENDOFCURL
-    curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
-      -d "<story><current_state>unstarted</current_state></story>" \
-      http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje2.id}
-    ENDOFCURL
-    system(systemstring)
-  end
+  # don't unstart stories that i manually started - deactivating the following
+  # @mystories2[target_started_stories..-1].each do |verhaaltje2|
+  #   puts "@mystories2 = #{@mystories2.inspect}"
+  #   puts "@verhaaltje2 = #{@verhaaltje2.inspect}"
+  #   systemstring = <<-ENDOFCURL
+  #   curl -H "X-TrackerToken: #{@mytoken}" -X PUT -H "Content-type: application/xml" \
+  #     -d "<story><current_state>unstarted</current_state></story>" \
+  #     http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje2.id}
+  #   ENDOFCURL
+  #   system(systemstring)
+  # end
 end

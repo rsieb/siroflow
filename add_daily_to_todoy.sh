@@ -22,7 +22,7 @@ logger -s -p6 "Updating Beeminder..."
 # beemind -t UUTnFgjX2FyEyC3GX2zW dagboek `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -print | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 # beemind -t UUTnFgjX2FyEyC3GX2zW it `cat /Users/rs/rt/interruptions.log | wc -l` "Auto-added from add_daily_to_todoy.sh `date`"
 bash /Users/rs/rt/beeminder-autoupdates.sh
-bash /Users/rs/rt/beeminder-update.sh
+#bash /Users/rs/rt/beeminder-update.sh - this is the one causing all the browser windows to open :)
 
 # reset finished stories from yesterday in Pivotal
 # [this allows for temporary ignoring stories, i.e. "finished" needs to be delivered to be really finished]
@@ -50,7 +50,7 @@ mv /tmp/todosterday.txt $TODOSTERDAY
 
 
 ## add daily to front of todoy
-#echo "Todoy>>start" > /tmp/todoy.txt
+echo "Todoy copied `date`" > /tmp/todoy.txt
 cat $TODODAILY > /tmp/todoy.txt
 if [[ $(date +%u) -gt 5 || $(date +%u) -eq 0 ]] ; then
 	cat $TODOWEEKLY >> "/tmp/todoy.txt"
@@ -88,10 +88,4 @@ cat $TODONETODAY > $TODONTFILE
 #open Todont.txt
 
 #system("/usr/bin/osascript -e 'open location  \"https://www.pivotaltracker.com/s/projects/781813/\" ' ")
-<<<<<<< Updated upstream
-
-=======
 # system("/Applications/Growl.app/Contents/MacOS/Growl  ")
->>>>>>> Stashed changes
-
-

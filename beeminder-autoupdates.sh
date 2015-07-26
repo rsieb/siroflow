@@ -20,6 +20,6 @@ bash /Users/rs/Dropbox/Writing/written.sh
 #echo "HHW Diary entries"
 #beemind -t UUTnFgjX2FyEyC3GX2zW hhw `find /Users/rs/Dropbox/Apps/Day\ One/Journal.dayone -type f -newer /Users/rs/rt/beeminder_dagboek.log -print | wc -l` "Diary entries auto-added from beeminder-autoupdates.sh"
 echo "Update last file"
-ruby /Users/rs/rt/pivotal_accepted.rb
-touch /Users/rs/rt/beeminder_dagboek.log
+#ruby /Users/rs/rt/pivotal_accepted.rb
+#touch /Users/rs/rt/beeminder_dagboek.log
 

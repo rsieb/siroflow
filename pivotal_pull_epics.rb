@@ -7,7 +7,7 @@ require 'bundler/setup'
 # require 'active_resource'
 # require 'pp'
 # require 'chronic'
-# require 'pivotal-tracker'
+require 'pivotal-tracker'
 
 
 
@@ -35,10 +35,10 @@ myepics = Array.new
   begin
     mijnetiket.each do |etiketje|
       #puts "etiketje = #{etiketje}"
-      if etiketje[0] =~ /[0-9]/
+      #if etiketje[0] =~ /[0-9]/
         # this is an epic label
         myepics.push(etiketje)
-      end
+      #end
     end
   rescue
   end
@@ -46,6 +46,6 @@ end
 
 epicstring = ""
 myepics.uniq.sort.each do |epique|
-  epicstring = epicstring + epique + " "
+  epicstring = epicstring + epique + "\n"
 end
 puts epicstring

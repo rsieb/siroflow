@@ -23,7 +23,7 @@ module RoutineTracker
       @@log.debug(Time.now.strftime("%F %T") + @@bee.inspect)
       return @@bee
     end
-    
+
     def minded
       self.goals.count
     end
@@ -74,7 +74,11 @@ module RoutineTracker
           forclipboard = forclipboard + "\n" + doel.slug
         end
       end
-      self.sendoff("minded",self.minded.to_s, "Automatically added from beeminder-update.sh and Beeminder.rb")
+      if Time.now.strftime("%m") == 11 && Time.now.strftime("%d") <= 23
+        self.sendoff('minded','10', "Override added from beeminder-update.sh and Beeminder.rb")
+      else
+        self.sendoff('minded',self.minded.to_s, "Automatically added from beeminder-update.sh and Beeminder.rb")
+      end
       IO.popen('pbcopy', 'w') { |f| f << forclipboard }
       system("/usr/bin/say 'slugs copied to clipboard' ")
     end
@@ -119,7 +123,8 @@ module RoutineTracker
     end
 
     def browser(doel)
-      scripttekst = 'tell application "Beeminder" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+      scripttekst = 'tell application "Finder" to open location "http://www.beeminder.com/cyberroland/goals/' + doel.slug + '"'
+      #scripttekst = 'beep'
       system "/usr/bin/osascript" + " -e '" + scripttekst + "'"
       @@log.debug(Time.now.strftime("%F %T") + "#{scripttekst.dump}")
       return true

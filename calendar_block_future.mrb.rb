@@ -1,10 +1,21 @@
 #!/usr/local/bin/macruby -KU
+# framework 'foundation'
 # framework 'calendarstore'
-# duration = (4 * 3600)
-# title = ARGV[0] rescue 'Blocking next hours for Pomodoro'
+# cal = CalCalendarStore.defaultCalendarStore.calendarWithUID("80886C0A-BF70-4675-A640-B68BCEA85E91") #roland@rocketfuelinc.com
 
-# # select the right calendar
-# cal = CalCalendarStore.defaultCalendarStore.calendarWithUID("80886C0A-BF70-4675-A640-B68BCEA85E91")
+# # set default parameters for every event
+# DURATION = (0.5 * 3600)
+# TITLE = '√'
+
+# # TODO: 2014-11-28 create new event based on current Pomodoro, 1-3 weeks into the future. 
+# # NICETOHAVE: Nice to have: Probability Weighted 3-2-1 for next week, after, after.
+# t             = Time.now
+# extraminutes  = (t.min > 29 ? 30 : 0)
+# nt            = Time.new( 2012, 12,31,12,15,0)
+# nt            = Time.new( t.year, t.month, t.day, t.hour, (0 + extraminutes) , 0)
+# puts nt
+
+
 
 # # create an event
 # #_event = CalCalendarStore.defaultCalendarStore.createEvent(event, span:true, error:nil)

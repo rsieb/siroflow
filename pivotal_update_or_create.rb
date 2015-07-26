@@ -23,7 +23,21 @@ end
 if !@pomodoro_name.include?("+") then
   puts "Considered a bug."
   story_type = 'bug'
-  #abort
+  abort
+end
+
+if @pomodoro_name.include?("+jira") then
+  puts "Pulled this from JIRA."
+  myslug = @pomodoro_name[/QI-\d*/] # user to put slug as last word before +beem code
+  myurl = "https://rocketfuel.jira.com/browse/#{myslug}"
+  system(" /usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
+  story_type = 'bug'
+end
+
+if @pomodoro_name.include?("h00") or @pomodoro_name.include?("h30")  or @pomodoro_name.include?("h15")  or @pomodoro_name.include?("h45") then
+  puts "Meeting."
+  story_type = 'chore'
+  abort
 end
 
 # TODO 2013-04-30 Catch Beeminder routines to open corresponding goal in Beeminder for updating
@@ -32,9 +46,9 @@ if @pomodoro_name.include?("+beem") then
   myslug = @pomodoro_name[/\w+ \+beem/][/\w+/] # user to put slug as last word before +beem code
   puts "Beeminder task. Opening URL with slug `#{myslug}'"
   myurl = "http://beeminder.com/cyberroland/goals/#{myslug}"
-  system("cd /Users/rs/rt ; beemind #{myslug} 1 ; /usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
+  system("cd /Users/rs/rt ; /usr/bin/osascript -e 'open location  \"#{myurl}\" ' ")
   story_type = 'chore'
-  #abort
+  abort
 end
 
 
@@ -114,7 +128,8 @@ if @mystories.size > 0 then
           "http://www.pivotaltracker.com/services/v3/projects/#{@a_project.id}/stories/#{verhaaltje.id}/moves?move\\[move\\]=after&move\\[target\\]=#{@laststoryid}" -d ""
         ENDOFCURL4
         #puts "\n\n#{systemstring}\n"
-        #SWITCHINGOFF:     system(systemstring + ' > /dev/null')
+        # DON'T ACTUALLY MOVE IT
+        #system(systemstring + ' > /dev/null')
 
       end
     else
@@ -153,7 +168,7 @@ else
   @defaultproject = PivotalTracker::Project.find(781813)
   ## ---- create a new story in the default project
 
-  @mynewstory = @defaultproject.stories.create(:name => $nametocheck, :story_type => story_type, :labels => 'w'+Time.now.strftime("%U")+'s', :current_state => 'accepted')
+  @mynewstory = @defaultproject.stories.create(:name => $nametocheck, :story_type => story_type, :labels => 'w'+Time.now.strftime("%V")+'s', :current_state => 'accepted')
   pp @mynewstory
   ## Just open the found story in the UI
   #system("/usr/bin/osascript -e 'open location  \"" + @mynewstory.url + "\" ' ")

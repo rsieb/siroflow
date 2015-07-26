@@ -1,9 +1,8 @@
 # encoding: utf-8
-require 'LOGGER'
+# require 'Logger'
 
 # RoutineTracker is the overall module for this project.
 module RoutineTracker
-
 
   # temporary class for addressing the user terminal
   class Terminal
@@ -20,7 +19,7 @@ module RoutineTracker
       @terminal
     end
 
-    @@instance = Terminal.new
+    @@instance = self.new
 
     def self.instance
       return @@instance
@@ -51,25 +50,25 @@ module RoutineTracker
 
     def info(msg)
       puts msg
-      system("/usr/local/bin/growlnotify -p 'Moderate' -m \"#{msg}\" ")
+      #system("/usr/local/bin/growlnotify -p 'Moderate' -m \"#{msg}\" ")
     end
 
     def warn(msg)
       puts "\a" + msg
-      system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'Normal' -m \"#{msg}\" ")
     end
 
     def error(msg)
       puts "\a\a\a" + msg
-      system("/usr/local/bin/growlnotify -p 'High' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'High' -m \"#{msg}\" ")
     end
 
     def fatal(msg)
       puts "\a\a\a\a\a" + msg
-      system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
       @@instance.say(msg)
+      system("/usr/local/bin/growlnotify -p 'Emergency' -m \"#{msg}\" ")
     end
 
     def display(notification)
@@ -91,8 +90,7 @@ module RoutineTracker
         @toptask = tasklist.gsub(/\n.*$/,"")
         growl(minutesidle,@toptask)
         showlist
-                beep(minutesidle)
-
+        beep(minutesidle)
         chotto(minutesidle) unless File.exist?('/Users/rs/Desktop/silent')
         markidle
       end
@@ -115,8 +113,7 @@ module RoutineTracker
         #system(%Q^/usr/local/bin/growlnotify -n "#{Time.now.strftime("%H:%M")} #{minutesidle} minutes idle" -m "Hey work on #{currentevent}" -p 1^)
         system(%Q[/usr/local/bin/growlnotify -n "#{minutesidle}'#{currentevent}" -m "#{Time.now.strftime('%H:%M')} #{minutesidle} minutes idle" -p #{growlprio}])
         #system(%Q^osascript -e 'tell application "system events" to key code 107'^)
-        system(%Q^osascript -e 'tell application "System Events" to key code 47 using {control down, command down, option down}
-'^)
+        system(%Q^osascript -e 'tell application "System Events" to key code 47 using {control down, command down, option down}'^)
       end
       system(%Q^touch /Users/rs/Desktop/#{Time.now.strftime("%H.%M")}_#{minutesidle.to_s}_min_idle.log^)
              end

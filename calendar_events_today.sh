@@ -44,4 +44,3 @@ eventsToday | grep -v "'" | grep -v "»" | grep -v '@W' | grep -v "√" | grep -
 #   --includeCals "Tripit,Routines,Quality time,Proposed" \
 # eventsFrom:"` date -v '-1H'`" to:"` date -v '+2H'`" | grep -v "'" | grep -v "»" | grep -v "√" | grep -v "π"
 # #eventsFrom:"` date -v '-1H'`" to:"` date -v '+2H'`" | grep -v "'" | grep -v "»" | grep -v "√" | grep -v "π" | cut -f 1 -d"§" | cut -c 1-100
-
