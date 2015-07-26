@@ -1,0 +1,4 @@
+<%= notice %>
+    <% @assignments.each do |assignment| %>
+<%= assignment.context[0..9] %>/<%= assignment.status[0] %>@<%= assignment.updated_at_native.strftime("%m%d_%H%M") %>: <%= assignment.name %> <%= assignment.url %> <%= assignment.planned_start.strftime("%m-%d") unless assignment.planned_start.nil? %>
+    <% end %>
